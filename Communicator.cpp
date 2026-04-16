@@ -75,6 +75,11 @@ void Communicator::handleNewClient(SOCKET userS)
 			// get message
 			int res = recv(userS, buffer, 1023, 0);
 
+			if (res == 0) //client disconnect
+			{
+				std::cout << "Client disconnected" << std::endl;
+				break;
+			}
 			if (res < 1) // if not success to get fucntoin throw a exception
 			{
 				throw std::exception("Error while receiving from socket");

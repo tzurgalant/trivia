@@ -1,4 +1,5 @@
 import socket
+import time
 
 SERVER_ADDR = '127.0.0.1'
 SERVER_PORT = 12345
@@ -27,13 +28,7 @@ def client():
         print("Connection failed")
         return
 
-    try:
-        msg = "Hello"  # חייב להיות בדיוק 5 תווים
-        client_soc.sendall(msg.encode())
-    except:
-        print("Send failed")
-        client_soc.close()
-        return
+
 
     try:
         data = client_soc.recv(5)
@@ -44,6 +39,19 @@ def client():
         return
 
     print("Server said:", data)
+
+    time.sleep(3)
+
+    try:
+        msg = "Hello"
+        client_soc.sendall(msg.encode())
+    except:
+        print("Send failed")
+        client_soc.close()
+        return
+
+    while True:
+        x = 5
 
     client_soc.close()
 

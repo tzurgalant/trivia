@@ -27,6 +27,10 @@ int main()
             // כאן אפשר להוסיף סגירה של ה-ServerSocket אם רוצים להפסיק לקבל לקוחות
             break;
         }
+        else if(input == "hello")
+        {
+
+        }
         else
         {
             std::cout << "Unknown command: " << input << std::endl;
