@@ -1,7 +1,6 @@
 #include "Communicator.h"
 #include "LoginRequestHandler.h"
-
-
+#include <typeinfo>
 Communicator::Communicator()
 {
 
@@ -60,39 +59,77 @@ void Communicator::bindAndLsiten() const
 	std::cout << "Listening on port " << PORT << std::endl;
 
 }
+bool receiveAll(int socket, char* buffer, size_t size) {
+	size_t totalReceived = 0;//read [size] of data from the socket and wait to the recve to get all the data that needed
+	while (totalReceived < size) {
+		int bytes = recv(socket, buffer + totalReceived, size - totalReceived, 0);
+		if (bytes <= 0) return false; //retu rn false if there error on the clihnet disconnect
+		totalReceived += bytes;
+	}
+	return true;
+}
+bool sendAll(int socket, const char* buffer, size_t size) {// like receive all but oppside
+	size_t totalSent = 0;
+
+	while (totalSent < size) {
+		int bytes = send(socket, buffer + totalSent, size - totalSent, 0);
+
+		if (bytes == -1) {
+			return false;
+		}
+
+		totalSent += bytes;
+	}
+
+	return true;
+}
 
 void Communicator::handleNewClient(SOCKET userS)
 {
 	try
 	{
-		//send hello message
-		std::string helloMes = "Hello\n";
-		send(userS, helloMes.c_str(), (int)helloMes.size(), 0);
-
 		while (true)
 		{
-			char buffer[1024];
-			// get message
-			int res = recv(userS, buffer, 1023, 0);
-
-			if (res == 0) //client disconnect
+			RequestInfo reqInfo;
+			char header[5];// need to know the size fo the message before recv it and kecp it in buffer...
+			if (!receiveAll(userS, header, 5))
 			{
-				std::cout << "Client disconnected" << std::endl;
-				break;
+				throw std::exception("error in recv header data");
 			}
-			if (res < 1) // if not success to get fucntoin throw a exception
-			{
-				throw std::exception("Error while receiving from socket");
+			int messageLength = (Byte)header[1] << 24;
+			messageLength |= (Byte)header[2] << 16; 
+			messageLength |= (Byte)header[3] << 8;
+			messageLength |= (Byte)header[4];
+
+			//affter we get the length we can recv the message
+
+			if (!receiveAll(userS, (char*)reqInfo.buff.data(), messageLength))			{
+				throw std::exception("error in recv mssage data");
+
 			}
-			// res == how mauch bytes redings so in the of them we put \0
-			buffer[res] = '\0';
-
-			std::cout << "Received from socket " << userS << ": " << buffer << std::endl;
-
-			//return the user what he send
-			if (send(userS, buffer, res, 0) == SOCKET_ERROR)
+			reqInfo.id = (Byte)header[0];
+			reqInfo.receivalTime = std::time(nullptr);
+			if (m_clients[userS]->isRequestRelevant(reqInfo))// put the user requset in the handler taht now found on the handler fucatry and check if the this 'valid' request for this state before we even start to work on the packet
 			{
-				throw std::exception("Error while sending message to client");
+				try
+				{
+					RequestResult handlerRes = m_clients[userS]->handleRequest(reqInfo);// affter give the info to to the handler and return the reponse to the user 
+
+					sendAll(userS, (char*)handlerRes.response.data(), handlerRes.response.size());
+
+					m_clients[userS] = handlerRes.newHandler;// after all change the hander for the next handler 
+
+				}
+				catch (const std::exception& e)
+				{
+					std::cout << "Exception in handler request part: " << e.what() << std::endl;
+
+				}
+
+			}
+			else
+			{
+				std::cout << "user request not relevant!\n";
 			}
 		}
 	}
