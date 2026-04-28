@@ -17,7 +17,21 @@ enum CodeR : Byte {
     SignupCmd = 101,
 };
 
+//for 
+struct LoginResponse
+{
+    unsigned int status;
+};
+struct ErrorResponse
+{
+    std::string message;
+};
+struct SignupResponse
+{
+    unsigned int status;
 
+};
+//
 struct LoginRequest {
     std::string userName;
     std::string password;
@@ -28,7 +42,7 @@ struct SignupRequest {
     std::string password;
     std::string email;
 };
-
+//
 struct RequestInfo {
     Byte id;
     std::time_t receivalTime;
@@ -39,7 +53,7 @@ struct RequestResult {
     Buffer response;
     IRequestHandler* newHandler;
 };
-
+// interfuce 
 class IRequestHandler {
 public:
     virtual ~IRequestHandler() = default; 

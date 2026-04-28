@@ -115,9 +115,10 @@ void Communicator::handleNewClient(SOCKET userS)
 				{
 					RequestResult handlerRes = m_clients[userS]->handleRequest(reqInfo);// affter give the info to to the handler and return the reponse to the user 
 
+	
 					sendAll(userS, (char*)handlerRes.response.data(), handlerRes.response.size());
 
-					m_clients[userS] = handlerRes.newHandler;// after all change the hander for the next handler 
+					m_clients[userS] = handlerRes.newHandler;//after all change the hander for the next handler 
 
 				}
 				catch (const std::exception& e)

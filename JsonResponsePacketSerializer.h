@@ -2,11 +2,13 @@
 #include <iostream>
 
 #include "IRequestHandler.h"
-class JsonRequestPacketSerializer
+
+
+
+class JsonResponsePacketSerializer
 {
 public:
-	static LoginRequest serializeLoginRequest(const Buffer& buffer);
-	static SignupRequest serializeSignupRequest(const Buffer& buffer);
+	static Buffer serializeResponse(LoginResponse req);
+	static Buffer serializeResponse(SignupResponse req);
 private:
-
 };
