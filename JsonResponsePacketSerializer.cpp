@@ -5,7 +5,7 @@
 
 using json = nlohmann::json;
 
-std::vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(LoginResponse res)
+Buffer JsonResponsePacketSerializer::serializeResponse(LoginResponse res)
 {
     json j;
     j["status"] = res.status;
