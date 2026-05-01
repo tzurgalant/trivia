@@ -29,9 +29,8 @@ struct ErrorResponse
 struct SignupResponse
 {
     unsigned int status;
-
 };
-//
+
 struct LoginRequest {
     std::string userName;
     std::string password;
