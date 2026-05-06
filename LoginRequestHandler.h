@@ -12,5 +12,6 @@ public:
 	 bool isRequestRelevant(const RequestInfo& reqInfo) override;
 	 RequestResult handleRequest(const RequestInfo& reqInfo) override;
 private:
-
+	RequestResult signup(const RequestInfo& reqInfo);
+	RequestResult login(const RequestInfo& reqInfo);
 };

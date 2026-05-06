@@ -15,31 +15,34 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& reqInfo)
 }
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& reqInfo)
 {
+	return reqInfo.id == LoginCmd ? login(reqInfo) : signup(reqInfo);
+}
+
+RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
+{
 	RequestResult res;
-	if (reqInfo.id == LoginCmd)
-	{
-		//get request deadtls whit deserialzer fucniton 
-		LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
-		std::cout << "name: " + userRequest.userName + " password: " + userRequest.password << std::endl;
-
-
-
-		LoginResponse response;// create a response for the user
-		response.status = 1;// asuccess
-		
-		res.response = JsonResponsePacketSerializer::serializeResponse(response);
-	}
-	else
-	{
-		SignupRequest userRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(reqInfo.buff);
-		std::cout << "name: " + userRequest.userName + " password: " + userRequest.password + " email: " + userRequest.email << std::endl;
-
-
-		SignupResponse response;// create a response for the user
-		response.status = 1;// asuccess
-		res.response = JsonResponsePacketSerializer::serializeResponse(response);
-	}
-	
 	res.newHandler = nullptr;
+
+	LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
+	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password << std::endl;
+
+	LoginResponse response;// create a response for the user
+	response.status = 1;// asuccess
+
+	res.response = JsonResponsePacketSerializer::serializeResponse(response);
+	return res;
+}
+RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
+{
+	RequestResult res;
+	res.newHandler = nullptr;
+
+	SignupRequest userRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(reqInfo.buff);
+	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password + " email: " + userRequest.email << std::endl;
+
+
+	SignupResponse response;// create a response for the user
+	response.status = 1;// asuccess
+	res.response = JsonResponsePacketSerializer::serializeResponse(response);
 	return res;
 }
