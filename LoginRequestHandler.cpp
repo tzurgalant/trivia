@@ -37,7 +37,6 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& reqInfo)
 
 		SignupResponse response;// create a response for the user
 		response.status = 1;// asuccess
-
 		res.response = JsonResponsePacketSerializer::serializeResponse(response);
 	}
 	

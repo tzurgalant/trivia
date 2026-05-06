@@ -102,7 +102,7 @@ void Communicator::handleNewClient(SOCKET userS)
 			messageLength |= (Byte)header[4];
 
 			//affter we get the length we can recv the message
-
+			reqInfo.buff.resize(messageLength);
 			if (!receiveAll(userS, (char*)reqInfo.buff.data(), messageLength))			{
 				throw std::exception("error in recv mssage data");
 

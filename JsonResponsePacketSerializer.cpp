@@ -15,11 +15,10 @@ Buffer JsonResponsePacketSerializer::serializeResponse(LoginResponse res)
     Buffer buffer;
 
     //msg code
-    buffer.push_back(101);
+    buffer.push_back(LoginCmd);
 
     unsigned int length = jsonStr.length();
 
-    //פירוק ל4 בייטים
     buffer.push_back((length >> 24) & 0xFF);
     buffer.push_back((length >> 16) & 0xFF);
     buffer.push_back((length >> 8) & 0xFF);
@@ -43,11 +42,10 @@ Buffer JsonResponsePacketSerializer::serializeResponse(SignupResponse res)
     Buffer buffer;
 
     //msg code
-    buffer.push_back(102);
+    buffer.push_back(SignupCmd);
 
     unsigned int length = jsonStr.length();
 
-    //פירוק ל4 בייטים
     buffer.push_back((length >> 24) & 0xFF);
     buffer.push_back((length >> 16) & 0xFF);
     buffer.push_back((length >> 8) & 0xFF);
