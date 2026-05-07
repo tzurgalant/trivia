@@ -3,7 +3,7 @@
 #include <io.h>   
 #include "sqlite3.h"
 
-class SqliteDatabase :IDatabase
+class SqliteDatabase :public IDatabase
 {
 public:
 	SqliteDatabase();

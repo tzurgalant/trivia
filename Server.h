@@ -7,7 +7,8 @@
 #include <queue>
 #include <exception>
 #include "Communicator.h"
-
+#include "RequestHandlerFactory.h"
+#include "SqliteDatabase.h"
 class Server
 {
 public:
@@ -15,8 +16,10 @@ public:
 	~Server();
 	void run();
 	void shutdown();
+
 private:
+	IDatabase* m_database;
+	RequestHandlerFactory m_handleFactory;
 	Communicator m_communicator; 
+	
 };
-
-

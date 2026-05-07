@@ -1,6 +1,6 @@
 #include "LoginManager.h"
 
-LoginManager::LoginManager()
+LoginManager::LoginManager(IDatabase* database):m_database(database)
 {
 
 }

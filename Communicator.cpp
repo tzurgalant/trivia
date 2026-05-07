@@ -1,7 +1,7 @@
 #include "Communicator.h"
 #include "LoginRequestHandler.h"
 #include <typeinfo>
-Communicator::Communicator()
+Communicator::Communicator(RequestHandlerFactory& handleFactory):m_handleFactory(handleFactory)
 {
 
 	// this server use TCP. that why SOCK_STREAM & IPPROTO_TCP
@@ -34,7 +34,7 @@ void Communicator::startHandleRequest()
 		std::cout << "Client accepted. Server and client can speak" << std::endl;
 		//now we create a thread for each clients and pass the clientHandler fucniton as thread
 
-		m_clients[clientSocket] = new LoginRequestHandler();
+		m_clients[clientSocket] = m_handleFactory.createLoginRequestHandler();
 		std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
 		clientThread.detach();
 	}
@@ -90,6 +90,10 @@ void Communicator::handleNewClient(SOCKET userS)
 	{
 		while (true)
 		{
+			if (m_clients[userS] == nullptr)
+			{
+				throw std::exception("client request handler is not valid!!!(nullptr)");
+			}
 			RequestInfo reqInfo;
 			char header[5];// need to know the size fo the message before recv it and kecp it in buffer...
 			if (!receiveAll(userS, header, 5))

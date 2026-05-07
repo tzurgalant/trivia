@@ -4,7 +4,7 @@
 #include <string>
 
 
-Server::Server():m_communicator(Communicator())
+Server::Server():m_database(new SqliteDatabase()), m_handleFactory(m_database),m_communicator(m_handleFactory)
 {
 
 }

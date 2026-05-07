@@ -45,6 +45,7 @@ bool SqliteDatabase::close()
 { 
     sqlite3_close(_db);
     _db = nullptr;
+    return true;
 }
 int SqliteDatabase::doesUserExist(std::string name) 
 { 
