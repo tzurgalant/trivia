@@ -21,10 +21,8 @@ int main()
         {
             std::cout << "Exit command received. Closing all connections..." << std::endl;
 
-            // 3. ניקוי וסגירה
             server.shutdown();
 
-            // כאן אפשר להוסיף סגירה של ה-ServerSocket אם רוצים להפסיק לקבל לקוחות
             break;
         }
         else if(input == "hello")
