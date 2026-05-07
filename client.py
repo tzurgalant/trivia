@@ -25,10 +25,10 @@ def get_user_input():
     choice = input("Select an option: ")
 
     if choice == "1":
-        login()
+        return login()
 
     elif choice == "2":
-        sign_up()
+        return sign_up()
 
     return "EXIT", None
 
