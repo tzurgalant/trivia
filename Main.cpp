@@ -25,16 +25,9 @@ int main()
 
             break;
         }
-        else if(input == "hello")
-        {
-
-        }
         else
         {
             std::cout << "Unknown command: " << input << std::endl;
         }
     }
 }
-
-
-
