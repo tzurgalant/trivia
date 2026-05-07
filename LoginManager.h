@@ -31,5 +31,5 @@ enum LoginStatus {
 
 enum SignupStatus {
 	SIGNUP_SUCCESS,
-	USER_EXISTS
+	USERNAME_TAKEN
 };
