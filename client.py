@@ -6,6 +6,17 @@ import struct
 SERVER_ADDR = '127.0.0.1'
 SERVER_PORT = 12345
 
+def login():
+        user = input("Username: ")
+        pw = input("Password: ")
+        return "LOGIN", {"username": user, "password": pw}
+
+def  sign_up():
+    user = input("Username: ")
+    pw = input("Password: ")
+    email = input("Email: ")
+    return "SIGNUP", {"username": user, "password": pw, "email": email}
+
 def get_user_input():
     print("\n--- Trivia Client ---")
     print("1. Login")
@@ -14,15 +25,10 @@ def get_user_input():
     choice = input("Select an option: ")
 
     if choice == "1":
-        user = input("Username: ")
-        pw = input("Password: ")
-        return "LOGIN", {"username": user, "password": pw}
+        login()
 
     elif choice == "2":
-        user = input("Username: ")
-        pw = input("Password: ")
-        email = input("Email: ")
-        return "SIGNUP", {"username": user, "password": pw, "email": email}
+        sign_up()
 
     return "EXIT", None
 
@@ -77,7 +83,5 @@ def main():
 
     client_sock.close()
 
-if __name__ == "__main__":
-    main()
 if __name__ == "__main__":
     main()
