@@ -2,7 +2,9 @@
 
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
+#include "loginManager.h"
 #include <string>
+
 class LoginRequestHandler: public IRequestHandler
 {
 public:

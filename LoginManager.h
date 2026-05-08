@@ -29,8 +29,10 @@ public:
 	SignupStatus sign_up(std::string userName, std::string password, std::string mail);
 	void log_off(std::string userName);
 
+	static std::string getLoginStatus(LoginStatus status);
+	static std::string getSignupStatus(SignupStatus status);
+
 private:
 	IDatabase* m_database;
 	std::vector<LoggedUser> m_loggedUsers;
 };
-

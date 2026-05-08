@@ -14,6 +14,7 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& reqInfo)
 {
 	return reqInfo.id == LoginCmd || reqInfo.id == SignupCmd;
 }
+
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& reqInfo)
 {
 	return reqInfo.id == LoginCmd ? login(reqInfo) : signup(reqInfo);
@@ -21,18 +22,30 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& reqInfo)
 
 RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
 {
-	RequestResult res;
-	res.newHandler = m_handlerFactory.createLoginRequestHandler();
+    RequestResult res;
+    LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
 
-	LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
-	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password << std::endl;
+    // 2. קריאה ל-Manager ושמירת הסטטוס שחזר
+    LoginStatus status = m_handlerFactory.getLoginManager().login(userRequest.userName, userRequest.password);
 
-	LoginResponse response;// create a response for the user
-	response.status = LOGIN_SUCCESS;// asuccess
+    LoginResponse response;
 
-	res.response = JsonResponsePacketSerializer::serializeResponse(response);
-	return res;
+    if (status == LOGIN_SUCCESS)
+    {
+        response.status = 1;
+    }
+    else
+    {
+        response.status = 0;
+        res.newHandler = this;
+
+        std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getLoginStatus(status) << std::endl;
+    }
+
+    res.response = JsonResponsePacketSerializer::serializeResponse(response);
+    return res;
 }
+
 RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
 {
 	RequestResult res;
@@ -41,9 +54,23 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
 	SignupRequest userRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(reqInfo.buff);
 	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password + " email: " + userRequest.email << std::endl;
 
+    // 2. קריאה ל-Manager ושמירת הסטטוס שחזר
+    SignupStatus status = m_handlerFactory.getLoginManager().sign_up(userRequest.userName, userRequest.password, userRequest.email);
 
-	SignupResponse response;// create a response for the user
-	response.status = SIGNUP_SUCCESS;// asuccess
+    SignupResponse response;// create a response for the user
+
+    if (status == SIGNUP_SUCCESS)
+    {
+        response.status = 1;
+    }
+    else
+    {
+        response.status = 0;
+        res.newHandler = this;
+
+        std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getSignupStatus(status) << std::endl;
+    }
+
 	res.response = JsonResponsePacketSerializer::serializeResponse(response);
 	return res;
 }

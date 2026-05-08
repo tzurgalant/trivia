@@ -55,3 +55,25 @@ void LoginManager::log_off(std::string userName)
 		}
 	}
 }
+
+std::string LoginManager::getLoginStatus(LoginStatus status)
+{
+	switch (status)
+	{
+		case LOGIN_SUCCESS:  return "LOGIN_SUCCESS";
+		case WRONG_PASSWORD: return "WRONG_PASSWORD";
+		case WRONG_USERNAME: return "WRONG_USERNAME";
+		case ALREADY_LOGGED: return "ALREADY_LOGGED";
+		default:             return "";
+	}
+}
+
+std::string LoginManager::getSignupStatus(SignupStatus status)
+{
+	switch (status)
+	{
+	case SIGNUP_SUCCESS:  return "SIGNUP_SUCCESS";
+	case USERNAME_TAKEN: return "USERNAME_TAKEN";
+	default:             return "";
+	}
+}
