@@ -99,10 +99,14 @@ int SqliteDatabase::addNewUser(std::string name, std::string pass, std::string e
 
     int res = sqlite3_exec(_db, sql.c_str(), nullptr, nullptr, &errMes);
 
-    if (res != SQLITE_OK) {
-        std::cout << "SQL Error in addNewUser: " << errMes << std::endl;
-        sqlite3_free(errMes);
-        return res;
+    if (res != SQLITE_OK)
+    {
+        if (errMes != nullptr)
+        {
+            std::cout << "SQL Error in addNewUser: " << errMes << std::endl;
+            sqlite3_free(errMes);
+            return res;
+        }
     }
 
     return SQLITE_OK;
