@@ -9,9 +9,9 @@ LoginManager::~LoginManager()
 
 }
 
-LoginStatus LoginManager::login(std::string userName, std::string password)
+LoginStatus LoginManager::login(std::string userName, std::string password,SOCKET userSocket)
 {
-	LoggedUser user = LoggedUser(userName);
+	LoggedUser user = LoggedUser(userName, userSocket);
 
 	if (!m_database->doesUserExist(userName))
 	{
@@ -50,6 +50,16 @@ void LoginManager::log_off(std::string userName)
 	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); it++)
 	{
 		if (it->getUserName() == userName)
+		{
+			m_loggedUsers.erase(it);
+		}
+	}
+}
+void LoginManager::log_off(SOCKET userSocket)
+{
+	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); it++)
+	{
+		if (it->getUserSocket() == userSocket)
 		{
 			m_loggedUsers.erase(it);
 		}

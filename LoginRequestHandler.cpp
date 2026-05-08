@@ -25,8 +25,8 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
     RequestResult res;
     LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
 
-    // 2. קריאה ל-Manager ושמירת הסטטוס שחזר
-    LoginStatus status = m_handlerFactory.getLoginManager().login(userRequest.userName, userRequest.password);
+    // get the stuts from the login manger
+    LoginStatus status = m_handlerFactory.getLoginManager().login(userRequest.userName, userRequest.password,reqInfo.userSocket);
 
     LoginResponse response;
 
@@ -54,7 +54,7 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
 	SignupRequest userRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(reqInfo.buff);
 	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password + " email: " + userRequest.email << std::endl;
 
-    // 2. קריאה ל-Manager ושמירת הסטטוס שחזר
+    // get the stuts from the login manger
     SignupStatus status = m_handlerFactory.getLoginManager().sign_up(userRequest.userName, userRequest.password, userRequest.email);
 
     SignupResponse response;// create a response for the user

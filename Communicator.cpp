@@ -113,6 +113,7 @@ void Communicator::handleNewClient(SOCKET userS)
 			}
 			reqInfo.id = (Byte)header[0];
 			reqInfo.receivalTime = std::time(nullptr);
+			reqInfo.userSocket = userS;
 			if (m_clients[userS]->isRequestRelevant(reqInfo))// put the user requset in the handler taht now found on the handler fucatry and check if the this 'valid' request for this state before we even start to work on the packet
 			{
 				try
@@ -140,8 +141,8 @@ void Communicator::handleNewClient(SOCKET userS)
 	}
 	catch (const std::exception& e) {
 		std::cout << "Exception in clientHandler: " << e.what() << std::endl;
+		m_handleFactory.getLoginManager().log_off(userS);// log off whit the user socket and not whit the name...
 	}
-
 	closeClient(userS);
 }
 void Communicator::closeClient(SOCKET userS)

@@ -5,6 +5,7 @@
 #include <ctime>
 #include <cstdint>
 #include <string>
+#include <WinSock2.h>
 
 typedef  unsigned char Byte;
 typedef std::vector<Byte> Buffer;
@@ -46,6 +47,7 @@ struct RequestInfo {
     Byte id;
     std::time_t receivalTime;
     Buffer buff;
+    SOCKET userSocket;
 };
 
 struct RequestResult {
