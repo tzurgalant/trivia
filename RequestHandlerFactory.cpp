@@ -3,7 +3,7 @@
 
 
 
-RequestHandlerFactory::RequestHandlerFactory(IDatabase* database):m_database(database),m_loginManager(database)
+RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_loginManager(database)
 {
 
 }
@@ -17,6 +17,6 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 	return new LoginRequestHandler(*this);
 }
 LoginManager& RequestHandlerFactory::getLoginManager() 
-{ 
+{
 	return m_loginManager;
 }

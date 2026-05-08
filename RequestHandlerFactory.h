@@ -18,5 +18,4 @@ public:
 
 private:
 	LoginManager m_loginManager;
-	IDatabase* m_database;
 };

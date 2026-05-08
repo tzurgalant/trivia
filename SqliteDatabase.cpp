@@ -49,7 +49,7 @@ bool SqliteDatabase::close()
 }
 int SqliteDatabase::doesUserExist(std::string name) 
 { 
-    sqlite3_stmt* stmt;
+    sqlite3_stmt* stmt = nullptr;
 
     std::string sqlCmd = "SELECT PASS FROM USERS WHERE NAME = '" + name + "';";
 
@@ -70,7 +70,7 @@ int SqliteDatabase::doesUserExist(std::string name)
 }
 int SqliteDatabase::doesPasswordMatch(std::string name, std::string pass2)
 {
-    sqlite3_stmt* stmt;
+    sqlite3_stmt* stmt = nullptr;
     std::string sqlCmd = "SELECT PASS FROM USERS WHERE NAME = '" + name + "';";
 
     if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
@@ -105,8 +105,8 @@ int SqliteDatabase::addNewUser(std::string name, std::string pass, std::string e
         {
             std::cout << "SQL Error in addNewUser: " << errMes << std::endl;
             sqlite3_free(errMes);
-            return res;
         }
+        return res;
     }
 
     return SQLITE_OK;
