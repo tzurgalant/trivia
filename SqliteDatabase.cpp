@@ -38,15 +38,17 @@ bool SqliteDatabase::open()
         std::cout << "SQL Error: " << errMes << std::endl;
         sqlite3_free(errMes);
     }
-    return res == SQLITE_OK;
 
+    return res == SQLITE_OK;
 }
+
 bool SqliteDatabase::close() 
 { 
     sqlite3_close(_db);
     _db = nullptr;
     return true;
 }
+
 int SqliteDatabase::doesUserExist(std::string name) 
 { 
     sqlite3_stmt* stmt = nullptr;
@@ -68,6 +70,7 @@ int SqliteDatabase::doesUserExist(std::string name)
     sqlite3_finalize(stmt);
     return false;
 }
+
 int SqliteDatabase::doesPasswordMatch(std::string name, std::string pass2)
 {
     sqlite3_stmt* stmt = nullptr;
