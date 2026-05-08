@@ -47,22 +47,32 @@ SignupStatus LoginManager::sign_up(std::string userName, std::string password, s
 
 void LoginManager::log_off(std::string userName)
 {
-	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); it++)
+	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); )
 	{
 		if (it->getUserName() == userName)
 		{
-			m_loggedUsers.erase(it);
+			it = m_loggedUsers.erase(it); 
+		}
+		else
+		{
+			++it; 
 		}
 	}
 }
 void LoginManager::log_off(SOCKET userSocket)
 {
-	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); it++)
+	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end();)
 	{
 		if (it->getUserSocket() == userSocket)
 		{
-			m_loggedUsers.erase(it);
+			
+			it = m_loggedUsers.erase(it);// becuse if we erase we need to get the next it so we dont need ++ 
 		}
+		else
+		{
+			++it;
+		}
+		
 	}
 }
 
