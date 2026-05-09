@@ -47,7 +47,7 @@ def build_request(action, data_dict):
 
 def parse_response(sock):
     # 1. Read exactly 5 bytes (1 for ID, 4 for Length)
-    header = sock.recv(5)
+    header = recv_all(sock, 5)
     if len(header) < 5:
         return None, None
 
@@ -55,10 +55,23 @@ def parse_response(sock):
     res_id, length = struct.unpack('>BI', header)
 
     # 2. Read the JSON data based on the length we just got
-    data_bytes = sock.recv(length)
+    data_bytes = recv_all(sock, length)
     response_data = json.loads(data_bytes.decode('utf-8'))
 
     return res_id, response_data
+
+def recv_all(sock, size):
+    data = b''
+
+    while len(data) < size:
+        chunk = sock.recv(size - len(data))
+
+        if not chunk:
+            return None
+
+        data += chunk
+
+    return data
 
 def main():
     client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

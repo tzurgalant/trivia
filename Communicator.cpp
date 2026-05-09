@@ -123,8 +123,17 @@ void Communicator::handleNewClient(SOCKET userS)
 	
 					sendAll(userS, (char*)handlerRes.response.data(), handlerRes.response.size());
 
-					m_clients[userS] = handlerRes.newHandler;//after all change the hander for the next handler 
+					IRequestHandler* oldHandler = m_clients[userS];
 
+					if (handlerRes.newHandler != oldHandler)
+					{
+						m_clients[userS] = handlerRes.newHandler;
+						delete oldHandler;
+					}
+					else
+					{
+						m_clients[userS] = oldHandler;
+					}
 				}
 				catch (const std::exception& e)
 				{

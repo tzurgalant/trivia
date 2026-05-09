@@ -24,10 +24,9 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& reqInfo)
 RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
 {
     RequestResult res;
-    m_handlerFactory.changeRequestHandler(&res, m_handlerFactory.createMenuRequestHanlder());// a safe change of the handlers
     LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
 
-    // get the stuts from the login manger
+    // get the status from the login manger
     LoginStatus status = m_handlerFactory.getLoginManager().login(userRequest.userName, userRequest.password,reqInfo.userSocket);
 
     LoginResponse response;
@@ -35,11 +34,11 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
     if (status == LOGIN_SUCCESS)
     {
         response.status = 1;
+        res.newHandler = m_handlerFactory.createMenuRequestHanlder();
     }
     else
     {
         response.status = 0;
-        m_handlerFactory.changeRequestHandler(&res, this);// a safe change of the handlers
 
         std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getLoginStatus(status) << std::endl;
     }
@@ -51,7 +50,6 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
 RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
 {
 	RequestResult res;
-    m_handlerFactory.changeRequestHandler(&res, m_handlerFactory.createLoginRequestHandler());// a safe change of the handlers
 
 	SignupRequest userRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(reqInfo.buff);
 	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password + " email: " + userRequest.email << std::endl;
@@ -64,11 +62,11 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
     if (status == SIGNUP_SUCCESS)
     {
         response.status = 1;
+        res.newHandler = this;
     }
     else
     {
         response.status = 0;
-        res.newHandler = this;
 
         std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getSignupStatus(status) << std::endl;
     }

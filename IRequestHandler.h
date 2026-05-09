@@ -52,7 +52,7 @@ struct RequestInfo {
 
 struct RequestResult {
     Buffer response;
-    IRequestHandler* newHandler;
+    IRequestHandler* newHandler = nullptr;
 };
 // interfuce 
 class IRequestHandler {
