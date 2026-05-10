@@ -39,6 +39,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
     else
     {
         response.status = 0;
+        res.newHandler = this;
 
         std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getLoginStatus(status) << std::endl;
     }
@@ -67,6 +68,7 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
     else
     {
         response.status = 0;
+        res.newHandler = this;
 
         std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getSignupStatus(status) << std::endl;
     }

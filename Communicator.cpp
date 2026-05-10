@@ -92,7 +92,7 @@ void Communicator::handleNewClient(SOCKET userS)
 		{
 			if (m_clients[userS] == nullptr)
 			{
-				throw std::exception("client request handler is not valid!!!(nullptr)");
+				throw std::exception("");
 			}
 			RequestInfo reqInfo;
 			char header[5];// need to know the size fo the message before recv it and kecp it in buffer...
