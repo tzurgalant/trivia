@@ -93,3 +93,16 @@ std::string LoginManager::getSignupStatus(SignupStatus status)
 	default:             return "";
 	}
 }
+
+bool LoginManager::doesUserLogged(std::string userName)
+{
+	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); it++)
+	{
+		if (it->getUserName() == userName)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}

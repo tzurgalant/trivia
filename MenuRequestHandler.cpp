@@ -10,7 +10,7 @@ MenuRequestHandler::~MenuRequestHandler()
 
 bool MenuRequestHandler::isRequestRelevant(const RequestInfo& reqInfo)
 {
-	return true;
+	return false;
 }
 RequestResult MenuRequestHandler::handleRequest(const RequestInfo& reqInfo)
 {

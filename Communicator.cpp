@@ -1,11 +1,12 @@
 #include "Communicator.h"
 #include "LoginRequestHandler.h"
+#include "JsonResponsePacketSerializer.h"
 #include <typeinfo>
+
 Communicator::Communicator(RequestHandlerFactory& handleFactory):m_handleFactory(handleFactory)
 {
 
 	// this server use TCP. that why SOCK_STREAM & IPPROTO_TCP
-	// if the server use UDP we will use: SOCK_DGRAM & IPPROTO_UDP
 	m_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (m_serverSocket == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__ " - socket");
@@ -107,7 +108,7 @@ void Communicator::handleNewClient(SOCKET userS)
 
 			//affter we get the length we can recv the message
 			reqInfo.buff.resize(messageLength);
-			if (!receiveAll(userS, (char*)reqInfo.buff.data(), messageLength))			{
+			if (!receiveAll(userS, (char*)reqInfo.buff.data(), messageLength)) {
 				throw std::exception("error in recv mssage data");
 
 			}
@@ -123,16 +124,10 @@ void Communicator::handleNewClient(SOCKET userS)
 	
 					sendAll(userS, (char*)handlerRes.response.data(), handlerRes.response.size());
 
-					IRequestHandler* oldHandler = m_clients[userS];
 
-					if (handlerRes.newHandler != oldHandler)
+					if (handlerRes.newHandler != nullptr)
 					{
-						m_clients[userS] = handlerRes.newHandler;
-						delete oldHandler;
-					}
-					else
-					{
-						m_clients[userS] = oldHandler;
+						m_handleFactory.changeRequestHandler(&handlerRes, m_clients[userS]);
 					}
 				}
 				catch (const std::exception& e)
@@ -140,11 +135,13 @@ void Communicator::handleNewClient(SOCKET userS)
 					std::cout << "Exception in handler request part: " << e.what() << std::endl;
 
 				}
-
 			}
 			else
 			{
-				std::cout << "user request not relevant!\n";
+				ErrorResponse res = ErrorResponse();
+				res.message = "the message is not relevant!!!";
+				sendAll(userS, (char*)JsonResponsePacketSerializer::serializeResponse(res).data(),JsonResponsePacketSerializer::serializeResponse(res).size());
+
 			}
 		}
 	}

@@ -40,9 +40,10 @@ public:
 	static std::string getLoginStatus(LoginStatus status);
 	static std::string getSignupStatus(SignupStatus status);
 	
+	bool doesUserLogged(std::string userName);
+
 private:
 	IDatabase* m_database;
 	std::vector<LoggedUser> m_loggedUsers;
 	//std::map <SOCKET, std::string> m_clientsNames;//map that you enter socket and this give you the name of the socket client
-
 };

@@ -8,15 +8,15 @@
 class JsonResponsePacketSerializer
 {
 public:
-	static Buffer serializeResponse(LoginResponse req);
-	static Buffer serializeResponse(SignupResponse req);
-	static Buffer serializerReqponse(ErrorResponse req);
-	static Buffer serializerReqponse(LogoutResponse req);
-	static Buffer serializerReqponse(GetRoomsResponse req);
-	static Buffer serializerReqponse(GetPlayersInRoomResponse req);
-	static Buffer serializerReqponse(JoinRoomResponse req);
-	static Buffer serializerReqponse(CreateRoomResponse req);
-	static Buffer serializerReqponse(GetHighScoreResponse req);
-	static Buffer serializerReqponse(GetPersonalStatsReponse req);
+	static Buffer serializeResponse(LoginResponse res);
+	static Buffer serializeResponse(SignupResponse res);
+	static Buffer serializeResponse(ErrorResponse res);
+	static Buffer serializeResponse(LogoutResponse res);
+	static Buffer serializeResponse(GetRoomsResponse res);
+	static Buffer serializeResponse(GetPlayersInRoomResponse res);
+	static Buffer serializeResponse(JoinRoomResponse res);
+	static Buffer serializeResponse(CreateRoomResponse res);
+	static Buffer serializeResponse(GetHighScoreResponse res);
+	static Buffer serializeResponse(GetPersonalStatsReponse res);
 private:
 };

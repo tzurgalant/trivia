@@ -13,7 +13,23 @@ LoginRequestHandler::~LoginRequestHandler()
 
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& reqInfo)
 {
-	return reqInfo.id == LoginCmd || reqInfo.id == SignupCmd;
+	LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
+
+    if(reqInfo.id == LoginCmd)
+    {
+        if (m_handlerFactory.getLoginManager().doesUserLogged(userRequest.userName))
+        {
+            return false;
+        }
+
+        return true;
+    }
+    else if(reqInfo.id == SignupCmd)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& reqInfo)
@@ -23,34 +39,38 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& reqInfo)
 
 RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
 {
+    
     RequestResult res;
+    res.newHandler == nullptr;//defalut that he not ssuccss to do the login
     LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
 
     // get the status from the login manger
     LoginStatus status = m_handlerFactory.getLoginManager().login(userRequest.userName, userRequest.password,reqInfo.userSocket);
-
-    LoginResponse response;
+    LoginResponse LoginResponse;
 
     if (status == LOGIN_SUCCESS)
     {
-        response.status = 1;
+        LoginResponse.status = 1;
         res.newHandler = m_handlerFactory.createMenuRequestHanlder();
+        std::cout << "Login success for user: " + userRequest.userName + ", Status: " + m_handlerFactory.getLoginManager().getLoginStatus(status) << std::endl;
+
     }
     else
     {
-        response.status = 0;
-        res.newHandler = this;
+        LoginResponse.status = 0;
 
-        std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getLoginStatus(status) << std::endl;
+        res.newHandler = m_handlerFactory.createLoginRequestHandler();
+        std::cout << "Login failed for user: " + userRequest.userName + ", Status: " + m_handlerFactory.getLoginManager().getLoginStatus(status) << std::endl;
     }
-
-    res.response = JsonResponsePacketSerializer::serializeResponse(response);
+    res.response = JsonResponsePacketSerializer::serializeResponse(LoginResponse);
     return res;
+
 }
 
 RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
 {
 	RequestResult res;
+    res.newHandler == nullptr;//defalut that he not ssuccss to do the login
 
 	SignupRequest userRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(reqInfo.buff);
 	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password + " email: " + userRequest.email << std::endl;
@@ -58,21 +78,21 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
     // get the stuts from the login manger
     SignupStatus status = m_handlerFactory.getLoginManager().sign_up(userRequest.userName, userRequest.password, userRequest.email);
 
-    SignupResponse response;// create a response for the user
+    SignupResponse signupResponse;// create a response for the user
 
     if (status == SIGNUP_SUCCESS)
     {
-        response.status = 1;
-        res.newHandler = this;
+        signupResponse.status = 1;
+
+        res = login(reqInfo);// if success to sign up call the login fucniton 
+        std::cout << "signup and Login success for user: " + userRequest.userName + ", Status: " + m_handlerFactory.getLoginManager().getSignupStatus(status) << std::endl;
     }
     else
     {
-        response.status = 0;
-        res.newHandler = this;
-
-        std::cout << "Login failed for user: " << userRequest.userName << ", Status: " << m_handlerFactory.getLoginManager().getSignupStatus(status) << std::endl;
+        signupResponse.status = 0;
+        res.newHandler = m_handlerFactory.createLoginRequestHandler();
+        std::cout << "Login failed for user: " + userRequest.userName + ", Status: " + m_handlerFactory.getLoginManager().getSignupStatus(status) << std::endl;
     }
-
-	res.response = JsonResponsePacketSerializer::serializeResponse(response);
+    res.response = JsonResponsePacketSerializer::serializeResponse(signupResponse);
 	return res;
 }

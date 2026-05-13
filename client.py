@@ -89,8 +89,11 @@ def main():
         # 3. Receive and Disassemble
         res_id, res_json = parse_response(client_sock)
 
+        if res_id == 103:
+            print(f"Server Response whit error({res_id}): {res_json}")
         if res_id:
-            print(f"Server Response ({res_id}): {res_json}")
+            print(f"Server Response whit ({res_id}): {res_json}")
+
             # Access status: res_json.get('status')
 
     client_sock.close()
