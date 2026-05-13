@@ -16,7 +16,7 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const Buffer
         return req;
     }
     catch (const std::exception& e) {
-        throw std::runtime_error("Failed to parse JSON: " + std::string(e.what()));
+        throw std::runtime_error("Error parsing login JSON: " + std::string(e.what()));
     }
 }
 
@@ -35,6 +35,34 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest(const Buff
     }
     catch (const std::exception& e)
     {
-        throw std::runtime_error("Error parsing Signup JSON: " + std::string(e.what()));
+        throw std::runtime_error("Error parsing signup JSON: " + std::string(e.what()));
     }
+}
+
+//rooms related
+GetPlayersinRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersRequest(const Buffer& buffer)
+{
+	try
+	{
+		json j = json::parse(buffer.begin(), buffer.end());
+
+		GetPlayersinRoomRequest req;
+		req.roomld = j.at("roomId").get<std::string>();
+
+		return req;
+	}
+	catch (const std::exception& e)
+	{
+		throw std::runtime_error("Error parsing Signup JSON: " + std::string(e.what()));
+	}
+}
+
+JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(const Buffer& buffer)
+{
+
+}
+
+CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(const Buffer& buffer)
+{
+
 }

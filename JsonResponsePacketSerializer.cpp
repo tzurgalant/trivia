@@ -58,3 +58,36 @@ Buffer JsonResponsePacketSerializer::serializeResponse(SignupResponse res)
 
     return buffer;
 }
+
+Buffer JsonResponsePacketSerializer::serializerReqponse(ErrorResponse req)
+{
+
+}
+Buffer JsonResponsePacketSerializer::serializerReqponse(LogoutResponse req)
+{
+
+}
+Buffer JsonResponsePacketSerializer::serializerReqponse(GetRoomsResponse req)
+{
+
+}
+Buffer JsonResponsePacketSerializer::serializerReqponse(GetPlayersInRoomResponse req)
+{
+
+}
+Buffer JsonResponsePacketSerializer::serializerReqponse(JoinRoomResponse req)
+{
+
+}
+Buffer JsonResponsePacketSerializer::serializerReqponse(CreateRoomResponse req)
+{
+
+}
+Buffer JsonResponsePacketSerializer::serializerReqponse(GetHighScoreResponse req)
+{
+
+}
+Buffer JsonResponsePacketSerializer::serializerReqponse(GetPersonalStatsReponse req)
+{
+
+}
