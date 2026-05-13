@@ -16,7 +16,7 @@ public:
 
 	LoginRequestHandler* createLoginRequestHandler();
 	MenuRequestHandler* createMenuRequestHanlder();
-	void changeRequestHandler(RequestResult* res,IRequestHandler * newHandler);
+	void changeRequestHandler(RequestResult* res, IRequestHandler*& reqHandler);
 
 
 	LoginManager& getLoginManager();

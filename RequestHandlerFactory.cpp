@@ -10,16 +10,17 @@ RequestHandlerFactory::~RequestHandlerFactory()
 
 }
 
-void RequestHandlerFactory::changeRequestHandler(RequestResult* res, IRequestHandler* reqHandler)
+void RequestHandlerFactory::changeRequestHandler(RequestResult* res, IRequestHandler*& reqHandler)
 {
-	if (res->newHandler != nullptr)
-	{
-		if( reqHandler != nullptr)
-		{
-			delete reqHandler;
-		}
-		reqHandler = res->newHandler;
-	}
+    if (res->newHandler != nullptr)
+    {
+        if (reqHandler != nullptr)
+        {
+            delete reqHandler;
+        }
+
+        reqHandler = res->newHandler;
+    }
 }
 
 
