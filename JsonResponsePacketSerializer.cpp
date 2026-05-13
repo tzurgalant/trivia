@@ -58,7 +58,30 @@ Buffer JsonResponsePacketSerializer::serializeResponse(SignupResponse res)
 
     return buffer;
 }
+Buffer JsonResponsePacketSerializer::serializeResponse(ErrorResponse req)
+{
+    // make the jsons part
+    json j;
+    j["message"] = req.message; 
 
+    std::string jsonStr = j.dump();
+    Buffer buffer;
+
+    buffer.push_back(ErrorCmd);
+
+    unsigned int length = jsonStr.length();
+    buffer.push_back((length >> 24) & 0xFF);
+    buffer.push_back((length >> 16) & 0xFF);
+    buffer.push_back((length >> 8) & 0xFF);
+    buffer.push_back(length & 0xFF);
+
+    for (char c : jsonStr)
+    {
+        buffer.push_back((unsigned char)c);
+    }
+
+    return buffer;
+}
 Buffer JsonResponsePacketSerializer::serializerReqponse(ErrorResponse req)
 {
 

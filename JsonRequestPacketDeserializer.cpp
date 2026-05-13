@@ -47,22 +47,49 @@ GetPlayersinRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersRequ
 		json j = json::parse(buffer.begin(), buffer.end());
 
 		GetPlayersinRoomRequest req;
-		req.roomld = j.at("roomId").get<std::string>();
+		req.roomld = j.at("roomId").get<unsigned int>();
 
 		return req;
 	}
 	catch (const std::exception& e)
 	{
-		throw std::runtime_error("Error parsing Signup JSON: " + std::string(e.what()));
+		throw std::runtime_error("Error parsing GetPlayersinRoomRequest JSON: " + std::string(e.what()));
 	}
 }
 
 JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(const Buffer& buffer)
 {
+	try
+	{
+		json j = json::parse(buffer.begin(), buffer.end());
 
+		JoinRoomRequest req;
+		req.roomld = j.at("roomId").get<unsigned int>();
+
+		return req;
+	}
+	catch (const std::exception& e)
+	{
+		throw std::runtime_error("Error parsing JoinRoomRequest JSON: " + std::string(e.what()));
+	}
 }
 
 CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(const Buffer& buffer)
 {
+	try
+	{
+		json j = json::parse(buffer.begin(), buffer.end());
 
+		CreateRoomRequest req;
+		req.roomName = j.at("roomName").get <std::string> ();
+		req.maxUsers = j.at("maxUsers").get <unsigned int> ();
+		req.questionCount = j.at("questionCount").get <unsigned int> ();
+		req.answerTimeout = j.at("answerTimeout").get <unsigned int> ();
+
+		return req;
+	}
+	catch (const std::exception& e)
+	{
+		throw std::runtime_error("Error parsing CreateRoomRequest JSON: " + std::string(e.what()));
+	}
 }
