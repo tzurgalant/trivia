@@ -10,6 +10,7 @@ SqliteDatabase::~SqliteDatabase()
 
 bool SqliteDatabase::open() 
 {
+    //insert user table
     char* errMes = nullptr;
     bool  doesFileExist = _access(_dbFileName.c_str(), 0) == 0;// if the file is exist before
     int res = sqlite3_open(_dbFileName.c_str(), &_db);
@@ -20,7 +21,16 @@ bool SqliteDatabase::open()
             "NAME TEXT PRIMARY KEY NOT NULL,"
             "PASS TEXT NOT NULL,"
             "EMAIL TEXT NOT NULL); ";
-        const char* sqlCommends[] = { sqlUsers};
+        const char* sqlQuestions = "CREATE TABLE IF NOT EXISTS QUESTIONS ("
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+            "QUESTION TEXT NOT NULL,"
+            "ANSWER1 TEXT NOT NULL,"
+            "ANSWER2 TEXT NOT NULL,"
+            "ANSWER3 TEXT NOT NULL,"
+            "ANSWER4 TEXT NOT NULL,"
+            "CORRECT_ANSWER INTEGER NOT NULL);";
+
+        const char* sqlCommends[] = {sqlUsers, sqlQuestions};
 
         for (const char* cmd : sqlCommends) {
             res = sqlite3_exec(_db, cmd, nullptr, nullptr, &errMes);
