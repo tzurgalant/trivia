@@ -56,9 +56,10 @@ bool SqliteDatabase::close()
 { 
     sqlite3_close(_db);
     _db = nullptr;
-    return true;
+    return true;    
 }
 
+//user related
 int SqliteDatabase::doesUserExist(std::string name) 
 { 
     sqlite3_stmt* stmt = nullptr;
@@ -96,7 +97,7 @@ int SqliteDatabase::doesPasswordMatch(std::string name, std::string pass2)
                 std::string passwordInDb((const char*)dbPass);
                 bool match = (passwordInDb == pass2);
                 sqlite3_finalize(stmt);
-                return match; 
+                return match;
             }
         }
     }
@@ -123,4 +124,46 @@ int SqliteDatabase::addNewUser(std::string name, std::string pass, std::string e
     }
 
     return SQLITE_OK;
+}
+
+//questions related
+std::list<Question> SqliteDatabase::getQuestions()
+{
+    std::list<Question> questions;
+
+    sqlite3_stmt* stmt = nullptr;
+    std::string sqlCmd = "SELECT * FROM QUESTIONS;";
+
+    if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+    {
+        while (sqlite3_step(stmt) == SQLITE_ROW)
+        {
+            const unsigned char* rawText = sqlite3_column_text(stmt, 1);
+            std::string question = reinterpret_cast<const char*>(rawText);
+
+            //Question(const std::string question, const std::vector<std::string>& possibleAnswers, int correctAnswer);
+
+            std::vector<std::string> possibleAnswers;
+
+            for (int i = 2; i <= 5; i++)
+            {
+                rawText = sqlite3_column_text(stmt, i);
+                std::string ans = reinterpret_cast<const char*>(rawText);
+
+                possibleAnswers.push_back(ans);
+            }
+
+            int correctAnswer = sqlite3_column_int(stmt, 6);
+
+            Question q = Question(question, possibleAnswers, correctAnswer);
+            questions.push_back(q);
+        }
+    }
+    else
+    {
+        std::cout << "prepare stmt for get questions failed" << std::endl;
+    }
+    sqlite3_finalize(stmt);
+
+    return questions;
 }
