@@ -13,7 +13,13 @@ MenuRequestHandler::~MenuRequestHandler()
 
 bool MenuRequestHandler::isRequestRelevant(const RequestInfo& reqInfo)
 {
-	return false;
+    return reqInfo.id == LogoutCmd ||
+        reqInfo.id == GetRoomsCmd ||
+        reqInfo.id == GetPlayersInRoomCmd ||
+        reqInfo.id == GetPersonalStatsCmd ||
+        reqInfo.id == GetHighScoreCmd ||
+        reqInfo.id == JoinRoomCmd ||
+        reqInfo.id == CreateRoomCmd;
 }
 RequestResult MenuRequestHandler::handleRequest(const RequestInfo& reqInfo)
 {
