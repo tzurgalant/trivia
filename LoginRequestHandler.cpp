@@ -51,9 +51,8 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
     if (status == LOGIN_SUCCESS)
     {
         LoginResponse.status = 1;
-        res.newHandler = m_handlerFactory.createMenuRequestHanlder();
+        res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_handlerFactory.getLoginManager().getUserBySocket(reqInfo.userSocket));
         std::cout << "Login success for user: " + userRequest.userName + ", Status: " + m_handlerFactory.getLoginManager().getLoginStatus(status) << std::endl;
-
     }
     else
     {

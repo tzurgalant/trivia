@@ -58,6 +58,18 @@ void LoginManager::log_off(std::string userName)
 		}
 	}
 }
+
+LoggedUser LoginManager::getUserBySocket(SOCKET userS)//get user name by his socket
+{
+	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); it++)
+	{
+		if (it->getUserSocket() == userS)
+		{
+			return *it;
+		}
+	}
+}
+
 void LoginManager::log_off(SOCKET userSocket)
 {
 	for (auto it = m_loggedUsers.begin(); it != m_loggedUsers.end(); it++)

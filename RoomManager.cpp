@@ -2,9 +2,10 @@
 
 void RoomManager::createRoom(LoggedUser loggedUser, RoomData roomData)
 {
+	//need to chec if the rome id is exist
+	roomData.id = getNextRoomID();
 	m_rooms[roomData.id] = Room(roomData);
 	m_rooms[roomData.id].addUser(loggedUser);
-	
 }
 void  RoomManager::deleteRoom(int ID)
 {
@@ -25,5 +26,10 @@ std::vector<RoomData> RoomManager::getRooms()
 Room& RoomManager::getRoom(int ID)
 {
 	return m_rooms[ID];
+}
+
+int RoomManager::getNextRoomID()
+{
+	return m_roomID++;
 }
 

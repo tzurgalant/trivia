@@ -78,7 +78,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(LogoutResponse res)
     std::string jsonStr = j.dump();
 
     //create buffer whit the data and this request commens
-    return createBuffer(ErrorCmd, jsonStr.length(), jsonStr);
+    return createBuffer(LogoutCmd, jsonStr.length(), jsonStr);
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse res)
 {
@@ -89,7 +89,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse res)
     std::string jsonStr = j.dump();
 
     //create buffer whit the data and this request commens
-    return createBuffer(ErrorCmd, jsonStr.length(), jsonStr);
+    return createBuffer(GetRoomsCmd, jsonStr.length(), jsonStr);
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse res)
 {
@@ -100,7 +100,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse 
     std::string jsonStr = j.dump();
 
     //create buffer whit the data and this request commens
-    return createBuffer(ErrorCmd, jsonStr.length(), jsonStr);
+    return createBuffer(GetPlayersInRoomCmd, jsonStr.length(), jsonStr);
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse res)
 {
@@ -111,7 +111,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse res)
     std::string jsonStr = j.dump();
 
     //create buffer whit the data and this request commens
-    return createBuffer(ErrorCmd, jsonStr.length(), jsonStr);
+    return createBuffer(JoinRoomCmd, jsonStr.length(), jsonStr);
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse res)
 {
@@ -122,7 +122,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse res)
     std::string jsonStr = j.dump();
 
     //create buffer whit the data and this request commens
-    return createBuffer(ErrorCmd, jsonStr.length(), jsonStr);
+    return createBuffer(CreateRoomCmd, jsonStr.length(), jsonStr);
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(GetHighScoreResponse res)
 {
@@ -134,7 +134,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetHighScoreResponse res)
     std::string jsonStr = j.dump();
 
     //create buffer whit the data and this request commens
-    return createBuffer(ErrorCmd, jsonStr.length(), jsonStr);
+    return createBuffer(GetHighScoreCmd, jsonStr.length(), jsonStr);
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(GetPersonalStatsReponse res)
 {
@@ -146,5 +146,5 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetPersonalStatsReponse r
     std::string jsonStr = j.dump();
 
     //create buffer whit the data and this request commens
-    return createBuffer(ErrorCmd, jsonStr.length(), jsonStr);
+    return createBuffer(GetPersonalStatsCmd, jsonStr.length(), jsonStr);
 }

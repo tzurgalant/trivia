@@ -33,9 +33,9 @@ public:
 
 
 	// user socket and  user name fucniton
-	//std::string getUserName(SOCKET userS);//get user name by his socket
+	LoggedUser getUserBySocket(SOCKET userS);//get user  by his socket
+	//void /*deleteUserSocketName*/(SOCKET userS);//delete on the map the key:userS
 	//void addUserSocketName(SOCKET userS, std::string userN);// add to the map key:userS value:userName
-	//void deleteUserSocketName(SOCKET userS);//delete on the map the key:userS
 
 	static std::string getLoginStatus(LoginStatus status);
 	static std::string getSignupStatus(SignupStatus status);
