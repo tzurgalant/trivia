@@ -15,4 +15,11 @@ public:
 	//question related
 	virtual std::list<Question> getQuestions() = 0;
 
+	//statistics related
+	virtual float getPlayerAverageAnswerTime(std::string userName) = 0;
+	virtual int getNumOfCorrectAnswers(std::string) = 0;
+	virtual int getNumOfTotalAnswers(std::string) = 0;
+	virtual int getNumOfPlayerGames(std::string) = 0;
+	virtual int getPlayerScore(std::string) = 0;
+	virtual std::vector<std::string> getHighScores() = 0;
 };

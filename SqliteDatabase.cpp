@@ -167,3 +167,4 @@ std::list<Question> SqliteDatabase::getQuestions()
 
     return questions;
 }
+

@@ -4,6 +4,7 @@
 #include <io.h>   
 #include "sqlite3.h"
 #include <list>
+#include <vector>
 
 class SqliteDatabase :public IDatabase
 {
@@ -21,6 +22,16 @@ public:
 
 	//questions related
 	std::list<Question> getQuestions() override;
+
+	//statistics related
+	float getPlayerAverageAnswerTime(std::string userName) override;
+	int getNumOfCorrectAnswers(std::string) override;
+	int getNumOfTotalAnswers(std::string) override;
+	int getNumOfPlayerGames(std::string) override;
+
+	//other
+	int getPlayerScore(std::string) override;
+	std::vector<std::string> getHighScores() override;
 
 private:
 	sqlite3* _db = nullptr;
