@@ -1,7 +1,7 @@
 #include "SqliteDatabase.h"
 #include <string>
 
-SqliteDatabase::SqliteDatabase():IDatabase(), _dbFileName("DB")
+SqliteDatabase::SqliteDatabase():IDatabase(), _dbFileName("DB.db")
 {
 
 }
@@ -269,5 +269,68 @@ int SqliteDatabase::getNumOfPlayerGames(std::string userName)
 }
 
 //scores
-int getPlayerScore(std::string)
-std::vector<std::string> getHighScores()
+int SqliteDatabase::getPlayerScore(std::string userName)
+{
+	int playerScore = 0;
+
+	sqlite3_stmt* stmt = nullptr;
+	std::string sqlCmd = "SELECT NUM_CORRECT_ANSWERS, AVG_ANSWER_TIME FROM STATISTICS WHERE USERNAME = '" + userName + "';";
+
+	if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+	{
+		if (sqlite3_step(stmt) == SQLITE_ROW)
+		{
+			int correctAnswers = sqlite3_column_int(stmt, 0);
+			int averageAnswerTime = sqlite3_column_double(stmt, 1);
+
+            playerScore = correctAnswers * (30 - averageAnswerTime); //highscore formula
+		}
+	}
+	else
+	{
+		std::cout << "prepare stmt for getPlayerScore failed" << std::endl;
+	}
+	sqlite3_finalize(stmt);
+
+	return playerScore;
+}
+
+std::vector<std::string> SqliteDatabase::getHighScores()
+{
+	std::vector<std::pair<int, std::string>> highScoresPair;
+
+	sqlite3_stmt* stmt = nullptr;
+	std::string sqlCmd = "SELECT USERNAME, NUM_CORRECT_ANSWERS, AVG_ANSWER_TIME FROM STATISTICS;";
+
+	if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+	{
+		while (sqlite3_step(stmt) == SQLITE_ROW)
+		{
+			const unsigned char* rawText = sqlite3_column_text(stmt, 0);
+			std::string userName = reinterpret_cast<const char*>(rawText);
+
+			int correctAnswers = sqlite3_column_int(stmt, 1);
+			int averageAnswerTime = sqlite3_column_double(stmt, 2);
+
+            int playerScore = correctAnswers * (30 - averageAnswerTime); //highscore formula
+
+            highScoresPair.push_back({ playerScore, userName });
+		}
+	}
+	else
+	{
+		std::cout << "prepare stmt for getHighScores failed" << std::endl;
+	}
+	sqlite3_finalize(stmt);
+
+	std::sort(highScoresPair.rbegin(), highScoresPair.rend()); //sorting the highscores by the score
+
+    std::vector<std::string> highScores;
+
+    for(auto it = highScoresPair.begin(); it != highScoresPair.end(); it++)
+    {
+        highScores.push_back(it->second + ", " + std::to_string(it->first));
+    }
+
+	return highScores;
+}

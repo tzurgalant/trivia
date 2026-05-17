@@ -5,6 +5,7 @@
 #include "sqlite3.h"
 #include <list>
 #include <vector>
+#include <algorithm>
 
 class SqliteDatabase :public IDatabase
 {

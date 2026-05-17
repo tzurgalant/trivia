@@ -1,7 +1,7 @@
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
 
-RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_loginManager(database)
+RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_loginManager(database),m_statisticsManager(database)
 {
 
 }
@@ -24,10 +24,11 @@ void RequestHandlerFactory::changeRequestHandler(RequestResult* res, IRequestHan
 }
 
 
-MenuRequestHandler* RequestHandlerFactory::createMenuRequestHanlder()
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHanlder(LoggedUser Luser)
 {
-	return new  MenuRequestHandler(*this);
+	return new  MenuRequestHandler(*this,Luser);
 }
+
 
 LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 {
@@ -36,4 +37,14 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 LoginManager& RequestHandlerFactory::getLoginManager() 
 {
 	return m_loginManager;
+}
+
+RoomManager& RequestHandlerFactory::getRoomManager()
+{
+    return m_roomManager;
+}
+
+StatisticsManager& RequestHandlerFactory::getStatisticsManager()
+{
+    return m_statisticsManager;
 }

@@ -20,10 +20,11 @@ enum CodeR : Byte {
     LogoutCmd,
     GetRoomsCmd,
     GetPlayersInRoomCmd,
+    GetPersonalStatsCmd,
     JoinRoomCmd,
     CreateRoomCmd,
-    GetHighScoreResponseCmd,
-    GetPersonalStatsCmd
+    GetHighScoreCmd
+    
 };
 
 //for the serialzer
