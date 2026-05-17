@@ -21,6 +21,7 @@ bool SqliteDatabase::open()
             "NAME TEXT PRIMARY KEY NOT NULL,"
             "PASS TEXT NOT NULL,"
             "EMAIL TEXT NOT NULL); ";
+
         const char* sqlQuestions = "CREATE TABLE IF NOT EXISTS QUESTIONS ("
             "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
             "QUESTION TEXT NOT NULL,"
@@ -30,7 +31,15 @@ bool SqliteDatabase::open()
             "ANSWER4 TEXT NOT NULL,"
             "CORRECT_ANSWER INTEGER NOT NULL);";
 
-        const char* sqlCommends[] = {sqlUsers, sqlQuestions};
+        const char* sqlStatistics = "CREATE TABLE IF NOT EXISTS STATISTICS("
+            "USERNAME TEXT PRIMARY KEY NOT NULL, "
+            "AVG_ANSWER_TIME REAL NOT NULL DEFAULT 0.0, "
+            "NUM_CORRECT_ANSWERS INTEGER NOT NULL DEFAULT 0, "
+            "NUM_TOTAL_ANSWERS INTEGER NOT NULL DEFAULT 0, "
+            "NUM_PLAYED_GAMES INTEGER NOT NULL DEFAULT 0, "
+            "FOREIGN KEY(USERNAME) REFERENCES USERS(NAME));";
+
+        const char* sqlCommends[] = {sqlUsers, sqlQuestions, sqlStatistics};
 
         for (const char* cmd : sqlCommends) {
             res = sqlite3_exec(_db, cmd, nullptr, nullptr, &errMes);
@@ -168,3 +177,41 @@ std::list<Question> SqliteDatabase::getQuestions()
     return questions;
 }
 
+//statistics related
+float SqliteDatabase::getPlayerAverageAnswerTime(std::string userName)
+{
+    float averageAnswerTime = 0;
+
+    sqlite3_stmt* stmt = nullptr;
+    std::string sqlCmd = "SELECT AVG_ANSWER_TIME FROM STATISTICS WHERE USERNAME ="  + userName + "';";
+
+    if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+    {
+        while (sqlite3_step(stmt) == SQLITE_ROW)
+        {
+            averageAnswerTime = sqlite3_column_int(stmt, 1);
+        }
+    }
+    else
+    {
+        std::cout << "prepare stmt for getPlayerAverageAnswerTime failed" << std::endl;
+    }
+    sqlite3_finalize(stmt);
+
+    return averageAnswerTime;
+}
+
+int SqliteDatabase::getNumOfCorrectAnswers(std::string)
+{
+
+}
+
+int SqliteDatabase::getNumOfTotalAnswers(std::string)
+{
+
+}
+
+int SqliteDatabase::getNumOfPlayerGames(std::string)
+{
+
+}
