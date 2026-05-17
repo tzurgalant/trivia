@@ -267,3 +267,7 @@ int SqliteDatabase::getNumOfPlayerGames(std::string userName)
 
 	return playerGames;
 }
+
+//scores
+int getPlayerScore(std::string)
+std::vector<std::string> getHighScores()

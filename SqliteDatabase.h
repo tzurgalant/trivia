@@ -29,7 +29,7 @@ public:
 	int getNumOfTotalAnswers(std::string) override;
 	int getNumOfPlayerGames(std::string) override;
 
-	//other
+	//scores
 	int getPlayerScore(std::string) override;
 	std::vector<std::string> getHighScores() override;
 
