@@ -10,7 +10,8 @@ static void to_json(json& j, const RoomData& r) {// because we have a vector of 
         {"name", r.name},
         {"maxPlayers", r.maxPlayers},
         {"numOfQuestionsInGame", r.numOfQuestionsInGame},
-        {"timePerQuestion", r.timePerQuestion}
+        {"timePerQuestion", r.timePerQuestion},
+        {"room status",r.status}
     };
 }
 

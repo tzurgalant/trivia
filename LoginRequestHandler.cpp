@@ -64,7 +64,6 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
     }
     res.response = JsonResponsePacketSerializer::serializeResponse(LoginResponse);
     return res;
-
 }
 
 RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)

@@ -150,8 +150,6 @@ std::list<Question> SqliteDatabase::getQuestions()
             const unsigned char* rawText = sqlite3_column_text(stmt, 1);
             std::string question = reinterpret_cast<const char*>(rawText);
 
-            //Question(const std::string question, const std::vector<std::string>& possibleAnswers, int correctAnswer);
-
             std::vector<std::string> possibleAnswers;
 
             for (int i = 2; i <= 5; i++)
@@ -183,13 +181,13 @@ float SqliteDatabase::getPlayerAverageAnswerTime(std::string userName)
     float averageAnswerTime = 0;
 
     sqlite3_stmt* stmt = nullptr;
-    std::string sqlCmd = "SELECT AVG_ANSWER_TIME FROM STATISTICS WHERE USERNAME ="  + userName + "';";
+    std::string sqlCmd = "SELECT AVG_ANSWER_TIME FROM STATISTICS WHERE USERNAME = '"  + userName + "';";
 
     if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
     {
-        while (sqlite3_step(stmt) == SQLITE_ROW)
+        if (sqlite3_step(stmt) == SQLITE_ROW)
         {
-            averageAnswerTime = sqlite3_column_int(stmt, 1);
+            averageAnswerTime = sqlite3_column_double(stmt, 0);
         }
     }
     else
@@ -201,17 +199,71 @@ float SqliteDatabase::getPlayerAverageAnswerTime(std::string userName)
     return averageAnswerTime;
 }
 
-int SqliteDatabase::getNumOfCorrectAnswers(std::string)
+int SqliteDatabase::getNumOfCorrectAnswers(std::string userName)
 {
+    int correctAnswers = 0;
 
+    sqlite3_stmt* stmt = nullptr;
+    std::string sqlCmd = "SELECT NUM_CORRECT_ANSWERS FROM STATISTICS WHERE USERNAME = '" + userName + "';";
+
+    if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+    {
+        if (sqlite3_step(stmt) == SQLITE_ROW)
+        {
+            correctAnswers = sqlite3_column_int(stmt, 0);
+        }
+    }
+    else
+    {
+        std::cout << "prepare stmt for getNumOfCorrectAnswers failed" << std::endl;
+    }
+    sqlite3_finalize(stmt);
+
+    return correctAnswers;
 }
 
-int SqliteDatabase::getNumOfTotalAnswers(std::string)
+int SqliteDatabase::getNumOfTotalAnswers(std::string userName)
 {
+	int totalAnswers = 0;
 
+	sqlite3_stmt* stmt = nullptr;
+	std::string sqlCmd = "SELECT NUM_TOTAL_ANSWERS FROM STATISTICS WHERE USERNAME = '" + userName + "';";
+
+	if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+	{
+		if (sqlite3_step(stmt) == SQLITE_ROW)
+		{
+			totalAnswers = sqlite3_column_int(stmt, 0);
+		}
+	}
+	else
+	{
+		std::cout << "prepare stmt for getNumOfTotalAnswers failed" << std::endl;
+	}
+	sqlite3_finalize(stmt);
+
+	return totalAnswers;
 }
 
-int SqliteDatabase::getNumOfPlayerGames(std::string)
+int SqliteDatabase::getNumOfPlayerGames(std::string userName)
 {
+	int playerGames = 0;
 
+	sqlite3_stmt* stmt = nullptr;
+	std::string sqlCmd = "SELECT NUM_PLAYED_GAMES FROM STATISTICS WHERE USERNAME = '" + userName + "';";
+
+	if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+	{
+		if (sqlite3_step(stmt) == SQLITE_ROW)
+		{
+			playerGames = sqlite3_column_int(stmt, 0);
+		}
+	}
+	else
+	{
+		std::cout << "prepare stmt for getNumOfPlayerGames failed" << std::endl;
+	}
+	sqlite3_finalize(stmt);
+
+	return playerGames;
 }

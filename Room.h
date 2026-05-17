@@ -2,6 +2,10 @@
 #include <iostream>
 #include "LoggedUser.h"
 #include <vector>
+
+typedef bool RoomStatus;
+
+
 struct RoomData
 {
 	unsigned int id;
@@ -9,7 +13,7 @@ struct RoomData
 	unsigned int maxPlayers;
 	unsigned int numOfQuestionsInGame;
 	unsigned int timePerQuestion;
-	// need to add rom status
+	RoomStatus status;
 };
 
 
@@ -24,3 +28,4 @@ public:
 	void removeUsers(LoggedUser Luser);
 	std::vector<std::string> getAllUsers();
 };
+
