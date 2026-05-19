@@ -4,17 +4,20 @@ void RoomManager::createRoom(LoggedUser loggedUser, RoomData roomData)
 {
 	//need to chec if the rome id is exist
 	roomData.id = getNextRoomID();
-	m_rooms[roomData.id] = Room(roomData);
-	m_rooms[roomData.id].addUser(loggedUser);
+	m_rooms.emplace(roomData.id, Room(roomData));
+	m_rooms.at(roomData.id).addUser(loggedUser);
 }
+
 void  RoomManager::deleteRoom(int ID)
 {
 	m_rooms.erase(ID);
 }
+
 RoomStatus  RoomManager::getRoomState(int ID)
 {
-	return m_rooms[ID].getRoomData().status;
+	return m_rooms.at(ID).getRoomData().status;
 }
+
 std::vector<RoomData> RoomManager::getRooms()
 {
 	std::vector<RoomData> roomsData;
@@ -25,7 +28,7 @@ std::vector<RoomData> RoomManager::getRooms()
 }
 Room& RoomManager::getRoom(int ID)
 {
-	return m_rooms[ID];
+	return m_rooms.at(ID);
 }
 
 int RoomManager::getNextRoomID()

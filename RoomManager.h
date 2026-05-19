@@ -17,4 +17,3 @@ private:
 	std::map<unsigned int, Room> m_rooms;
 	int m_roomID = 0;
 };
-
