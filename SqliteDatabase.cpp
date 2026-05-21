@@ -5,7 +5,7 @@ SqliteDatabase::SqliteDatabase():IDatabase(), _dbFileName("DB.db")
 {}
 
 SqliteDatabase::~SqliteDatabase()
-{ }
+{}
 
 bool SqliteDatabase::open() 
 {
