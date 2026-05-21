@@ -2,15 +2,8 @@
 {
     partial class LoginForm
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,89 +15,76 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            TextUserPass = new TextBox();
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
+            txtEmail = new TextBox();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            button1 = new Button();
             label4 = new Label();
-            textBox2 = new TextBox();
-            button2 = new Button();
+            btnLogin = new Button();
+            btnSignUp = new Button();
+            panel1 = new Panel();
+            button4 = new Button();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // textBox1
+            // txtUsername
             // 
-            textBox1.AccessibleName = "TxtUserName";
-            textBox1.Location = new Point(416, 342);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
-            textBox1.TabIndex = 0;
-            textBox1.TextChanged += textBox1_TextChanged;
+            txtUsername.Location = new Point(416, 342);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(150, 31);
+            txtUsername.TabIndex = 0;
             // 
-            // TextUserPass
+            // txtPassword
             // 
-            TextUserPass.AccessibleName = "TxtUserPass";
-            TextUserPass.BackColor = SystemColors.HighlightText;
-            TextUserPass.Location = new Point(416, 441);
-            TextUserPass.Name = "TextUserPass";
-            TextUserPass.Size = new Size(150, 31);
-            TextUserPass.TabIndex = 1;
-            TextUserPass.UseSystemPasswordChar = true;
-            TextUserPass.TextChanged += TextUserPass_TextChanged;
+            txtPassword.BackColor = SystemColors.HighlightText;
+            txtPassword.Location = new Point(416, 448);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(150, 31);
+            txtPassword.TabIndex = 2;
+            txtPassword.UseSystemPasswordChar = true;
+            // 
+            // txtEmail
+            // 
+            txtEmail.Location = new Point(416, 395);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(150, 31);
+            txtEmail.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = SystemColors.ControlDarkDark;
+            label1.BackColor = Color.FromArgb(64, 64, 64);
             label1.Font = new Font("Segoe UI Emoji", 22F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.Control;
             label1.Location = new Point(323, 162);
             label1.Name = "label1";
             label1.Size = new Size(319, 58);
-            label1.TabIndex = 2;
+            label1.TabIndex = 5;
             label1.Text = "TRIVIA LOGIN ";
-            label1.UseMnemonic = false;
-            label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.ForeColor = Color.White;
-            label2.Location = new Point(323, 348);
+            label2.Location = new Point(323, 345);
             label2.Name = "label2";
             label2.Size = new Size(59, 25);
             label2.TabIndex = 3;
             label2.Text = "Name";
-            label2.Click += label2_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.ForeColor = Color.White;
-            label3.Location = new Point(323, 441);
+            label3.Location = new Point(323, 451);
             label3.Name = "label3";
             label3.Size = new Size(87, 25);
             label3.TabIndex = 4;
             label3.Text = "Password";
-            // 
-            // button1
-            // 
-            button1.AccessibleName = "btnLogin";
-            button1.BackColor = Color.Aqua;
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(425, 546);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 5;
-            button1.Text = "LOGIN";
-            button1.UseVisualStyleBackColor = false;
             // 
             // label4
             // 
@@ -115,66 +95,93 @@
             label4.Size = new Size(54, 25);
             label4.TabIndex = 8;
             label4.Text = "Email";
-            label4.Click += this.label4_Click;
             // 
-            // textBox2
+            // btnLogin
             // 
-            textBox2.AccessibleName = "TxtUserEmail";
-            textBox2.BackColor = SystemColors.HighlightText;
-            textBox2.Location = new Point(416, 392);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(150, 31);
-            textBox2.TabIndex = 7;
-            textBox2.UseSystemPasswordChar = true;
-            textBox2.TextChanged += this.textBox2_TextChanged;
+            btnLogin.BackColor = Color.Aqua;
+            btnLogin.ForeColor = Color.Black;
+            btnLogin.Location = new Point(350, 546);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(112, 34);
+            btnLogin.TabIndex = 6;
+            btnLogin.Text = "LOGIN";
+            btnLogin.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnSignUp
             // 
-            button2.AccessibleName = "btnSignUp";
-            button2.BackColor = Color.Aqua;
-            button2.ForeColor = Color.Black;
-            button2.Location = new Point(561, 546);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 34);
-            button2.TabIndex = 9;
-            button2.Text = "SIGN UP";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            btnSignUp.BackColor = Color.Aqua;
+            btnSignUp.ForeColor = Color.Black;
+            btnSignUp.Location = new Point(500, 546);
+            btnSignUp.Name = "btnSignUp";
+            btnSignUp.Size = new Size(112, 34);
+            btnSignUp.TabIndex = 7;
+            btnSignUp.Text = "SIGN UP";
+            btnSignUp.UseVisualStyleBackColor = false;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(64, 75, 64);
+            panel1.Controls.Add(button4);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(200, 744);
+            panel1.TabIndex = 9;
+            // 
+            // button4
+            // 
+            button4.AccessibleName = "btnExit";
+            button4.BackgroundImageLayout = ImageLayout.None;
+            button4.Cursor = Cursors.Hand;
+            button4.FlatAppearance.BorderSize = 0;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Font = new Font("Segoe UI Symbol", 12F);
+            button4.ForeColor = SystemColors.Control;
+            button4.Location = new Point(0, 691);
+            button4.Name = "button4";
+            button4.Size = new Size(200, 50);
+            button4.TabIndex = 7;
+            button4.Text = "Exit";
+            button4.UseVisualStyleBackColor = true;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ControlDarkDark;
+            BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(978, 744);
-            Controls.Add(button2);
+            Controls.Add(panel1);
+            Controls.Add(btnSignUp);
             Controls.Add(label4);
-            Controls.Add(textBox2);
-            Controls.Add(button1);
+            Controls.Add(txtEmail);
+            Controls.Add(btnLogin);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(TextUserPass);
-            Controls.Add(textBox1);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUsername);
             ForeColor = Color.DarkGray;
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LoginForm";
-            Load += Form1_Load;
+            Load += LoginForm_Load;
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private TextBox textBox1;
-        private TextBox TextUserPass;
+        private TextBox txtUsername;
+        private TextBox txtPassword;
+        private TextBox txtEmail;
         private Label label1;
         private Label label2;
         private Label label3;
-        private Button button1;
         private Label label4;
-        private TextBox textBox2;
-        private Button button2;
+        private Button btnLogin;
+        private Button btnSignUp;
+        private Panel panel1;
+        private Button button4;
     }
 }
