@@ -96,11 +96,17 @@ namespace clientGraphic
             Font = new Font("Microsoft Sans Serif", 8.25F);
             Name = "joinRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
+            Load += joinRoomForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         private Button btnJoin;
         private Button btnBack;
+
+        private void joinRoomForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
