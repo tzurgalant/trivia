@@ -31,6 +31,7 @@
             panel1 = new Panel();
             panel2 = new Panel();
             pnlRoomDetails = new Panel();
+            lblShowPlayers = new Label();
             panel4 = new Panel();
             panel3 = new Panel();
             PlayersList = new ListBox();
@@ -41,11 +42,10 @@
             label3 = new Label();
             textBox3 = new TextBox();
             textBox2 = new TextBox();
-            button1 = new Button();
+            btnStartRoom = new Button();
             textBox1 = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            lblShowPlayers = new Label();
             panel1.SuspendLayout();
             pnlRoomDetails.SuspendLayout();
             SuspendLayout();
@@ -61,7 +61,7 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(textBox3);
             panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnStartRoom);
             panel1.Controls.Add(textBox1);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
@@ -92,6 +92,17 @@
             pnlRoomDetails.Size = new Size(197, 275);
             pnlRoomDetails.TabIndex = 8;
             pnlRoomDetails.Paint += pnlRoomDetails_Paint;
+            // 
+            // lblShowPlayers
+            // 
+            lblShowPlayers.AutoSize = true;
+            lblShowPlayers.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblShowPlayers.ForeColor = SystemColors.ButtonFace;
+            lblShowPlayers.Location = new Point(4, 68);
+            lblShowPlayers.Name = "lblShowPlayers";
+            lblShowPlayers.Size = new Size(102, 25);
+            lblShowPlayers.TabIndex = 16;
+            lblShowPlayers.Text = "Players List:";
             // 
             // panel4
             // 
@@ -192,22 +203,22 @@
             textBox2.Size = new Size(150, 31);
             textBox2.TabIndex = 9;
             // 
-            // button1
+            // btnStartRoom
             // 
-            button1.AccessibleName = "btnCreateRoom";
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI Symbol", 12F);
-            button1.ForeColor = SystemColors.Control;
-            button1.Location = new Point(-3, 314);
-            button1.Name = "button1";
-            button1.Size = new Size(200, 50);
-            button1.TabIndex = 4;
-            button1.Text = "Start Room";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button3_Click;
+            btnStartRoom.AccessibleName = "btnCreateRoom";
+            btnStartRoom.BackgroundImageLayout = ImageLayout.None;
+            btnStartRoom.Cursor = Cursors.Hand;
+            btnStartRoom.FlatAppearance.BorderSize = 0;
+            btnStartRoom.FlatStyle = FlatStyle.Flat;
+            btnStartRoom.Font = new Font("Segoe UI Symbol", 12F);
+            btnStartRoom.ForeColor = SystemColors.Control;
+            btnStartRoom.Location = new Point(-3, 314);
+            btnStartRoom.Name = "btnStartRoom";
+            btnStartRoom.Size = new Size(200, 50);
+            btnStartRoom.TabIndex = 4;
+            btnStartRoom.Text = "Start Room";
+            btnStartRoom.UseVisualStyleBackColor = true;
+            btnStartRoom.Click += button3_Click;
             // 
             // textBox1
             // 
@@ -239,17 +250,6 @@
             label1.TabIndex = 6;
             label1.Text = "Create Room";
             // 
-            // lblShowPlayers
-            // 
-            lblShowPlayers.AutoSize = true;
-            lblShowPlayers.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblShowPlayers.ForeColor = SystemColors.ButtonFace;
-            lblShowPlayers.Location = new Point(4, 68);
-            lblShowPlayers.Name = "lblShowPlayers";
-            lblShowPlayers.Size = new Size(102, 25);
-            lblShowPlayers.TabIndex = 16;
-            lblShowPlayers.Text = "Players List:";
-            // 
             // RoomForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -272,7 +272,7 @@
         #endregion
 
         private Panel panel1;
-        private Button button1;
+        private Button btnStartRoom;
         private Button button4;
         private TextBox textBox2;
         private TextBox textBox1;
