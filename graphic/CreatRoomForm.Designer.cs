@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnReturn = new Button();
             panel2 = new Panel();
             pnlRoomDetails = new Panel();
             lblShowPlayers = new Label();
@@ -38,12 +39,12 @@
             lblShowAdmin = new Label();
             label5 = new Label();
             label4 = new Label();
-            button4 = new Button();
+            btnExit = new Button();
             label3 = new Label();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
+            txtNumOfPlayers = new TextBox();
+            txtTimeForQustion = new TextBox();
             btnStartRoom = new Button();
-            textBox1 = new TextBox();
+            txtRoomName = new TextBox();
             label2 = new Label();
             label1 = new Label();
             panel1.SuspendLayout();
@@ -53,22 +54,39 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 75, 64);
+            panel1.Controls.Add(btnReturn);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(pnlRoomDetails);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(button4);
+            panel1.Controls.Add(btnExit);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(textBox3);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(txtNumOfPlayers);
+            panel1.Controls.Add(txtTimeForQustion);
             panel1.Controls.Add(btnStartRoom);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtRoomName);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(200, 744);
             panel1.TabIndex = 0;
-            panel1.Paint += panel1_Paint;
+            // 
+            // btnReturn
+            // 
+            btnReturn.AccessibleName = "btnReturnToMenu";
+            btnReturn.BackgroundImageLayout = ImageLayout.None;
+            btnReturn.Cursor = Cursors.Hand;
+            btnReturn.FlatAppearance.BorderSize = 0;
+            btnReturn.FlatStyle = FlatStyle.Flat;
+            btnReturn.Font = new Font("Segoe UI Symbol", 12F);
+            btnReturn.ForeColor = SystemColors.Control;
+            btnReturn.Location = new Point(3, 651);
+            btnReturn.Name = "btnReturn";
+            btnReturn.Size = new Size(200, 44);
+            btnReturn.TabIndex = 14;
+            btnReturn.Text = "Return To Menu";
+            btnReturn.UseVisualStyleBackColor = true;
+            btnReturn.Click += btnReturn_Click;
             // 
             // panel2
             // 
@@ -91,7 +109,7 @@
             pnlRoomDetails.Name = "pnlRoomDetails";
             pnlRoomDetails.Size = new Size(197, 275);
             pnlRoomDetails.TabIndex = 8;
-            pnlRoomDetails.Paint += pnlRoomDetails_Paint;
+            pnlRoomDetails.Visible = false;
             // 
             // lblShowPlayers
             // 
@@ -131,7 +149,6 @@
             PlayersList.Name = "PlayersList";
             PlayersList.Size = new Size(191, 129);
             PlayersList.TabIndex = 3;
-            PlayersList.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // lblShowAdmin
             // 
@@ -163,21 +180,22 @@
             label4.TabIndex = 12;
             label4.Text = "Time For Qustion";
             // 
-            // button4
+            // btnExit
             // 
-            button4.AccessibleName = "btnExit";
-            button4.BackgroundImageLayout = ImageLayout.None;
-            button4.Cursor = Cursors.Hand;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Segoe UI Symbol", 12F);
-            button4.ForeColor = SystemColors.Control;
-            button4.Location = new Point(-3, 694);
-            button4.Name = "button4";
-            button4.Size = new Size(200, 50);
-            button4.TabIndex = 6;
-            button4.Text = "Exit";
-            button4.UseVisualStyleBackColor = true;
+            btnExit.AccessibleName = "btnExit";
+            btnExit.BackgroundImageLayout = ImageLayout.None;
+            btnExit.Cursor = Cursors.Hand;
+            btnExit.FlatAppearance.BorderSize = 0;
+            btnExit.FlatStyle = FlatStyle.Flat;
+            btnExit.Font = new Font("Segoe UI Symbol", 12F);
+            btnExit.ForeColor = SystemColors.Control;
+            btnExit.Location = new Point(-3, 694);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(200, 50);
+            btnExit.TabIndex = 6;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // label3
             // 
@@ -189,19 +207,21 @@
             label3.TabIndex = 11;
             label3.Text = "Room Name";
             // 
-            // textBox3
+            // txtNumOfPlayers
             // 
-            textBox3.Location = new Point(26, 260);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(150, 31);
-            textBox3.TabIndex = 10;
+            txtNumOfPlayers.AccessibleName = "txtNumOfPlayers";
+            txtNumOfPlayers.Location = new Point(26, 260);
+            txtNumOfPlayers.Name = "txtNumOfPlayers";
+            txtNumOfPlayers.Size = new Size(150, 31);
+            txtNumOfPlayers.TabIndex = 10;
             // 
-            // textBox2
+            // txtTimeForQustion
             // 
-            textBox2.Location = new Point(26, 184);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(150, 31);
-            textBox2.TabIndex = 9;
+            txtTimeForQustion.AccessibleName = "txtTimeForQustion";
+            txtTimeForQustion.Location = new Point(26, 184);
+            txtTimeForQustion.Name = "txtTimeForQustion";
+            txtTimeForQustion.Size = new Size(150, 31);
+            txtTimeForQustion.TabIndex = 9;
             // 
             // btnStartRoom
             // 
@@ -218,14 +238,15 @@
             btnStartRoom.TabIndex = 4;
             btnStartRoom.Text = "Start Room";
             btnStartRoom.UseVisualStyleBackColor = true;
-            btnStartRoom.Click += button3_Click;
+            btnStartRoom.Click += btnStartRoom_Click;
             // 
-            // textBox1
+            // txtRoomName
             // 
-            textBox1.Location = new Point(26, 113);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
-            textBox1.TabIndex = 8;
+            txtRoomName.AccessibleName = "txtRoomName";
+            txtRoomName.Location = new Point(26, 113);
+            txtRoomName.Name = "txtRoomName";
+            txtRoomName.Size = new Size(150, 31);
+            txtRoomName.TabIndex = 8;
             // 
             // label2
             // 
@@ -250,7 +271,7 @@
             label1.TabIndex = 6;
             label1.Text = "Create Room";
             // 
-            // RoomForm
+            // CreatRoomForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -259,7 +280,9 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(panel1);
-            Name = "RoomForm";
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "CreatRoomForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "RoomForm";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -273,12 +296,12 @@
 
         private Panel panel1;
         private Button btnStartRoom;
-        private Button button4;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private Button btnExit;
+        private TextBox txtTimeForQustion;
+        private TextBox txtRoomName;
         private Label label2;
         private Label label1;
-        private TextBox textBox3;
+        private TextBox txtNumOfPlayers;
         private Label label5;
         private Label label4;
         private Label label3;
@@ -289,5 +312,6 @@
         private Panel panel3;
         private Panel panel4;
         private Label lblShowPlayers;
+        private Button btnReturn;
     }
 }

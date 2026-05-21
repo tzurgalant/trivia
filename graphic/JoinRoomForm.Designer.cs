@@ -2,11 +2,6 @@
 {
     public partial class JoinRoomForm : Form
     {
-        public JoinRoomForm()
-        {
-            InitializeComponent();
-        }
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -46,6 +41,7 @@
             btnRefresh.TabIndex = 2;
             btnRefresh.Text = "Refresh List";
             btnRefresh.UseVisualStyleBackColor = false;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // btnJoin
             // 
@@ -58,6 +54,7 @@
             btnJoin.TabIndex = 3;
             btnJoin.Text = "Join Room";
             btnJoin.UseVisualStyleBackColor = false;
+            btnJoin.Click += joinRoom_Click;
             // 
             // btnBack
             // 
@@ -68,8 +65,9 @@
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(250, 53);
             btnBack.TabIndex = 4;
-            btnBack.Text = "Back";
+            btnBack.Text = "Return To Menu";
             btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
             // 
             // label2
             // 
@@ -93,6 +91,7 @@
             Controls.Add(btnRefresh);
             Controls.Add(listBoxRooms);
             Font = new Font("Microsoft Sans Serif", 8.25F);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "JoinRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
             Load += joinRoomForm_Load;

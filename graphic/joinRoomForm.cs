@@ -16,5 +16,21 @@ namespace clientGraphic
         {
             InitializeComponent();
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            MenuForm FormWindow = new MenuForm();
+            FormWindow.Show();
+            this.Hide();
+        }
+        private void joinRoom_Click(object sender, EventArgs e)
+        {
+            /// need to have a play form before...
+        }
     }
 }

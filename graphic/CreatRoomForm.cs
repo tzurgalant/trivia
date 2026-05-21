@@ -15,27 +15,40 @@ namespace clientGraphic
         public CreatRoomForm()
         {
             InitializeComponent();
+            if (Helper._currentUser.Name != null)
+            {
+                label2.Text = "Welcom," + Helper._currentUser.Name + "!!";
+            }
+            else
+            {
+                label2.Text = "Welcom, Player!";
+            }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnStartRoom_Click(object sender, EventArgs e)
         {
+            string roomName = txtRoomName.Text;
+            string numOfPlayers = txtNumOfPlayers.Text.Trim();
+            string timeForQustion = txtTimeForQustion.Text.Trim();
+
+            if (string.IsNullOrEmpty(roomName) || string.IsNullOrEmpty(numOfPlayers) || string.IsNullOrEmpty(timeForQustion))
+            {
+                MessageBox.Show("Please fill in all fields!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            pnlRoomDetails.Visible = true;
 
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
-
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnReturn_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void pnlRoomDetails_Paint(object sender, PaintEventArgs e)
-        {
-
+            pnlRoomDetails.Visible = false;
+            MenuForm FormWindow = new MenuForm();
+            FormWindow.Show();
+            this.Hide();
         }
     }
 }
