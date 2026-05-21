@@ -1,6 +1,6 @@
 ﻿namespace clientGraphic
 {
-    partial class RoomForm
+    partial class CreatRoomForm
     {
         /// <summary>
         /// Required designer variable.

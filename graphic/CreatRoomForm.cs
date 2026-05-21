@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace clientGraphic
 {
-    public partial class RoomForm : Form
+    public partial class CreatRoomForm : Form
     {
-        public RoomForm()
+        public CreatRoomForm()
         {
             InitializeComponent();
         }
