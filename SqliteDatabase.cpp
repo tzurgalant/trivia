@@ -2,9 +2,8 @@
 #include <string>
 
 SqliteDatabase::SqliteDatabase():IDatabase(), _dbFileName("DB.db")
-{
+{}
 
-}
 SqliteDatabase::~SqliteDatabase()
 { }
 
