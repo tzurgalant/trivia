@@ -4,14 +4,23 @@
 #include <string>
 
 
-Server::Server():m_communicator(Communicator())
+Server::Server():m_database(new SqliteDatabase()), m_handleFactory(m_database),m_communicator(m_handleFactory)
 {
-
+    if (!m_database->open())
+    {
+        std::cerr << "Error: Could not open database file!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Database opened successfully." << std::endl;
+    }
 }
+
 Server::~Server()
 {
     shutdown();
 }
+
 void Server::run()
 {
     std::cout << "Server is starting to run..." << std::endl;

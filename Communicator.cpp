@@ -1,11 +1,12 @@
 #include "Communicator.h"
 #include "LoginRequestHandler.h"
+#include "JsonResponsePacketSerializer.h"
 #include <typeinfo>
-Communicator::Communicator()
+
+Communicator::Communicator(RequestHandlerFactory& handleFactory):m_handleFactory(handleFactory)
 {
 
 	// this server use TCP. that why SOCK_STREAM & IPPROTO_TCP
-	// if the server use UDP we will use: SOCK_DGRAM & IPPROTO_UDP
 	m_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (m_serverSocket == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__ " - socket");
@@ -34,7 +35,7 @@ void Communicator::startHandleRequest()
 		std::cout << "Client accepted. Server and client can speak" << std::endl;
 		//now we create a thread for each clients and pass the clientHandler fucniton as thread
 
-		m_clients[clientSocket] = new LoginRequestHandler();
+		m_clients[clientSocket] = m_handleFactory.createLoginRequestHandler();
 		std::thread clientThread(&Communicator::handleNewClient, this, clientSocket);
 		clientThread.detach();
 	}
@@ -90,6 +91,10 @@ void Communicator::handleNewClient(SOCKET userS)
 	{
 		while (true)
 		{
+			if (m_clients[userS] == nullptr)
+			{
+				throw std::exception("");
+			}
 			RequestInfo reqInfo;
 			char header[5];// need to know the size fo the message before recv it and kecp it in buffer...
 			if (!receiveAll(userS, header, 5))
@@ -102,13 +107,14 @@ void Communicator::handleNewClient(SOCKET userS)
 			messageLength |= (Byte)header[4];
 
 			//affter we get the length we can recv the message
-
-			if (!receiveAll(userS, (char*)reqInfo.buff.data(), messageLength))			{
+			reqInfo.buff.resize(messageLength);
+			if (!receiveAll(userS, (char*)reqInfo.buff.data(), messageLength)) {
 				throw std::exception("error in recv mssage data");
 
 			}
 			reqInfo.id = (Byte)header[0];
 			reqInfo.receivalTime = std::time(nullptr);
+			reqInfo.userSocket = userS;
 			if (m_clients[userS]->isRequestRelevant(reqInfo))// put the user requset in the handler taht now found on the handler fucatry and check if the this 'valid' request for this state before we even start to work on the packet
 			{
 				try
@@ -118,26 +124,31 @@ void Communicator::handleNewClient(SOCKET userS)
 	
 					sendAll(userS, (char*)handlerRes.response.data(), handlerRes.response.size());
 
-					m_clients[userS] = handlerRes.newHandler;//after all change the hander for the next handler 
 
+					if (handlerRes.newHandler != nullptr)
+					{
+						m_handleFactory.changeRequestHandler(&handlerRes, m_clients[userS]);
+					}
 				}
 				catch (const std::exception& e)
 				{
 					std::cout << "Exception in handler request part: " << e.what() << std::endl;
 
 				}
-
 			}
 			else
 			{
-				std::cout << "user request not relevant!\n";
+				ErrorResponse res = ErrorResponse();
+				res.message = "the message is not relevant!!!";
+				sendAll(userS, (char*)JsonResponsePacketSerializer::serializeResponse(res).data(),JsonResponsePacketSerializer::serializeResponse(res).size());
+
 			}
 		}
 	}
 	catch (const std::exception& e) {
 		std::cout << "Exception in clientHandler: " << e.what() << std::endl;
+		m_handleFactory.getLoginManager().log_off(userS);// log off whit the user socket and not whit the name...
 	}
-
 	closeClient(userS);
 }
 void Communicator::closeClient(SOCKET userS)

@@ -8,13 +8,15 @@
 #include "mutex"
 #include "Communicator.h"
 #include "IRequestHandler.h"
+#include "RequestHandlerFactory.h"
 #include <iostream>
 #define PORT 12345
 
 class Communicator
 {
 public:
-	Communicator();
+	Communicator() = default;
+	Communicator(RequestHandlerFactory& handleFactory);
 	~Communicator();
 
 
@@ -22,11 +24,12 @@ public:
 	void startHandleRequest();
 	void closeAllClients();
 private:
-	void bindAndLsiten() const ;
+
+	RequestHandlerFactory& m_handleFactory;
+	SOCKET m_serverSocket;
+	std::map <SOCKET, IRequestHandler *> m_clients;// map whhaty the handler now for the client
+	void bindAndLsiten() const;
 	void handleNewClient(SOCKET userS);
 	void closeClient(SOCKET userS);
-
-	SOCKET m_serverSocket;
-	std::map <SOCKET, IRequestHandler *> m_clients;
 };
 
