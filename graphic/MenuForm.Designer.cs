@@ -1,16 +1,12 @@
-﻿namespace clientGraphic
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace clientGraphic
 {
     partial class MenuForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,18 +18,15 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            btnLogin = new Button();
-            btnSignUp = new Button();
             btnJoinRoom = new Button();
             btnCreateRoom = new Button();
             btnStatistics = new Button();
+            btnHighScores = new Button();
+            btnLogin = new Button();
+            btnSignUp = new Button();
             btnExit = new Button();
             label1 = new Label();
             label2 = new Label();
@@ -43,66 +36,32 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(64, 75, 64);
-            panel1.Controls.Add(btnLogin);
-            panel1.Controls.Add(btnSignUp);
+            panel1.BackColor = Color.FromArgb(45, 45, 45);
             panel1.Controls.Add(btnJoinRoom);
             panel1.Controls.Add(btnCreateRoom);
             panel1.Controls.Add(btnStatistics);
+            panel1.Controls.Add(btnHighScores);
+            panel1.Controls.Add(btnLogin);
+            panel1.Controls.Add(btnSignUp);
             panel1.Controls.Add(btnExit);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(200, 744);
+            panel1.Size = new Size(220, 744);
             panel1.TabIndex = 0;
-            // 
-            // btnLogin
-            // 
-            btnLogin.AccessibleName = "btnLogin";
-            btnLogin.BackgroundImageLayout = ImageLayout.None;
-            btnLogin.Cursor = Cursors.Hand;
-            btnLogin.FlatAppearance.BorderSize = 0;
-            btnLogin.FlatStyle = FlatStyle.Flat;
-            btnLogin.Font = new Font("Segoe UI Symbol", 12F);
-            btnLogin.ForeColor = SystemColors.Control;
-            btnLogin.Location = new Point(-3, 281);
-            btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(200, 50);
-            btnLogin.TabIndex = 13;
-            btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = true;
-            btnLogin.Click += btnLogin_Click;
-            // 
-            // btnSignUp
-            // 
-            btnSignUp.AccessibleName = "btnSignUp";
-            btnSignUp.BackgroundImageLayout = ImageLayout.None;
-            btnSignUp.Cursor = Cursors.Hand;
-            btnSignUp.FlatAppearance.BorderSize = 0;
-            btnSignUp.FlatStyle = FlatStyle.Flat;
-            btnSignUp.Font = new Font("Segoe UI Symbol", 12F);
-            btnSignUp.ForeColor = SystemColors.Control;
-            btnSignUp.Location = new Point(0, 337);
-            btnSignUp.Name = "btnSignUp";
-            btnSignUp.Size = new Size(200, 50);
-            btnSignUp.TabIndex = 12;
-            btnSignUp.Text = "Sign Up";
-            btnSignUp.UseVisualStyleBackColor = true;
-            btnSignUp.Click += btnSignUp_Click;
             // 
             // btnJoinRoom
             // 
             btnJoinRoom.AccessibleName = "btnJoinRoom";
-            btnJoinRoom.BackgroundImageLayout = ImageLayout.None;
             btnJoinRoom.Cursor = Cursors.Hand;
             btnJoinRoom.FlatAppearance.BorderSize = 0;
             btnJoinRoom.FlatStyle = FlatStyle.Flat;
-            btnJoinRoom.Font = new Font("Segoe UI Symbol", 12F);
-            btnJoinRoom.ForeColor = SystemColors.Control;
-            btnJoinRoom.Location = new Point(-3, 113);
+            btnJoinRoom.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnJoinRoom.ForeColor = Color.White;
+            btnJoinRoom.Location = new Point(0, 100);
             btnJoinRoom.Name = "btnJoinRoom";
-            btnJoinRoom.Size = new Size(200, 50);
-            btnJoinRoom.TabIndex = 11;
+            btnJoinRoom.Size = new Size(220, 55);
+            btnJoinRoom.TabIndex = 1;
             btnJoinRoom.Text = "Join Room";
             btnJoinRoom.UseVisualStyleBackColor = true;
             btnJoinRoom.Click += btnJoinRoom_Click;
@@ -110,16 +69,15 @@
             // btnCreateRoom
             // 
             btnCreateRoom.AccessibleName = "btnCreateRoom";
-            btnCreateRoom.BackgroundImageLayout = ImageLayout.None;
             btnCreateRoom.Cursor = Cursors.Hand;
             btnCreateRoom.FlatAppearance.BorderSize = 0;
             btnCreateRoom.FlatStyle = FlatStyle.Flat;
-            btnCreateRoom.Font = new Font("Segoe UI Symbol", 12F);
-            btnCreateRoom.ForeColor = SystemColors.Control;
-            btnCreateRoom.Location = new Point(-3, 169);
+            btnCreateRoom.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnCreateRoom.ForeColor = Color.White;
+            btnCreateRoom.Location = new Point(0, 165);
             btnCreateRoom.Name = "btnCreateRoom";
-            btnCreateRoom.Size = new Size(200, 50);
-            btnCreateRoom.TabIndex = 8;
+            btnCreateRoom.Size = new Size(220, 55);
+            btnCreateRoom.TabIndex = 2;
             btnCreateRoom.Text = "Create Room";
             btnCreateRoom.UseVisualStyleBackColor = true;
             btnCreateRoom.Click += btnCreateRoom_Click;
@@ -127,33 +85,79 @@
             // btnStatistics
             // 
             btnStatistics.AccessibleName = "btnStatistics";
-            btnStatistics.BackgroundImageLayout = ImageLayout.None;
             btnStatistics.Cursor = Cursors.Hand;
             btnStatistics.FlatAppearance.BorderSize = 0;
             btnStatistics.FlatStyle = FlatStyle.Flat;
-            btnStatistics.Font = new Font("Segoe UI Symbol", 12F);
-            btnStatistics.ForeColor = SystemColors.Control;
-            btnStatistics.Location = new Point(-3, 225);
+            btnStatistics.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnStatistics.ForeColor = Color.White;
+            btnStatistics.Location = new Point(0, 230);
             btnStatistics.Name = "btnStatistics";
-            btnStatistics.Size = new Size(200, 50);
-            btnStatistics.TabIndex = 9;
-            btnStatistics.Text = "Statistics";
+            btnStatistics.Size = new Size(220, 55);
+            btnStatistics.TabIndex = 3;
+            btnStatistics.Text = "My Statistics";
             btnStatistics.UseVisualStyleBackColor = true;
             btnStatistics.Click += btnStatistics_Click;
+            // 
+            // btnHighScores
+            // 
+            btnHighScores.AccessibleName = "btnHighScores";
+            btnHighScores.Cursor = Cursors.Hand;
+            btnHighScores.FlatAppearance.BorderSize = 0;
+            btnHighScores.FlatStyle = FlatStyle.Flat;
+            btnHighScores.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnHighScores.ForeColor = Color.Gold;
+            btnHighScores.Location = new Point(0, 295);
+            btnHighScores.Name = "btnHighScores";
+            btnHighScores.Size = new Size(220, 55);
+            btnHighScores.TabIndex = 4;
+            btnHighScores.Text = "🏆 High Scores";
+            btnHighScores.UseVisualStyleBackColor = true;
+            btnHighScores.Click += btnHighScores_Click;
+            // 
+            // btnLogin
+            // 
+            btnLogin.AccessibleName = "btnLogin";
+            btnLogin.Cursor = Cursors.Hand;
+            btnLogin.FlatAppearance.BorderSize = 0;
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnLogin.ForeColor = Color.MediumPurple;
+            btnLogin.Location = new Point(0, 400);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(220, 55);
+            btnLogin.TabIndex = 5;
+            btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
+            // 
+            // btnSignUp
+            // 
+            btnSignUp.AccessibleName = "btnSignUp";
+            btnSignUp.Cursor = Cursors.Hand;
+            btnSignUp.FlatAppearance.BorderSize = 0;
+            btnSignUp.FlatStyle = FlatStyle.Flat;
+            btnSignUp.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnSignUp.ForeColor = Color.MediumPurple;
+            btnSignUp.Location = new Point(0, 465);
+            btnSignUp.Name = "btnSignUp";
+            btnSignUp.Size = new Size(220, 55);
+            btnSignUp.TabIndex = 6;
+            btnSignUp.Text = "Sign Up";
+            btnSignUp.UseVisualStyleBackColor = true;
+            btnSignUp.Click += btnSignUp_Click;
             // 
             // btnExit
             // 
             btnExit.AccessibleName = "btnExit";
-            btnExit.BackgroundImageLayout = ImageLayout.None;
             btnExit.Cursor = Cursors.Hand;
             btnExit.FlatAppearance.BorderSize = 0;
             btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.Font = new Font("Segoe UI Symbol", 12F);
-            btnExit.ForeColor = SystemColors.Control;
-            btnExit.Location = new Point(-3, 691);
+            btnExit.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnExit.ForeColor = Color.Tomato;
+            btnExit.Location = new Point(0, 670);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(200, 50);
-            btnExit.TabIndex = 10;
+            btnExit.Size = new Size(220, 55);
+            btnExit.TabIndex = 7;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
@@ -161,12 +165,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Symbol", 24F, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ButtonFace;
-            label1.Location = new Point(354, 9);
+            label1.Font = new Font("Segoe UI Emoji", 28F, FontStyle.Bold | FontStyle.Italic);
+            label1.ForeColor = Color.MediumPurple;
+            label1.Location = new Point(440, 40);
             label1.Name = "label1";
-            label1.Size = new Size(278, 65);
-            label1.TabIndex = 4;
+            label1.Size = new Size(317, 74);
+            label1.TabIndex = 8;
             label1.Text = "Main Menu";
             label1.Click += label1_Click;
             // 
@@ -174,34 +178,32 @@
             // 
             label2.AccessibleName = "lblWelcome";
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonFace;
-            label2.Location = new Point(553, 74);
+            label2.Font = new Font("Segoe UI Emoji", 14F);
+            label2.ForeColor = SystemColors.ControlLight;
+            label2.Location = new Point(472, 137);
             label2.Name = "label2";
-            label2.Size = new Size(215, 38);
-            label2.TabIndex = 5;
-            label2.Text = "Welcom, Player!";
+            label2.Size = new Size(231, 37);
+            label2.TabIndex = 9;
+            label2.Text = "Welcome, Player!";
             // 
             // lblNotLoggedMessage
             // 
             lblNotLoggedMessage.AccessibleName = "lblNotLoggedMessage";
             lblNotLoggedMessage.AutoSize = true;
-            lblNotLoggedMessage.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblNotLoggedMessage.ForeColor = Color.Firebrick;
-            lblNotLoggedMessage.Location = new Point(206, 700);
+            lblNotLoggedMessage.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            lblNotLoggedMessage.ForeColor = Color.Tomato;
+            lblNotLoggedMessage.Location = new Point(250, 680);
             lblNotLoggedMessage.Name = "lblNotLoggedMessage";
-            lblNotLoggedMessage.Size = new Size(337, 32);
-            lblNotLoggedMessage.TabIndex = 6;
-            lblNotLoggedMessage.Text = "Need to be logged to do that!";
+            lblNotLoggedMessage.Size = new Size(340, 32);
+            lblNotLoggedMessage.TabIndex = 10;
+            lblNotLoggedMessage.Text = "You must be logged in first!";
             lblNotLoggedMessage.Visible = false;
             // 
             // MenuForm
             // 
-            AccessibleName = "";
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(64, 64, 64);
-            BackgroundImageLayout = ImageLayout.None;
+            BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
             Controls.Add(lblNotLoggedMessage);
             Controls.Add(label2);
@@ -226,6 +228,7 @@
         private Button btnJoinRoom;
         private Button btnCreateRoom;
         private Button btnStatistics;
+        private Button btnHighScores;
         private Button btnExit;
         private Button btnLogin;
         private Button btnSignUp;
