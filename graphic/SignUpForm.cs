@@ -54,17 +54,45 @@ namespace clientGraphic
                 return;
             }
 
-            // need to talk here whit the server...
+            SignUpRequest signUpReq = new SignUpRequest
+            {
+                username = username,
+                password = password,
+                email = email
+            };
 
-            Helper._currentUser.IsLogged = true;
-            Helper._currentUser.Name = username;
-            Helper._currentUser.Pass = password;
+            SignUpResponse signUpRes = Communicator.SendAndReceive<SignUpResponse>(101, signUpReq);
 
+            if (signUpRes.status == 1)
+            {
+                Helper._currentUser.IsLogged = true;
+                Helper._currentUser.Name = username;
+                Helper._currentUser.Pass = password;
+                Helper._currentUser.Email = email;
 
-            MenuForm FormWindow = new MenuForm();
-            FormWindow.Show();
-            this.Hide();
+                MessageBox.Show("Sign Up Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MenuForm FormWindow = new MenuForm();
+                FormWindow.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Sign Up failed! Username might already be taken.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+    }
+
+    public struct SignUpRequest
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+    }
+
+    public struct SignUpResponse
+    {
+        public int status { get; set; }
     }
 }

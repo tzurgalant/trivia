@@ -34,17 +34,39 @@ namespace clientGraphic
                 MessageBox.Show("Please fill in all fields!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // need to talk here whit the server...
 
-            Helper._currentUser.IsLogged = true;
-            Helper._currentUser.Name = username;
-            Helper._currentUser.Pass = password;
+            LoginRequest loginReq = new LoginRequest
+            {
+                username = username,
+                password = password
+            };
 
+            LoginResponse loginRes = Communicator.SendAndReceive<LoginResponse>(100, loginReq);
 
+            if (loginRes.status == 1)
+            {
+                Helper._currentUser.IsLogged = true;
+                Helper._currentUser.Name = username;
+                Helper._currentUser.Pass = password;
 
-            MenuForm FormWindow = new MenuForm();
-            FormWindow.Show();
-            this.Hide();
+                MenuForm FormWindow = new MenuForm();
+                FormWindow.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Login failed! Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+    }
+    public struct LoginRequest
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
+
+    public struct LoginResponse
+    {
+        public int status { get; set; }
     }
 }

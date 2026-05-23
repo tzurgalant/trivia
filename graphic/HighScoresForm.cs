@@ -11,7 +11,7 @@ namespace clientGraphic
         {
             InitializeComponent();
             SetupListViewColumns();
-            LoadMockHighScores();
+            LoadHighScores();
         }
 
         private void SetupListViewColumns()
@@ -21,34 +21,44 @@ namespace clientGraphic
             lvHighScores.Columns.Add("Score", 200, HorizontalAlignment.Center);
         }
 
-        private void LoadMockHighScores()
+        private void LoadHighScores()
         {
-            lvHighScores.Items.Clear();
-
-            var topPlayers = new List<Tuple<string, int>>()
+            try
             {
-                new Tuple<string, int>("AlphaGamer", 5200),
-                new Tuple<string, int>("Trivia_King", 4850),
-                new Tuple<string, int>("CyberShield", 4100),
-                new Tuple<string, int>("NoobMaster99", 3900),
-                new Tuple<string, int>("Magshimim_Student", 3500)
-            };
+                lvHighScores.Items.Clear();
 
-            int rank = 1;
-            foreach (var player in topPlayers)
-            {
-                ListViewItem item = new ListViewItem(rank.ToString());
-                item.SubItems.Add(player.Item1);
-                item.SubItems.Add(player.Item2.ToString());
+                GetHighScoreResponse res = Communicator.SendAndReceive<GetHighScoreResponse>(109, new GetHighScoreRequest());
 
-                if (rank == 1)
+                if (res.status != 1 || res.statistics == null)
                 {
-                    item.ForeColor = Color.Gold;
-                    item.Font = new Font(lvHighScores.Font, FontStyle.Bold);
+                    MessageBox.Show("Failed to load high scores from server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                lvHighScores.Items.Add(item);
-                rank++;
+                int rank = 1;
+                foreach (string entry in res.statistics)
+                {
+                    string[] parts = entry.Split(':');
+                    string playerName = parts[0].Trim();
+                    string playerScore = parts.Length > 1 ? parts[1].Trim() : "0";
+
+                    ListViewItem item = new ListViewItem(rank.ToString());
+                    item.SubItems.Add(playerName);
+                    item.SubItems.Add(playerScore);
+
+                    if (rank == 1)
+                    {
+                        item.ForeColor = Color.Gold;
+                        item.Font = new Font(lvHighScores.Font, FontStyle.Bold);
+                    }
+
+                    lvHighScores.Items.Add(item);
+                    rank++;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error loading high scores: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -58,5 +68,15 @@ namespace clientGraphic
             menuForm.Show();
             this.Close();
         }
+    }
+
+    public struct GetHighScoreRequest
+    {
+    }
+
+    public struct GetHighScoreResponse
+    {
+        public uint status { get; set; }
+        public List<string> statistics { get; set; }
     }
 }

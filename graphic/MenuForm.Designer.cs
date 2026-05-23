@@ -165,7 +165,7 @@ namespace clientGraphic
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Emoji", 28F, FontStyle.Bold | FontStyle.Italic);
+            label1.Font = new Font("Segoe UI Emoji", 28F, FontStyle.Bold);
             label1.ForeColor = Color.MediumPurple;
             label1.Location = new Point(440, 40);
             label1.Name = "label1";
