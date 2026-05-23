@@ -45,12 +45,12 @@ namespace clientGraphic
             btnBack.TabIndex = 4;
             btnBack.Text = "Return To Menu";
             btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            btnBack.Click += btnBack_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Emoji", 26F, FontStyle.Bold | FontStyle.Italic);
+            label2.Font = new Font("Segoe UI Emoji", 26F, FontStyle.Bold);
             label2.ForeColor = Color.MediumPurple;
             label2.Location = new Point(300, 40);
             label2.Name = "label2";
