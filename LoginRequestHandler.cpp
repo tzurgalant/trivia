@@ -41,7 +41,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
 {
     
     RequestResult res;
-    res.newHandler == nullptr;//defalut that he not ssuccss to do the login
+    res.newHandler = nullptr;//defalut that he not ssuccss to do the login
     LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
 
     // get the status from the login manger
