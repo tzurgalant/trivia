@@ -65,9 +65,17 @@ namespace clientGraphic
 
         private void btnHighScores_Click(object sender, EventArgs e)
         {
-            HighScoresForm highScoresWindow = new HighScoresForm();
-            highScoresWindow.Show();
-            this.Hide();
+            if (Helper._currentUser.IsLogged)
+            {
+                HighScoresForm highScoresWindow = new HighScoresForm();
+                highScoresWindow.Show();
+                this.Hide();
+            }
+            else
+            {
+                lblNotLoggedMessage.Visible = true;
+                Helper.HideLabelAfterDelay(lblNotLoggedMessage, 5000);
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)

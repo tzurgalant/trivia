@@ -90,9 +90,9 @@
             label6.ForeColor = SystemColors.ButtonFace;
             label6.Location = new Point(24, 174);
             label6.Name = "label6";
-            label6.Size = new Size(141, 25);
+            label6.Size = new Size(150, 25);
             label6.TabIndex = 15;
-            label6.Text = "Num of Qustion";
+            label6.Text = "Num of Question";
             // 
             // btnReturn
             // 
@@ -199,9 +199,9 @@
             label4.ForeColor = SystemColors.ButtonFace;
             label4.Location = new Point(25, 103);
             label4.Name = "label4";
-            label4.Size = new Size(149, 25);
+            label4.Size = new Size(158, 25);
             label4.TabIndex = 12;
-            label4.Text = "Time For Qustion";
+            label4.Text = "Time For Question";
             // 
             // btnExit
             // 
