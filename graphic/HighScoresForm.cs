@@ -12,6 +12,11 @@ namespace clientGraphic
             InitializeComponent();
             SetupListViewColumns();
             LoadHighScores();
+
+            //night/day mode related
+            MenuForm.ThemeChanged += ApplyCurrentTheme;
+            this.FormClosed += (s, e) => MenuForm.ThemeChanged -= ApplyCurrentTheme;
+            ApplyCurrentTheme();
         }
 
         private void SetupListViewColumns()
@@ -51,6 +56,11 @@ namespace clientGraphic
                         item.ForeColor = Color.Gold;
                         item.Font = new Font(lvHighScores.Font, FontStyle.Bold);
                     }
+                    else
+                    {
+                        //moving all the rest of the users to day mode
+                        item.ForeColor = MenuForm.IsDarkMode ? Color.White : Color.Black;
+                    }
 
                     lvHighScores.Items.Add(item);
                     rank++;
@@ -67,6 +77,40 @@ namespace clientGraphic
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Close();
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(ApplyCurrentTheme));
+                return;
+            }
+
+            if (MenuForm.IsDarkMode)
+            {
+                this.BackColor = Color.FromArgb(35, 35, 35);
+
+                lvHighScores.BackColor = Color.FromArgb(45, 45, 45);
+                lvHighScores.ForeColor = Color.White;
+
+                for (int i = 1; i < lvHighScores.Items.Count; i++)
+                {
+                    lvHighScores.Items[i].ForeColor = Color.White;
+                }
+            }
+            else
+            {
+                this.BackColor = Color.FromArgb(240, 240, 240);
+
+                lvHighScores.BackColor = Color.White;
+                lvHighScores.ForeColor = Color.Black;
+
+                for (int i = 1; i < lvHighScores.Items.Count; i++)
+                {
+                    lvHighScores.Items[i].ForeColor = Color.Black;
+                }
+            }
         }
     }
 
