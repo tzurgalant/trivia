@@ -12,6 +12,18 @@ namespace clientGraphic
 {
     public partial class MenuForm : Form
     {
+        public static bool IsDarkMode { get; private set; } = true;
+
+        //night mode colors
+        private readonly Color darkBg = Color.FromArgb(35, 35, 35);
+        private readonly Color darkPanel = Color.FromArgb(45, 45, 45);
+        private readonly Color darkText = Color.White;
+
+        //day mode colors
+        private readonly Color lightBg = Color.FromArgb(240, 240, 240);
+        private readonly Color lightPanel = Color.FromArgb(220, 220, 220);
+        private readonly Color lightText = Color.Black;
+
         public MenuForm()
         {
             InitializeComponent();
@@ -27,6 +39,7 @@ namespace clientGraphic
             {
                 label2.Text = "Welcome, Player!";
             }
+            ApplyTheme();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -109,6 +122,41 @@ namespace clientGraphic
             {
                 lblNotLoggedMessage.Visible = true;
                 Helper.HideLabelAfterDelay(lblNotLoggedMessage, 5000);
+            }
+        }
+
+        private void btnToggleTheme_Click(object sender, EventArgs e)
+        {
+            IsDarkMode = !IsDarkMode;
+            ApplyTheme();
+        }
+        private void ApplyTheme()
+        {
+            if (IsDarkMode)
+            {
+                this.BackColor = darkBg;
+                panel1.BackColor = darkPanel;
+                label2.ForeColor = SystemColors.ControlLight;
+
+                btnJoinRoom.ForeColor = darkText;
+                btnCreateRoom.ForeColor = darkText;
+                btnStatistics.ForeColor = darkText;
+
+                btnToggleTheme.Text = "☀️ Light Mode";
+                btnToggleTheme.ForeColor = darkText;
+            }
+            else
+            {
+                this.BackColor = lightBg;
+                panel1.BackColor = lightPanel;
+                label2.ForeColor = Color.FromArgb(60, 60, 60);
+
+                btnJoinRoom.ForeColor = lightText;
+                btnCreateRoom.ForeColor = lightText;
+                btnStatistics.ForeColor = lightText;
+
+                btnToggleTheme.Text = "🌙 Dark Mode";
+                btnToggleTheme.ForeColor = lightText;
             }
         }
     }

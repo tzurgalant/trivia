@@ -31,6 +31,7 @@ namespace clientGraphic
             label1 = new Label();
             label2 = new Label();
             lblNotLoggedMessage = new Label();
+            btnToggleTheme = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,6 +45,7 @@ namespace clientGraphic
             panel1.Controls.Add(btnLogin);
             panel1.Controls.Add(btnSignUp);
             panel1.Controls.Add(btnExit);
+            panel1.Controls.Add(btnToggleTheme);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -146,6 +148,22 @@ namespace clientGraphic
             btnSignUp.UseVisualStyleBackColor = true;
             btnSignUp.Click += btnSignUp_Click;
             // 
+            // btnToggleTheme
+            // 
+            btnToggleTheme.AccessibleName = "btnToggleTheme";
+            btnToggleTheme.Cursor = Cursors.Hand;
+            btnToggleTheme.FlatAppearance.BorderSize = 0;
+            btnToggleTheme.FlatStyle = FlatStyle.Flat;
+            btnToggleTheme.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnToggleTheme.ForeColor = Color.White;
+            btnToggleTheme.Location = new Point(0, 550);
+            btnToggleTheme.Name = "btnToggleTheme";
+            btnToggleTheme.Size = new Size(220, 55);
+            btnToggleTheme.TabIndex = 8;
+            btnToggleTheme.Text = "☀️ Light Mode";
+            btnToggleTheme.UseVisualStyleBackColor = true;
+            btnToggleTheme.Click += btnToggleTheme_Click;
+            // 
             // btnExit
             // 
             btnExit.AccessibleName = "btnExit";
@@ -233,5 +251,6 @@ namespace clientGraphic
         private Button btnLogin;
         private Button btnSignUp;
         private Label lblNotLoggedMessage;
+        private Button btnToggleTheme;
     }
 }
