@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            txtQuestionCount = new TextBox();
+            label6 = new Label();
             btnReturn = new Button();
             panel2 = new Panel();
             pnlRoomDetails = new Panel();
@@ -54,6 +56,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(64, 75, 64);
+            panel1.Controls.Add(txtQuestionCount);
+            panel1.Controls.Add(label6);
             panel1.Controls.Add(btnReturn);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(pnlRoomDetails);
@@ -70,6 +74,25 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(200, 744);
             panel1.TabIndex = 0;
+            // 
+            // txtQuestionCount
+            // 
+            txtQuestionCount.AccessibleName = "txtQuestionCount";
+            txtQuestionCount.Location = new Point(26, 202);
+            txtQuestionCount.Name = "txtQuestionCount";
+            txtQuestionCount.Size = new Size(150, 31);
+            txtQuestionCount.TabIndex = 16;
+            // 
+            // label6
+            // 
+            label6.AccessibleName = "";
+            label6.AutoSize = true;
+            label6.ForeColor = SystemColors.ButtonFace;
+            label6.Location = new Point(24, 174);
+            label6.Name = "label6";
+            label6.Size = new Size(141, 25);
+            label6.TabIndex = 15;
+            label6.Text = "Num of Qustion";
             // 
             // btnReturn
             // 
@@ -174,7 +197,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ButtonFace;
-            label4.Location = new Point(26, 157);
+            label4.Location = new Point(25, 103);
             label4.Name = "label4";
             label4.Size = new Size(149, 25);
             label4.TabIndex = 12;
@@ -201,7 +224,7 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.ButtonFace;
-            label3.Location = new Point(26, 85);
+            label3.Location = new Point(26, 41);
             label3.Name = "label3";
             label3.Size = new Size(112, 25);
             label3.TabIndex = 11;
@@ -218,7 +241,7 @@
             // txtTimeForQustion
             // 
             txtTimeForQustion.AccessibleName = "txtTimeForQustion";
-            txtTimeForQustion.Location = new Point(26, 184);
+            txtTimeForQustion.Location = new Point(24, 131);
             txtTimeForQustion.Name = "txtTimeForQustion";
             txtTimeForQustion.Size = new Size(150, 31);
             txtTimeForQustion.TabIndex = 9;
@@ -243,7 +266,7 @@
             // txtRoomName
             // 
             txtRoomName.AccessibleName = "txtRoomName";
-            txtRoomName.Location = new Point(26, 113);
+            txtRoomName.Location = new Point(25, 69);
             txtRoomName.Name = "txtRoomName";
             txtRoomName.Size = new Size(150, 31);
             txtRoomName.TabIndex = 8;
@@ -313,5 +336,7 @@
         private Panel panel4;
         private Label lblShowPlayers;
         private Button btnReturn;
+        private TextBox txtQuestionCount;
+        private Label label6;
     }
 }

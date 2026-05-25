@@ -1,25 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace clientGraphic
 {
     public partial class JoinRoomForm : Form
     {
+        private List<RoomData> _availableRooms = new List<RoomData>();
+
         public JoinRoomForm()
         {
             InitializeComponent();
         }
 
+        private void JoinRoomForm_Load(object sender, EventArgs e)
+        {
+            RefreshRoomsList();
+        }
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            RefreshRoomsList();
+        }
 
+
+        private void RefreshRoomsList()
+        {
+            try
+            {
+        GetRoomsResponse response = Communicator.SendAndReceive<GetRoomsResponse>((byte)CodeR.GetRoomsCmd);
+
+                if (response != null && response.rooms != null)
+                {
+                    _availableRooms = response.rooms;
+
+                    listBoxRooms.Items.Clear();
+
+                    foreach (var room in _availableRooms)
+                    {
+                        string displayText = $"Room: {room.name} | Players: {room.currentPlayers}/{room.maxPlayers}";
+                        listBoxRooms.Items.Add(displayText);
+                    }
+
+                    if (_availableRooms.Count == 0)
+                    {
+                        listBoxRooms.Items.Add("No active rooms found. Create one!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to get rooms: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -28,9 +60,52 @@ namespace clientGraphic
             FormWindow.Show();
             this.Hide();
         }
+
         private void joinRoom_Click(object sender, EventArgs e)
         {
-            /// need to have a play form before...
+            int selectedIndex = listBoxRooms.SelectedIndex;
+
+            if (selectedIndex == -1 || _availableRooms.Count == 0 || selectedIndex >= _availableRooms.Count)
+            {
+                MessageBox.Show("Please select a valid room from the list!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            RoomData selectedRoom = _availableRooms[selectedIndex];
+
+            var request = new JoinRoomRequest { roomId = selectedRoom.id };
+
+            var response = Communicator.SendAndReceive<JoinRoomResponse>((byte)CodeR.JoinRoomCmd, request);
+
+            if (response != null && response.status == 1)
+            {
+                MessageBox.Show($"Successfully joined {selectedRoom.name}!");
+            }
+            else
+            {
+                MessageBox.Show("Could not join room: ");
+            }
         }
+    }
+    public class JoinRoomRequest
+    {
+        public int roomId { get; set; }
+    }
+    public class JoinRoomResponse
+    {
+        public int status { get; set; }
+    }
+    public class RoomData
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public int maxPlayers { get; set; }
+        public int currentPlayers { get; set; }
+        public int timePerQuestion { get; set; }
+        public bool isActive { get; set; }
+    }
+    public class GetRoomsResponse
+    {
+        public List<RoomData> rooms { get; set; }
     }
 }

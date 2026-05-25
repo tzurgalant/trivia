@@ -23,7 +23,12 @@ namespace clientGraphic
                 return false;
             }
         }
-
+        //the same fucnkton but for request taht not habe a data on thiat requests
+        public static TResponse SendAndReceive<TResponse>(byte opcode)
+        {
+           
+            return SendAndReceive<TResponse>(opcode, null);
+        }
         public static TResponse SendAndReceive<TResponse>(byte opcode, object requestObj)
         {
             try

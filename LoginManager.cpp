@@ -1,6 +1,6 @@
 #include "LoginManager.h"
 
-LoginManager::LoginManager(IDatabase* database):m_database(database)
+LoginManager::LoginManager(IDatabase* database) :m_database(database)
 {
 
 }
@@ -9,7 +9,7 @@ LoginManager::~LoginManager()
 
 }
 
-LoginStatus LoginManager::login(std::string userName, std::string password,SOCKET userSocket)
+LoginStatus LoginManager::login(std::string userName, std::string password, SOCKET userSocket)
 {
 	LoggedUser user = LoggedUser(userName, userSocket);
 
@@ -76,7 +76,7 @@ void LoginManager::log_off(SOCKET userSocket)
 	{
 		if (it->getUserSocket() == userSocket)
 		{
-			
+
 			m_loggedUsers.erase(it);
 
 			return;
@@ -88,11 +88,11 @@ std::string LoginManager::getLoginStatus(LoginStatus status)
 {
 	switch (status)
 	{
-		case LOGIN_SUCCESS:  return "LOGIN_SUCCESS";
-		case WRONG_PASSWORD: return "WRONG_PASSWORD";
-		case WRONG_USERNAME: return "WRONG_USERNAME";
-		case ALREADY_LOGGED: return "ALREADY_LOGGED";
-		default:             return "";
+	case LOGIN_SUCCESS:  return "LOGIN_SUCCESS";
+	case WRONG_PASSWORD: return "WRONG_PASSWORD";
+	case WRONG_USERNAME: return "WRONG_USERNAME";
+	case ALREADY_LOGGED: return "ALREADY_LOGGED";
+	default:             return "";
 	}
 }
 

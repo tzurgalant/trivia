@@ -68,7 +68,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& reqInfo)
 RequestResult LoginRequestHandler::signup(const RequestInfo& reqInfo)
 {
 	RequestResult res;
-    res.newHandler == nullptr;//defalut that he not ssuccss to do the login
+    res.newHandler =  nullptr;//defalut that he not ssuccss to do the login
 
 	SignupRequest userRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(reqInfo.buff);
 	std::cout << "name: " + userRequest.userName + " password: " + userRequest.password + " email: " + userRequest.email << std::endl;

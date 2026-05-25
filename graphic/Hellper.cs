@@ -3,6 +3,19 @@ using System.Net.Sockets;
 
 namespace clientGraphic
 {
+    public enum CodeR : byte
+    {
+        LoginCmd = 100,
+        SignupCmd,              // 101
+        ErrorCmd,               // 102
+        LogoutCmd,              // 103
+        GetRoomsCmd,            // 104
+        GetPlayersInRoomCmd,    // 105
+        GetPersonalStatsCmd,    // 106
+        JoinRoomCmd,            // 107
+        CreateRoomCmd,          // 108
+        GetHighScoreCmd         // 109
+    }
     public struct UserInfo
     {
         public string Name { get; set; }

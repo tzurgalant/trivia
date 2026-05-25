@@ -24,7 +24,6 @@ enum CodeR : Byte {
     JoinRoomCmd,
     CreateRoomCmd,
     GetHighScoreCmd
-    
 };
 
 //for the serialzer
