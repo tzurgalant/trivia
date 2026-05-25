@@ -28,7 +28,7 @@ namespace clientGraphic
         {
             try
             {
-        GetRoomsResponse response = Communicator.SendAndReceive<GetRoomsResponse>((byte)CodeR.GetRoomsCmd);
+                GetRoomsResponse response = Communicator.SendAndReceive<GetRoomsResponse>((byte)CodeR.GetRoomsCmd);
 
                 if (response != null && response.rooms != null)
                 {

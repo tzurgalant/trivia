@@ -138,8 +138,9 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& reqInfo)
     roomData.timePerQuestion = createRoomRequest.answerTimeout;
     roomData.status = 1;// wiil be active if you create room its add the logged user...
 
-    m_handlerFactory.getRoomManager().createRoom(m_user, roomData);
+    createRoomResponse.roomId = m_handlerFactory.getRoomManager().createRoom(m_user, roomData);
     createRoomResponse.status = 1;
+
     res.newHandler = nullptr;// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(createRoomResponse);
     return res;

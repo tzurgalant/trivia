@@ -67,6 +67,7 @@ struct JoinRoomResponse
 struct CreateRoomResponse
 {
     unsigned int status;
+    unsigned int roomId;/// more easy for the client side
 };
 struct GetHighScoreResponse
 {

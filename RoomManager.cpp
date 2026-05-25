@@ -1,11 +1,12 @@
 #include "RoomManager.h"
 
-void RoomManager::createRoom(LoggedUser loggedUser, RoomData roomData)
+int RoomManager::createRoom(LoggedUser loggedUser, RoomData roomData)
 {
 	//need to chec if the rome id is exist
 	roomData.id = getNextRoomID();
 	m_rooms.emplace(roomData.id, Room(roomData));
 	m_rooms.at(roomData.id).addUser(loggedUser);
+	return roomData.id;
 }
 
 void  RoomManager::deleteRoom(int ID)
