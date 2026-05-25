@@ -14,6 +14,8 @@ namespace clientGraphic
     {
         public static bool IsDarkMode { get; private set; } = true;
 
+        public static event Action ThemeChanged;
+
         //night mode colors
         private readonly Color darkBg = Color.FromArgb(35, 35, 35);
         private readonly Color darkPanel = Color.FromArgb(45, 45, 45);
@@ -129,6 +131,7 @@ namespace clientGraphic
         {
             IsDarkMode = !IsDarkMode;
             ApplyTheme();
+            ThemeChanged?.Invoke();
         }
         private void ApplyTheme()
         {

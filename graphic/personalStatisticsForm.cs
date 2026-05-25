@@ -11,6 +11,11 @@ namespace clientGraphic
         {
             InitializeComponent();
             SetupChart();
+
+            //nught/day mode related
+            MenuForm.ThemeChanged += ApplyCurrentTheme;
+            this.FormClosed += (s, e) => MenuForm.ThemeChanged -= ApplyCurrentTheme;
+            ApplyCurrentTheme();
         }
 
         private void SetupChart()
@@ -61,6 +66,7 @@ namespace clientGraphic
             };
 
                     pieChartStats.LegendLocation = LegendLocation.Bottom;
+                    pieChartStats.ForeColor = MenuForm.IsDarkMode ? Color.White : Color.Black;
                 }
             }
             catch (Exception ex)
@@ -68,11 +74,50 @@ namespace clientGraphic
                 MessageBox.Show("Error loading statistics: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Close();
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(ApplyCurrentTheme));
+                return;
+            }
+
+            if (MenuForm.IsDarkMode)
+            {
+                this.BackColor = Color.FromArgb(35, 35, 35);
+                lblUsername.ForeColor = SystemColors.Control;
+
+                lblWins.ForeColor = Color.LightGreen;
+                lblLosses.ForeColor = Color.Tomato;
+                lblAccuracy.ForeColor = Color.Gold;
+
+                if (pieChartStats != null)
+                {
+                    pieChartStats.ForeColor = Color.White;
+                }
+            }
+            else
+            {
+                this.BackColor = Color.FromArgb(240, 240, 240);
+                lblUsername.ForeColor = Color.Black;
+
+                lblWins.ForeColor = Color.DarkGreen;
+                lblLosses.ForeColor = Color.Firebrick;
+                lblAccuracy.ForeColor = Color.DarkGoldenrod;
+
+                if (pieChartStats != null)
+                {
+                    pieChartStats.ForeColor = Color.Black;
+                }
+            }
         }
     }
 
