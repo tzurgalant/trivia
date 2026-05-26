@@ -6,6 +6,9 @@ namespace clientGraphic
         {
             InitializeComponent();
 
+            //glowing effect
+            MenuForm.AddGlowEffect(btnLogin);
+
             //night/day mode related
             MenuForm.ThemeChanged += ApplyCurrentTheme;
             this.FormClosed += (s, e) => MenuForm.ThemeChanged -= ApplyCurrentTheme;
