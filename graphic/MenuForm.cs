@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -161,6 +162,115 @@ namespace clientGraphic
                 btnToggleTheme.Text = "🌙 Dark Mode";
                 btnToggleTheme.ForeColor = lightText;
             }
+        }
+
+        //glowing effect
+        public static void AddGlowEffect(Button button)
+        {
+            int borderRadius = 20;
+
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+
+            GraphicsPath GetRoundPath(Rectangle bounds, int radius)
+            {
+                GraphicsPath path = new GraphicsPath();
+                int diameter = radius * 2;
+
+                path.AddArc(bounds.X, bounds.Y, diameter, diameter, 180, 90);
+                path.AddArc(bounds.Right - diameter, bounds.Y, diameter, diameter, 270, 90);
+                path.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90);
+                path.AddArc(bounds.X, bounds.Bottom - diameter, diameter, diameter, 90, 90);
+                path.CloseFigure();
+                return path;
+            }
+
+            button.SizeChanged += (s, e) =>
+            {
+                if (button.Width > borderRadius && button.Height > borderRadius)
+                {
+                    using (GraphicsPath path = GetRoundPath(new Rectangle(0, 0, button.Width, button.Height), borderRadius))
+                    {
+                        button.Region = new Region(path);
+                    }
+                }
+            };
+
+            if (button.Width > borderRadius && button.Height > borderRadius)
+            {
+                using (GraphicsPath path = GetRoundPath(new Rectangle(0, 0, button.Width, button.Height), borderRadius))
+                {
+                    button.Region = new Region(path);
+                }
+            }
+
+            System.Windows.Forms.Timer fadeOutTimer = new System.Windows.Forms.Timer();
+            fadeOutTimer.Interval = 20;
+            int animationStep = 0;
+            bool isHovered = false;
+            Color glowColor = Color.FromArgb(255, 0, 255);
+
+            button.Paint += (s, e) =>
+            {
+                if (animationStep > 0)
+                {
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+                    Color parentBg = button.Parent != null ? button.Parent.BackColor : Color.FromArgb(35, 35, 35);
+                    Color currentBorderColor = Color.FromArgb(
+                        parentBg.R + (glowColor.R - parentBg.R) * animationStep / 255,
+                        parentBg.G + (glowColor.G - parentBg.G) * animationStep / 255,
+                        parentBg.B + (glowColor.B - parentBg.B) * animationStep / 255
+                    );
+
+                    using (Pen pen = new Pen(currentBorderColor, 3))
+                    {
+                        using (GraphicsPath path = GetRoundPath(new Rectangle(1, 1, button.Width - 3, button.Height - 3), borderRadius))
+                        {
+                            e.Graphics.DrawPath(pen, path);
+                        }
+                    }
+                }
+            };
+
+            fadeOutTimer.Tick += (s, e) =>
+            {
+                if (isHovered)
+                {
+                    if (animationStep < 255)
+                    {
+                        animationStep += 51;
+                        if (animationStep > 255) animationStep = 255;
+                        button.Invalidate();
+                    }
+                    else
+                    {
+                        fadeOutTimer.Stop();
+                    }
+                }
+                else
+                {
+                    animationStep -= 15;
+                    if (animationStep <= 0)
+                    {
+                        animationStep = 0;
+                        fadeOutTimer.Stop();
+                    }
+                    button.Invalidate();
+                }
+            };
+
+            button.MouseEnter += (s, e) =>
+            {
+                isHovered = true;
+                fadeOutTimer.Start();
+            };
+
+            button.MouseLeave += (s, e) =>
+            {
+                isHovered = false;
+                fadeOutTimer.Start();
+            };
         }
     }
 }
