@@ -11,10 +11,16 @@ namespace clientGraphic
         public JoinRoomForm()
         {
             InitializeComponent();
+
+            //nught/day mode related
+            MenuForm.ThemeChanged += ApplyCurrentTheme;
+            this.FormClosed += (s, e) => MenuForm.ThemeChanged -= ApplyCurrentTheme;
+            ApplyCurrentTheme();
         }
 
         private void JoinRoomForm_Load(object sender, EventArgs e)
         {
+            ApplyCurrentTheme();
             RefreshRoomsList();
         }
 
@@ -84,6 +90,45 @@ namespace clientGraphic
             else
             {
                 MessageBox.Show("Could not join room: ");
+            }
+        }
+        private void ApplyCurrentTheme()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(ApplyCurrentTheme));
+                return;
+            }
+
+            if (MenuForm.IsDarkMode)
+            {
+                this.BackColor = Color.FromArgb(35, 35, 35);
+                label2.ForeColor = Color.MediumPurple;
+
+                if (listBoxRooms != null)
+                {
+                    listBoxRooms.BackColor = Color.FromArgb(45, 45, 45);
+                    listBoxRooms.ForeColor = Color.MediumPurple;
+                }
+
+                btnRefresh.ForeColor = Color.White;
+                btnJoin.ForeColor = Color.MediumPurple;
+                btnBack.ForeColor = Color.Tomato;
+            }
+            else
+            {
+                this.BackColor = Color.FromArgb(240, 240, 240);
+                label2.ForeColor = Color.MediumPurple;
+
+                if (listBoxRooms != null)
+                {
+                    listBoxRooms.BackColor = Color.White;
+                    listBoxRooms.ForeColor = Color.MediumPurple;
+                }
+
+                btnRefresh.ForeColor = Color.FromArgb(50, 50, 50);
+                btnJoin.ForeColor = Color.Purple;
+                btnBack.ForeColor = Color.Tomato;
             }
         }
     }

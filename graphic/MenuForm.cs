@@ -67,7 +67,7 @@ namespace clientGraphic
         {
             if (Helper._currentUser.IsLogged)
             {
-                personalStatisticsForm statsForm = new personalStatisticsForm();
+                PersonalStatisticsForm statsForm = new PersonalStatisticsForm();
                 statsForm.Show();
                 this.Hide();
             }

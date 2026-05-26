@@ -1,4 +1,7 @@
-﻿namespace clientGraphic
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace clientGraphic
 {
     partial class LoginForm
     {
@@ -23,137 +26,113 @@
             label2 = new Label();
             label3 = new Label();
             btnLogin = new Button();
-            panel1 = new Panel();
-            btnReturn = new Button();
-            button4 = new Button();
-            panel1.SuspendLayout();
+            btnBack = new Button();
             SuspendLayout();
             // 
             // txtUsername
             // 
+            txtUsername.BackColor = Color.FromArgb(45, 45, 45);
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
+            txtUsername.Font = new Font("Segoe UI", 12F);
+            txtUsername.ForeColor = Color.White;
             txtUsername.Location = new Point(416, 342);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(150, 31);
+            txtUsername.Size = new Size(220, 39);
             txtUsername.TabIndex = 0;
             // 
             // txtPassword
             // 
-            txtPassword.BackColor = SystemColors.HighlightText;
+            txtPassword.BackColor = Color.FromArgb(45, 45, 45);
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
+            txtPassword.Font = new Font("Segoe UI", 12F);
+            txtPassword.ForeColor = Color.White;
             txtPassword.Location = new Point(416, 408);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(150, 31);
+            txtPassword.Size = new Size(220, 39);
             txtPassword.TabIndex = 2;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(64, 64, 64);
-            label1.Font = new Font("Segoe UI Emoji", 22F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(323, 162);
+            label1.Font = new Font("Segoe UI Emoji", 26F, FontStyle.Bold);
+            label1.ForeColor = Color.MediumPurple;
+            label1.Location = new Point(340, 60);
             label1.Name = "label1";
-            label1.Size = new Size(319, 58);
+            label1.Size = new Size(300, 69);
             label1.TabIndex = 5;
-            label1.Text = "TRIVIA LOGIN ";
+            label1.Text = "Trivia Login";
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(323, 345);
+            label2.Location = new Point(290, 344);
             label2.Name = "label2";
-            label2.Size = new Size(59, 25);
+            label2.Size = new Size(81, 32);
             label2.TabIndex = 3;
             label2.Text = "Name";
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(323, 411);
+            label3.Location = new Point(290, 410);
             label3.Name = "label3";
-            label3.Size = new Size(87, 25);
+            label3.Size = new Size(122, 32);
             label3.TabIndex = 4;
             label3.Text = "Password";
             // 
             // btnLogin
             // 
-            btnLogin.BackColor = Color.Aqua;
-            btnLogin.ForeColor = Color.Black;
-            btnLogin.Location = new Point(435, 487);
+            btnLogin.Cursor = Cursors.Hand;
+            btnLogin.FlatAppearance.BorderSize = 0;
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnLogin.ForeColor = Color.MediumPurple;
+            btnLogin.Location = new Point(385, 486);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(112, 34);
+            btnLogin.Size = new Size(220, 50);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "LOGIN";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
-            // panel1
+            // btnBack
             // 
-            panel1.BackColor = Color.FromArgb(64, 75, 64);
-            panel1.Controls.Add(btnReturn);
-            panel1.Controls.Add(button4);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(200, 744);
-            panel1.TabIndex = 9;
-            // 
-            // btnReturn
-            // 
-            btnReturn.AccessibleName = "btnReturnToMenu";
-            btnReturn.BackgroundImageLayout = ImageLayout.None;
-            btnReturn.Cursor = Cursors.Hand;
-            btnReturn.FlatAppearance.BorderSize = 0;
-            btnReturn.FlatStyle = FlatStyle.Flat;
-            btnReturn.Font = new Font("Segoe UI Symbol", 12F);
-            btnReturn.ForeColor = SystemColors.Control;
-            btnReturn.Location = new Point(-3, 641);
-            btnReturn.Name = "btnReturn";
-            btnReturn.Size = new Size(200, 44);
-            btnReturn.TabIndex = 9;
-            btnReturn.Text = "Return To Menu";
-            btnReturn.UseVisualStyleBackColor = true;
-            btnReturn.Click += btnReturn_Click;
-            // 
-            // button4
-            // 
-            button4.AccessibleName = "btnExit";
-            button4.BackgroundImageLayout = ImageLayout.None;
-            button4.Cursor = Cursors.Hand;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Segoe UI Symbol", 12F);
-            button4.ForeColor = SystemColors.Control;
-            button4.Location = new Point(0, 691);
-            button4.Name = "button4";
-            button4.Size = new Size(200, 50);
-            button4.TabIndex = 7;
-            button4.Text = "Exit";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += btnExit_Click;
+            btnBack.Cursor = Cursors.Hand;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnBack.ForeColor = Color.Tomato;
+            btnBack.Location = new Point(133, 631);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(250, 53);
+            btnBack.TabIndex = 9;
+            btnBack.Text = "Return To Menu";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(64, 64, 64);
+            BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
-            Controls.Add(panel1);
+            Controls.Add(btnBack);
             Controls.Add(btnLogin);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
-            ForeColor = Color.DarkGray;
             FormBorderStyle = FormBorderStyle.None;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LoginForm";
             Load += LoginForm_Load;
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -165,8 +144,6 @@
         private Label label2;
         private Label label3;
         private Button btnLogin;
-        private Panel panel1;
-        private Button button4;
-        private Button btnReturn;
+        private Button btnBack;
     }
 }

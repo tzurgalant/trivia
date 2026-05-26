@@ -15,28 +15,19 @@ namespace clientGraphic
         public SignUpForm()
         {
             InitializeComponent();
+
+            //night/day mode related
+            MenuForm.ThemeChanged += ApplyCurrentTheme;
+            this.FormClosed += (s, e) => MenuForm.ThemeChanged -= ApplyCurrentTheme;
+            ApplyCurrentTheme();
         }
 
         private void SignUpForm_Load(object sender, EventArgs e)
         {
-
+            ApplyCurrentTheme();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void txtUsername_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-
-        }
-
-        private void btnReturnToMenu_Click(object sender, EventArgs e)
+        private void btnBackToMenu_Click(object sender, EventArgs e)
         {
             MenuForm FormWindow = new MenuForm();
             FormWindow.Show();
@@ -79,6 +70,54 @@ namespace clientGraphic
             else
             {
                 MessageBox.Show("Sign Up failed! Username might already be taken.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(ApplyCurrentTheme));
+                return;
+            }
+
+            if (MenuForm.IsDarkMode)
+            {
+                this.BackColor = Color.FromArgb(35, 35, 35);
+
+                label1.ForeColor = Color.MediumPurple;
+                label2.ForeColor = Color.White;
+                label3.ForeColor = Color.White;
+                label4.ForeColor = Color.White;
+
+                txtUsername.BackColor = Color.FromArgb(45, 45, 45);
+                txtUsername.ForeColor = Color.White;
+                txtEmail.BackColor = Color.FromArgb(45, 45, 45);
+                txtEmail.ForeColor = Color.White;
+                txtPassword.BackColor = Color.FromArgb(45, 45, 45);
+                txtPassword.ForeColor = Color.White;
+
+                btnSignUp.ForeColor = Color.MediumPurple;
+                btnBack.ForeColor = Color.Tomato;
+            }
+            else
+            {
+                this.BackColor = Color.FromArgb(240, 240, 240);
+
+                label1.ForeColor = Color.MediumPurple;
+                label2.ForeColor = Color.FromArgb(50, 50, 50);
+                label3.ForeColor = Color.FromArgb(50, 50, 50);
+                label4.ForeColor = Color.FromArgb(50, 50, 50);
+
+                txtUsername.BackColor = Color.White;
+                txtUsername.ForeColor = Color.Black;
+                txtEmail.BackColor = Color.White;
+                txtEmail.ForeColor = Color.Black;
+                txtPassword.BackColor = Color.White;
+                txtPassword.ForeColor = Color.Black;
+
+                btnSignUp.ForeColor = Color.Purple;
+                btnBack.ForeColor = Color.Tomato;
             }
         }
 

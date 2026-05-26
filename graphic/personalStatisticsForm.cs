@@ -5,9 +5,9 @@ using LiveCharts.Wpf;
 
 namespace clientGraphic
 {
-    public partial class personalStatisticsForm : Form
+    public partial class PersonalStatisticsForm : Form
     {
-        public personalStatisticsForm()
+        public PersonalStatisticsForm()
         {
             InitializeComponent();
             SetupChart();

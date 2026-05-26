@@ -51,13 +51,15 @@ namespace clientGraphic
             // 
             // btnBack
             // 
-            btnBack.BackColor = SystemColors.MenuBar;
+            btnBack.Cursor = Cursors.Hand;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
             btnBack.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
-            btnBack.ForeColor = Color.MediumPurple;
-            btnBack.Location = new Point(100, 630);
+            btnBack.ForeColor = Color.Tomato;
+            btnBack.Location = new Point(133, 631);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(250, 53);
-            btnBack.TabIndex = 2;
+            btnBack.TabIndex = 5;
             btnBack.Text = "Return To Menu";
             btnBack.UseVisualStyleBackColor = false;
             btnBack.Click += btnBack_Click;

@@ -1,16 +1,12 @@
-﻿namespace clientGraphic
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace clientGraphic
 {
     partial class CreatRoomForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,26 +18,17 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
             txtQuestionCount = new TextBox();
             label6 = new Label();
-            btnReturn = new Button();
-            panel2 = new Panel();
+            btnBack = new Button();
             pnlRoomDetails = new Panel();
             lblShowPlayers = new Label();
-            panel4 = new Panel();
-            panel3 = new Panel();
             PlayersList = new ListBox();
             lblShowAdmin = new Label();
             label5 = new Label();
             label4 = new Label();
-            btnExit = new Button();
             label3 = new Label();
             txtNumOfPlayers = new TextBox();
             txtTimeForQustion = new TextBox();
@@ -49,248 +36,192 @@
             txtRoomName = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            panel1.SuspendLayout();
             pnlRoomDetails.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(64, 75, 64);
-            panel1.Controls.Add(txtQuestionCount);
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(btnReturn);
-            panel1.Controls.Add(panel2);
-            panel1.Controls.Add(pnlRoomDetails);
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(btnExit);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(txtNumOfPlayers);
-            panel1.Controls.Add(txtTimeForQustion);
-            panel1.Controls.Add(btnStartRoom);
-            panel1.Controls.Add(txtRoomName);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(200, 744);
-            panel1.TabIndex = 0;
-            // 
             // txtQuestionCount
             // 
-            txtQuestionCount.AccessibleName = "txtQuestionCount";
-            txtQuestionCount.Location = new Point(26, 202);
+            txtQuestionCount.BackColor = Color.FromArgb(45, 45, 45);
+            txtQuestionCount.BorderStyle = BorderStyle.FixedSingle;
+            txtQuestionCount.Font = new Font("Segoe UI", 11F);
+            txtQuestionCount.ForeColor = Color.White;
+            txtQuestionCount.Location = new Point(345, 320);
             txtQuestionCount.Name = "txtQuestionCount";
-            txtQuestionCount.Size = new Size(150, 31);
+            txtQuestionCount.Size = new Size(220, 37);
             txtQuestionCount.TabIndex = 16;
             // 
             // label6
             // 
-            label6.AccessibleName = "";
             label6.AutoSize = true;
-            label6.ForeColor = SystemColors.ButtonFace;
-            label6.Location = new Point(24, 174);
+            label6.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(135, 322);
             label6.Name = "label6";
-            label6.Size = new Size(150, 25);
+            label6.Size = new Size(199, 30);
             label6.TabIndex = 15;
-            label6.Text = "Num of Question";
+            label6.Text = "Num of Questions";
             // 
-            // btnReturn
+            // btnBack
             // 
-            btnReturn.AccessibleName = "btnReturnToMenu";
-            btnReturn.BackgroundImageLayout = ImageLayout.None;
-            btnReturn.Cursor = Cursors.Hand;
-            btnReturn.FlatAppearance.BorderSize = 0;
-            btnReturn.FlatStyle = FlatStyle.Flat;
-            btnReturn.Font = new Font("Segoe UI Symbol", 12F);
-            btnReturn.ForeColor = SystemColors.Control;
-            btnReturn.Location = new Point(3, 651);
-            btnReturn.Name = "btnReturn";
-            btnReturn.Size = new Size(200, 44);
-            btnReturn.TabIndex = 14;
-            btnReturn.Text = "Return To Menu";
-            btnReturn.UseVisualStyleBackColor = true;
-            btnReturn.Click += btnReturn_Click;
-            // 
-            // panel2
-            // 
-            panel2.AccessibleName = "SplitButtensFromtext";
-            panel2.BackColor = Color.Black;
-            panel2.Location = new Point(0, 298);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(202, 10);
-            panel2.TabIndex = 8;
+            btnBack.Cursor = Cursors.Hand;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnBack.ForeColor = Color.Tomato;
+            btnBack.Location = new Point(133, 631);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(250, 53);
+            btnBack.TabIndex = 14;
+            btnBack.Text = "Return To Menu";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
             // 
             // pnlRoomDetails
             // 
-            pnlRoomDetails.AccessibleName = "pnlRoomDetails";
             pnlRoomDetails.Controls.Add(lblShowPlayers);
-            pnlRoomDetails.Controls.Add(panel4);
-            pnlRoomDetails.Controls.Add(panel3);
             pnlRoomDetails.Controls.Add(PlayersList);
             pnlRoomDetails.Controls.Add(lblShowAdmin);
-            pnlRoomDetails.Location = new Point(3, 370);
+            pnlRoomDetails.Location = new Point(710, 210);
             pnlRoomDetails.Name = "pnlRoomDetails";
-            pnlRoomDetails.Size = new Size(197, 275);
+            pnlRoomDetails.Size = new Size(240, 285);
             pnlRoomDetails.TabIndex = 8;
             pnlRoomDetails.Visible = false;
             // 
             // lblShowPlayers
             // 
             lblShowPlayers.AutoSize = true;
-            lblShowPlayers.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblShowPlayers.ForeColor = SystemColors.ButtonFace;
-            lblShowPlayers.Location = new Point(4, 68);
+            lblShowPlayers.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblShowPlayers.ForeColor = Color.White;
+            lblShowPlayers.Location = new Point(3, 45);
             lblShowPlayers.Name = "lblShowPlayers";
-            lblShowPlayers.Size = new Size(102, 25);
+            lblShowPlayers.Size = new Size(124, 28);
             lblShowPlayers.TabIndex = 16;
             lblShowPlayers.Text = "Players List:";
             // 
-            // panel4
-            // 
-            panel4.AccessibleName = "SplitButtensFromtext";
-            panel4.BackColor = Color.Black;
-            panel4.Location = new Point(-6, 263);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(201, 10);
-            panel4.TabIndex = 15;
-            // 
-            // panel3
-            // 
-            panel3.AccessibleName = "SplitButtensFromtext";
-            panel3.BackColor = Color.Black;
-            panel3.Location = new Point(-14, 11);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(214, 10);
-            panel3.TabIndex = 14;
-            // 
             // PlayersList
             // 
-            PlayersList.BackColor = Color.White;
+            PlayersList.BackColor = Color.FromArgb(45, 45, 45);
+            PlayersList.BorderStyle = BorderStyle.FixedSingle;
+            PlayersList.Font = new Font("Segoe UI", 10F);
+            PlayersList.ForeColor = Color.White;
             PlayersList.FormattingEnabled = true;
-            PlayersList.ItemHeight = 25;
-            PlayersList.Location = new Point(4, 96);
+            PlayersList.ItemHeight = 28;
+            PlayersList.Location = new Point(3, 80);
             PlayersList.Name = "PlayersList";
-            PlayersList.Size = new Size(191, 129);
+            PlayersList.Size = new Size(230, 170);
             PlayersList.TabIndex = 3;
             // 
             // lblShowAdmin
             // 
             lblShowAdmin.AutoSize = true;
-            lblShowAdmin.ForeColor = SystemColors.ButtonFace;
-            lblShowAdmin.Location = new Point(3, 33);
+            lblShowAdmin.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblShowAdmin.ForeColor = Color.White;
+            lblShowAdmin.Location = new Point(3, 5);
             lblShowAdmin.Name = "lblShowAdmin";
-            lblShowAdmin.Size = new Size(121, 25);
+            lblShowAdmin.Size = new Size(141, 28);
             lblShowAdmin.TabIndex = 1;
             lblShowAdmin.Text = "Admin Name:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.ForeColor = SystemColors.ButtonFace;
-            label5.Location = new Point(26, 232);
+            label5.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(135, 377);
             label5.Name = "label5";
-            label5.Size = new Size(133, 25);
+            label5.Size = new Size(166, 30);
             label5.TabIndex = 13;
-            label5.Text = "Num of Players";
+            label5.Text = "Max of Players";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.ForeColor = SystemColors.ButtonFace;
-            label4.Location = new Point(25, 103);
+            label4.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(135, 267);
             label4.Name = "label4";
-            label4.Size = new Size(158, 25);
+            label4.Size = new Size(202, 30);
             label4.TabIndex = 12;
             label4.Text = "Time For Question";
-            // 
-            // btnExit
-            // 
-            btnExit.AccessibleName = "btnExit";
-            btnExit.BackgroundImageLayout = ImageLayout.None;
-            btnExit.Cursor = Cursors.Hand;
-            btnExit.FlatAppearance.BorderSize = 0;
-            btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.Font = new Font("Segoe UI Symbol", 12F);
-            btnExit.ForeColor = SystemColors.Control;
-            btnExit.Location = new Point(-3, 694);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(200, 50);
-            btnExit.TabIndex = 6;
-            btnExit.Text = "Exit";
-            btnExit.UseVisualStyleBackColor = true;
-            btnExit.Click += btnExit_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.ForeColor = SystemColors.ButtonFace;
-            label3.Location = new Point(26, 41);
+            label3.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(135, 212);
             label3.Name = "label3";
-            label3.Size = new Size(112, 25);
+            label3.Size = new Size(139, 30);
             label3.TabIndex = 11;
             label3.Text = "Room Name";
             // 
             // txtNumOfPlayers
             // 
-            txtNumOfPlayers.AccessibleName = "txtNumOfPlayers";
-            txtNumOfPlayers.Location = new Point(26, 260);
+            txtNumOfPlayers.BackColor = Color.FromArgb(45, 45, 45);
+            txtNumOfPlayers.BorderStyle = BorderStyle.FixedSingle;
+            txtNumOfPlayers.Font = new Font("Segoe UI", 11F);
+            txtNumOfPlayers.ForeColor = Color.White;
+            txtNumOfPlayers.Location = new Point(345, 375);
             txtNumOfPlayers.Name = "txtNumOfPlayers";
-            txtNumOfPlayers.Size = new Size(150, 31);
+            txtNumOfPlayers.Size = new Size(220, 37);
             txtNumOfPlayers.TabIndex = 10;
             // 
             // txtTimeForQustion
             // 
-            txtTimeForQustion.AccessibleName = "txtTimeForQustion";
-            txtTimeForQustion.Location = new Point(24, 131);
+            txtTimeForQustion.BackColor = Color.FromArgb(45, 45, 45);
+            txtTimeForQustion.BorderStyle = BorderStyle.FixedSingle;
+            txtTimeForQustion.Font = new Font("Segoe UI", 11F);
+            txtTimeForQustion.ForeColor = Color.White;
+            txtTimeForQustion.Location = new Point(345, 265);
             txtTimeForQustion.Name = "txtTimeForQustion";
-            txtTimeForQustion.Size = new Size(150, 31);
+            txtTimeForQustion.Size = new Size(220, 37);
             txtTimeForQustion.TabIndex = 9;
             // 
             // btnStartRoom
             // 
-            btnStartRoom.AccessibleName = "btnCreateRoom";
-            btnStartRoom.BackgroundImageLayout = ImageLayout.None;
             btnStartRoom.Cursor = Cursors.Hand;
             btnStartRoom.FlatAppearance.BorderSize = 0;
             btnStartRoom.FlatStyle = FlatStyle.Flat;
-            btnStartRoom.Font = new Font("Segoe UI Symbol", 12F);
-            btnStartRoom.ForeColor = SystemColors.Control;
-            btnStartRoom.Location = new Point(-3, 314);
+            btnStartRoom.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnStartRoom.ForeColor = Color.MediumPurple;
+            btnStartRoom.Location = new Point(345, 445);
             btnStartRoom.Name = "btnStartRoom";
-            btnStartRoom.Size = new Size(200, 50);
+            btnStartRoom.Size = new Size(220, 50);
             btnStartRoom.TabIndex = 4;
-            btnStartRoom.Text = "Start Room";
+            btnStartRoom.Text = "START ROOM";
             btnStartRoom.UseVisualStyleBackColor = true;
             btnStartRoom.Click += btnStartRoom_Click;
             // 
             // txtRoomName
             // 
-            txtRoomName.AccessibleName = "txtRoomName";
-            txtRoomName.Location = new Point(25, 69);
+            txtRoomName.BackColor = Color.FromArgb(45, 45, 45);
+            txtRoomName.BorderStyle = BorderStyle.FixedSingle;
+            txtRoomName.Font = new Font("Segoe UI", 11F);
+            txtRoomName.ForeColor = Color.White;
+            txtRoomName.Location = new Point(345, 210);
             txtRoomName.Name = "txtRoomName";
-            txtRoomName.Size = new Size(150, 31);
+            txtRoomName.Size = new Size(220, 37);
             txtRoomName.TabIndex = 8;
             // 
             // label2
             // 
-            label2.AccessibleName = "lblWelcome";
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonFace;
-            label2.Location = new Point(626, 74);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Italic);
+            label2.ForeColor = Color.DarkGray;
+            label2.Location = new Point(345, 115);
             label2.Name = "label2";
-            label2.Size = new Size(215, 38);
+            label2.Size = new Size(196, 32);
             label2.TabIndex = 7;
-            label2.Text = "Welcom, Player!";
+            label2.Text = "Welcome, Player!";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Symbol", 24F, FontStyle.Bold | FontStyle.Italic | FontStyle.Underline, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ButtonFace;
-            label1.Location = new Point(399, 9);
+            label1.Font = new Font("Segoe UI Emoji", 26F, FontStyle.Bold);
+            label1.ForeColor = Color.MediumPurple;
+            label1.Location = new Point(340, 40);
             label1.Name = "label1";
-            label1.Size = new Size(315, 65);
+            label1.Size = new Size(337, 69);
             label1.TabIndex = 6;
             label1.Text = "Create Room";
             // 
@@ -298,17 +229,25 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(64, 64, 64);
+            BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
+            Controls.Add(btnBack);
+            Controls.Add(pnlRoomDetails);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label6);
+            Controls.Add(txtQuestionCount);
+            Controls.Add(txtNumOfPlayers);
+            Controls.Add(txtTimeForQustion);
+            Controls.Add(btnStartRoom);
+            Controls.Add(txtRoomName);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "CreatRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "RoomForm";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             pnlRoomDetails.ResumeLayout(false);
             pnlRoomDetails.PerformLayout();
             ResumeLayout(false);
@@ -317,9 +256,7 @@
 
         #endregion
 
-        private Panel panel1;
         private Button btnStartRoom;
-        private Button btnExit;
         private TextBox txtTimeForQustion;
         private TextBox txtRoomName;
         private Label label2;
@@ -328,14 +265,11 @@
         private Label label5;
         private Label label4;
         private Label label3;
-        private Panel panel2;
         private Panel pnlRoomDetails;
         private Label lblShowAdmin;
         private ListBox PlayersList;
-        private Panel panel3;
-        private Panel panel4;
         private Label lblShowPlayers;
-        private Button btnReturn;
+        private Button btnBack;
         private TextBox txtQuestionCount;
         private Label label6;
     }

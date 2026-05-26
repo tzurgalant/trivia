@@ -14,6 +14,11 @@ namespace clientGraphic
         {
             InitializeComponent();
 
+            //night/day mode related
+            MenuForm.ThemeChanged += ApplyCurrentTheme;
+            this.FormClosed += (s, e) => MenuForm.ThemeChanged -= ApplyCurrentTheme;
+            ApplyCurrentTheme();
+
             UserInfo currentUser = Helper._currentUser;
 
             if (currentUser.Name != null)
@@ -93,13 +98,7 @@ namespace clientGraphic
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            StopAndDisposeTimer();
-            Application.Exit();
-        }
-
-        private void btnReturn_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
             StopAndDisposeTimer();
 
@@ -115,6 +114,72 @@ namespace clientGraphic
             {
                 _updatePlayersTimer.Stop();
                 _updatePlayersTimer.Dispose();
+            }
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(ApplyCurrentTheme));
+                return;
+            }
+
+            if (MenuForm.IsDarkMode)
+            {
+                this.BackColor = Color.FromArgb(35, 35, 35);
+
+                label1.ForeColor = Color.MediumPurple;
+                label2.ForeColor = Color.DarkGray;
+                label3.ForeColor = Color.White;
+                label4.ForeColor = Color.White;
+                label5.ForeColor = Color.White;
+                label6.ForeColor = Color.White;
+                lblShowAdmin.ForeColor = Color.White;
+                lblShowPlayers.ForeColor = Color.White;
+
+                txtRoomName.BackColor = Color.FromArgb(45, 45, 45);
+                txtRoomName.ForeColor = Color.White;
+                txtTimeForQustion.BackColor = Color.FromArgb(45, 45, 45);
+                txtTimeForQustion.ForeColor = Color.White;
+                txtQuestionCount.BackColor = Color.FromArgb(45, 45, 45);
+                txtQuestionCount.ForeColor = Color.White;
+                txtNumOfPlayers.BackColor = Color.FromArgb(45, 45, 45);
+                txtNumOfPlayers.ForeColor = Color.White;
+
+                PlayersList.BackColor = Color.FromArgb(45, 45, 45);
+                PlayersList.ForeColor = Color.White;
+
+                btnStartRoom.ForeColor = Color.MediumPurple;
+                btnBack.ForeColor = Color.Tomato;
+            }
+            else
+            {
+                this.BackColor = Color.FromArgb(240, 240, 240);
+
+                label1.ForeColor = Color.MediumPurple;
+                label2.ForeColor = Color.DimGray;
+                label3.ForeColor = Color.FromArgb(50, 50, 50);
+                label4.ForeColor = Color.FromArgb(50, 50, 50);
+                label5.ForeColor = Color.FromArgb(50, 50, 50);
+                label6.ForeColor = Color.FromArgb(50, 50, 50);
+                lblShowAdmin.ForeColor = Color.FromArgb(50, 50, 50);
+                lblShowPlayers.ForeColor = Color.FromArgb(50, 50, 50);
+
+                txtRoomName.BackColor = Color.White;
+                txtRoomName.ForeColor = Color.Black;
+                txtTimeForQustion.BackColor = Color.White;
+                txtTimeForQustion.ForeColor = Color.Black;
+                txtQuestionCount.BackColor = Color.White;
+                txtQuestionCount.ForeColor = Color.Black;
+                txtNumOfPlayers.BackColor = Color.White;
+                txtNumOfPlayers.ForeColor = Color.Black;
+
+                PlayersList.BackColor = Color.White;
+                PlayersList.ForeColor = Color.Black;
+
+                btnStartRoom.ForeColor = Color.Purple;
+                btnBack.ForeColor = Color.Tomato;
             }
         }
     }

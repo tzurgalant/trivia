@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace clientGraphic
 {
-    partial class personalStatisticsForm
+    partial class PersonalStatisticsForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -19,12 +19,12 @@ namespace clientGraphic
         private void InitializeComponent()
         {
             pieChartStats = new LiveCharts.WinForms.PieChart();
-            btnBack = new Button();
             label2 = new Label();
             lblUsername = new Label();
             lblWins = new Label();
             lblLosses = new Label();
             lblAccuracy = new Label();
+            btnBack = new Button();
             SuspendLayout();
             // 
             // pieChartStats
@@ -33,19 +33,6 @@ namespace clientGraphic
             pieChartStats.Name = "pieChartStats";
             pieChartStats.Size = new Size(420, 350);
             pieChartStats.TabIndex = 8;
-            // 
-            // btnBack
-            // 
-            btnBack.BackColor = SystemColors.MenuBar;
-            btnBack.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
-            btnBack.ForeColor = Color.MediumPurple;
-            btnBack.Location = new Point(100, 630);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(250, 53);
-            btnBack.TabIndex = 4;
-            btnBack.Text = "Return To Menu";
-            btnBack.UseVisualStyleBackColor = false;
-            btnBack.Click += btnBack_Click;
             // 
             // label2
             // 
@@ -102,31 +89,46 @@ namespace clientGraphic
             lblAccuracy.TabIndex = 11;
             lblAccuracy.Text = "Win Rate: 0%";
             // 
+            // btnBack
+            // 
+            btnBack.Cursor = Cursors.Hand;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnBack.ForeColor = Color.Tomato;
+            btnBack.Location = new Point(133, 631);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(250, 53);
+            btnBack.TabIndex = 12;
+            btnBack.Text = "Return To Menu";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
+            // 
             // personalStatisticsForm
             // 
             BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
+            Controls.Add(btnBack);
             Controls.Add(lblAccuracy);
             Controls.Add(lblLosses);
             Controls.Add(lblWins);
             Controls.Add(pieChartStats);
             Controls.Add(lblUsername);
             Controls.Add(label2);
-            Controls.Add(btnBack);
             Font = new Font("Microsoft Sans Serif", 8.25F);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "personalStatisticsForm";
+            Name = "PersonalStatisticsForm";
             StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);
             PerformLayout();
         }
 
         private LiveCharts.WinForms.PieChart pieChartStats;
-        private Button btnBack;
         private Label label2;
         private Label lblUsername;
         private Label lblWins;
         private Label lblLosses;
         private Label lblAccuracy;
+        private Button btnBack;
     }
 }

@@ -1,14 +1,20 @@
-﻿namespace clientGraphic
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace clientGraphic
 {
-    public partial class JoinRoomForm : Form
+    partial class JoinRoomForm
     {
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private System.ComponentModel.IContainer components = null;
+
+        protected override void Dispose(bool disposing)
         {
-
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
-
-        private ListBox listBoxRooms;
-        private Button btnRefresh;
 
         private void InitializeComponent()
         {
@@ -21,20 +27,24 @@
             // 
             // listBoxRooms
             // 
+            listBoxRooms.BackColor = Color.FromArgb(45, 45, 45);
+            listBoxRooms.BorderStyle = BorderStyle.None;
             listBoxRooms.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
             listBoxRooms.ForeColor = Color.MediumPurple;
             listBoxRooms.FormattingEnabled = true;
             listBoxRooms.ItemHeight = 32;
             listBoxRooms.Location = new Point(509, 136);
             listBoxRooms.Name = "listBoxRooms";
-            listBoxRooms.Size = new Size(400, 548);
+            listBoxRooms.Size = new Size(400, 544);
             listBoxRooms.TabIndex = 0;
             // 
             // btnRefresh
             // 
-            btnRefresh.BackColor = SystemColors.MenuBar;
+            btnRefresh.Cursor = Cursors.Hand;
+            btnRefresh.FlatAppearance.BorderSize = 0;
+            btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnRefresh.ForeColor = Color.MediumPurple;
+            btnRefresh.ForeColor = Color.White;
             btnRefresh.Location = new Point(133, 136);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(250, 50);
@@ -45,7 +55,9 @@
             // 
             // btnJoin
             // 
-            btnJoin.BackColor = SystemColors.MenuBar;
+            btnJoin.Cursor = Cursors.Hand;
+            btnJoin.FlatAppearance.BorderSize = 0;
+            btnJoin.FlatStyle = FlatStyle.Flat;
             btnJoin.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
             btnJoin.ForeColor = Color.MediumPurple;
             btnJoin.Location = new Point(133, 235);
@@ -58,9 +70,11 @@
             // 
             // btnBack
             // 
-            btnBack.BackColor = SystemColors.MenuBar;
+            btnBack.Cursor = Cursors.Hand;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
             btnBack.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
-            btnBack.ForeColor = Color.MediumPurple;
+            btnBack.ForeColor = Color.Tomato;
             btnBack.Location = new Point(133, 631);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(250, 53);
@@ -72,41 +86,36 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(64, 64, 64);
-            label2.Font = new Font("Segoe UI Emoji", 22F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(319, 42);
+            label2.Font = new Font("Segoe UI Emoji", 26F, FontStyle.Bold);
+            label2.ForeColor = Color.MediumPurple;
+            label2.Location = new Point(340, 40);
             label2.Name = "label2";
-            label2.Size = new Size(272, 58);
+            label2.Size = new Size(277, 69);
             label2.TabIndex = 6;
-            label2.Text = "JOIN ROOM";
+            label2.Text = "Join Room";
             // 
             // JoinRoomForm
             // 
-            BackColor = Color.FromArgb(64, 64, 64);
+            BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
             Controls.Add(label2);
             Controls.Add(btnBack);
             Controls.Add(btnJoin);
             Controls.Add(btnRefresh);
             Controls.Add(listBoxRooms);
-            Font = new Font("Microsoft Sans Serif", 8.25F);
+            Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "JoinRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Load += joinRoomForm_Load;
+            Load += JoinRoomForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
+        private ListBox listBoxRooms;
+        private Button btnRefresh;
         private Button btnJoin;
         private Button btnBack;
-
-        private void joinRoomForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private Label label2;
     }
 }

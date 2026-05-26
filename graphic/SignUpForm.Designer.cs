@@ -1,16 +1,12 @@
-﻿namespace clientGraphic
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace clientGraphic
 {
     partial class SignUpForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +18,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             txtUsername = new TextBox();
@@ -36,143 +28,124 @@
             label3 = new Label();
             label4 = new Label();
             btnSignUp = new Button();
-            panel1 = new Panel();
-            btnReturn = new Button();
-            btnExit = new Button();
-            panel1.SuspendLayout();
+            btnBack = new Button();
             SuspendLayout();
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(416, 342);
+            txtUsername.BackColor = Color.FromArgb(45, 45, 45);
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
+            txtUsername.Font = new Font("Segoe UI", 12F);
+            txtUsername.ForeColor = Color.White;
+            txtUsername.Location = new Point(423, 277);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(150, 31);
+            txtUsername.Size = new Size(220, 39);
             txtUsername.TabIndex = 0;
-            txtUsername.TextChanged += txtUsername_TextChanged;
             // 
             // txtPassword
             // 
-            txtPassword.BackColor = SystemColors.HighlightText;
-            txtPassword.Location = new Point(416, 448);
+            txtPassword.BackColor = Color.FromArgb(45, 45, 45);
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
+            txtPassword.Font = new Font("Segoe UI", 12F);
+            txtPassword.ForeColor = Color.White;
+            txtPassword.Location = new Point(423, 383);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(150, 31);
+            txtPassword.Size = new Size(220, 39);
             txtPassword.TabIndex = 2;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(416, 395);
+            txtEmail.BackColor = Color.FromArgb(45, 45, 45);
+            txtEmail.BorderStyle = BorderStyle.FixedSingle;
+            txtEmail.Font = new Font("Segoe UI", 12F);
+            txtEmail.ForeColor = Color.White;
+            txtEmail.Location = new Point(423, 330);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(150, 31);
+            txtEmail.Size = new Size(220, 39);
             txtEmail.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(64, 64, 64);
-            label1.Font = new Font("Segoe UI Emoji", 22F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(323, 162);
+            label1.Font = new Font("Segoe UI Emoji", 26F, FontStyle.Bold);
+            label1.ForeColor = Color.MediumPurple;
+            label1.Location = new Point(297, 62);
             label1.Name = "label1";
-            label1.Size = new Size(376, 58);
+            label1.Size = new Size(354, 69);
             label1.TabIndex = 5;
-            label1.Text = "TRIVIA SIGN OUT";
-            label1.Click += label1_Click;
+            label1.Text = "Trivia Sign Up";
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(323, 345);
+            label2.Location = new Point(297, 279);
             label2.Name = "label2";
-            label2.Size = new Size(59, 25);
+            label2.Size = new Size(81, 32);
             label2.TabIndex = 3;
             label2.Text = "Name";
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(323, 451);
+            label3.Location = new Point(297, 385);
             label3.Name = "label3";
-            label3.Size = new Size(87, 25);
+            label3.Size = new Size(122, 32);
             label3.TabIndex = 4;
             label3.Text = "Password";
             // 
             // label4
             // 
             label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(323, 398);
+            label4.Location = new Point(297, 332);
             label4.Name = "label4";
-            label4.Size = new Size(54, 25);
+            label4.Size = new Size(76, 32);
             label4.TabIndex = 8;
             label4.Text = "Email";
             // 
             // btnSignUp
             // 
-            btnSignUp.BackColor = Color.Aqua;
-            btnSignUp.ForeColor = Color.Black;
-            btnSignUp.Location = new Point(429, 511);
+            btnSignUp.Cursor = Cursors.Hand;
+            btnSignUp.FlatAppearance.BorderSize = 0;
+            btnSignUp.FlatStyle = FlatStyle.Flat;
+            btnSignUp.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnSignUp.ForeColor = Color.MediumPurple;
+            btnSignUp.Location = new Point(423, 453);
             btnSignUp.Name = "btnSignUp";
-            btnSignUp.Size = new Size(112, 34);
+            btnSignUp.Size = new Size(220, 50);
             btnSignUp.TabIndex = 7;
             btnSignUp.Text = "SIGN UP";
             btnSignUp.UseVisualStyleBackColor = false;
             btnSignUp.Click += btnSignUp_Click;
             // 
-            // panel1
+            // btnBack
             // 
-            panel1.BackColor = Color.FromArgb(64, 75, 64);
-            panel1.Controls.Add(btnReturn);
-            panel1.Controls.Add(btnExit);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(200, 744);
-            panel1.TabIndex = 9;
-            // 
-            // btnReturn
-            // 
-            btnReturn.AccessibleName = "btnReturnToMenu";
-            btnReturn.BackgroundImageLayout = ImageLayout.None;
-            btnReturn.Cursor = Cursors.Hand;
-            btnReturn.FlatAppearance.BorderSize = 0;
-            btnReturn.FlatStyle = FlatStyle.Flat;
-            btnReturn.Font = new Font("Segoe UI Symbol", 12F);
-            btnReturn.ForeColor = SystemColors.Control;
-            btnReturn.Location = new Point(-3, 641);
-            btnReturn.Name = "btnReturn";
-            btnReturn.Size = new Size(200, 44);
-            btnReturn.TabIndex = 8;
-            btnReturn.Text = "Return To Menu";
-            btnReturn.UseVisualStyleBackColor = true;
-            btnReturn.Click += btnReturnToMenu_Click;
-            // 
-            // btnExit
-            // 
-            btnExit.AccessibleName = "btnExit";
-            btnExit.BackgroundImageLayout = ImageLayout.None;
-            btnExit.Cursor = Cursors.Hand;
-            btnExit.FlatAppearance.BorderSize = 0;
-            btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.Font = new Font("Segoe UI Symbol", 12F);
-            btnExit.ForeColor = SystemColors.Control;
-            btnExit.Location = new Point(0, 691);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(200, 50);
-            btnExit.TabIndex = 7;
-            btnExit.Text = "Exit";
-            btnExit.UseVisualStyleBackColor = true;
-            btnExit.Click += btnExit_Click;
+            btnBack.Cursor = Cursors.Hand;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnBack.ForeColor = Color.Tomato;
+            btnBack.Location = new Point(133, 631);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(250, 53);
+            btnBack.TabIndex = 8;
+            btnBack.Text = "Return To Menu";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBackToMenu_Click;
             // 
             // SignUpForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(64, 64, 64);
+            BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
-            Controls.Add(panel1);
+            Controls.Add(btnBack);
             Controls.Add(btnSignUp);
             Controls.Add(label4);
             Controls.Add(txtEmail);
@@ -181,13 +154,11 @@
             Controls.Add(label1);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
-            ForeColor = Color.DarkGray;
             FormBorderStyle = FormBorderStyle.None;
             Name = "SignUpForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "LoginForm";
+            Text = "SignUpForm";
             Load += SignUpForm_Load;
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -201,8 +172,6 @@
         private Label label3;
         private Label label4;
         private Button btnSignUp;
-        private Panel panel1;
-        private Button btnExit;
-        private Button btnReturn;
+        private Button btnBack;
     }
 }
