@@ -22,7 +22,7 @@ public:
 	int addNewUser(std::string name, std::string pass, std::string email) override;
 
 	//questions related
-	std::list<Question> getQuestions() override;
+	std::list<Question> getQuestions(int num) override;
 
 	//statistics related
 	float getPlayerAverageAnswerTime(std::string userName) override;

@@ -16,7 +16,7 @@ public:
 	virtual int addNewUser(std::string name, std::string pass, std::string email) = 0;
 
 	//question related
-	virtual std::list<Question> getQuestions() = 0;
+	virtual std::list<Question> getQuestions(int num) = 0;
 
 	//statistics related
 	virtual float getPlayerAverageAnswerTime(std::string userName) = 0;

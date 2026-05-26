@@ -24,7 +24,6 @@ enum CodeR : Byte {
     JoinRoomCmd,
     CreateRoomCmd,
     GetHighScoreCmd
-    
 };
 
 //for the serialzer
@@ -68,6 +67,7 @@ struct JoinRoomResponse
 struct CreateRoomResponse
 {
     unsigned int status;
+    unsigned int roomId;/// more easy for the client side
 };
 struct GetHighScoreResponse
 {
