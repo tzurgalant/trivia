@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using static clientGraphic.MenuForm;
 
 namespace clientGraphic
 {
@@ -12,6 +13,9 @@ namespace clientGraphic
             InitializeComponent();
             SetupListViewColumns();
             LoadHighScores();
+
+            //glowing effect
+            ButtonEffects.AddGlowEffect(btnBack, Color.Tomato);
 
             //night/day mode related
             MenuForm.ThemeChanged += ApplyCurrentTheme;

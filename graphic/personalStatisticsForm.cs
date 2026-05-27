@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Wpf;
+using static clientGraphic.MenuForm;
 
 namespace clientGraphic
 {
@@ -11,6 +12,9 @@ namespace clientGraphic
         {
             InitializeComponent();
             SetupChart();
+
+            //glowing effect
+            ButtonEffects.AddGlowEffect(btnBack, Color.Tomato);
 
             //nught/day mode related
             MenuForm.ThemeChanged += ApplyCurrentTheme;
