@@ -1,3 +1,5 @@
+using static clientGraphic.MenuForm;
+
 namespace clientGraphic
 {
     public partial class LoginForm : Form
@@ -7,7 +9,8 @@ namespace clientGraphic
             InitializeComponent();
 
             //glowing effect
-            MenuForm.AddGlowEffect(btnLogin);
+            ButtonEffects.AddGlowEffect(btnLogin, Color.Magenta);
+            ButtonEffects.AddGlowEffect(btnBack, Color.Tomato);
 
             //night/day mode related
             MenuForm.ThemeChanged += ApplyCurrentTheme;

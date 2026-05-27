@@ -43,6 +43,9 @@ namespace clientGraphic
                 label2.Text = "Welcome, Player!";
             }
             ApplyTheme();
+
+            //glowing effect
+            ButtonEffects.AddGlowEffect(btnExit, Color.Tomato);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -165,112 +168,155 @@ namespace clientGraphic
         }
 
         //glowing effect
-        public static void AddGlowEffect(Button button)
+        public static class ButtonEffects
         {
-            int borderRadius = 20;
-
-            button.FlatStyle = FlatStyle.Flat;
-            button.FlatAppearance.BorderSize = 0;
-
-            GraphicsPath GetRoundPath(Rectangle bounds, int radius)
+            private class GlowState
             {
-                GraphicsPath path = new GraphicsPath();
-                int diameter = radius * 2;
+                public System.Windows.Forms.Timer Timer;
+                public int AnimationStep;
+                public bool IsHovered;
+                public Color GlowColor;
 
-                path.AddArc(bounds.X, bounds.Y, diameter, diameter, 180, 90);
-                path.AddArc(bounds.Right - diameter, bounds.Y, diameter, diameter, 270, 90);
-                path.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90);
-                path.AddArc(bounds.X, bounds.Bottom - diameter, diameter, diameter, 90, 90);
-                path.CloseFigure();
-                return path;
+                public EventHandler TickHandler;
+                public EventHandler MouseEnterHandler;
+                public EventHandler MouseLeaveHandler;
+                public PaintEventHandler PaintHandler;
+                public EventHandler SizeHandler;
             }
 
-            button.SizeChanged += (s, e) =>
+            private static readonly Dictionary<Button, GlowState> states = new();
+
+            public static void AddGlowEffect(Button button, Color glowColor)
             {
-                if (button.Width > borderRadius && button.Height > borderRadius)
+                if (states.ContainsKey(button))
                 {
-                    using (GraphicsPath path = GetRoundPath(new Rectangle(0, 0, button.Width, button.Height), borderRadius))
+                    states[button].GlowColor = glowColor;
+                    return;
+                }
+
+                var state = new GlowState
+                {
+                    Timer = new System.Windows.Forms.Timer(),
+                    AnimationStep = 0,
+                    IsHovered = false,
+                    GlowColor = glowColor
+                };
+
+                state.Timer.Interval = 16;
+
+                int borderRadius = 20;
+
+                GraphicsPath GetRoundPath(Rectangle bounds, int radius)
+                {
+                    GraphicsPath path = new GraphicsPath();
+                    int diameter = radius * 2;
+
+                    path.AddArc(bounds.X, bounds.Y, diameter, diameter, 180, 90);
+                    path.AddArc(bounds.Right - diameter, bounds.Y, diameter, diameter, 270, 90);
+                    path.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90);
+                    path.AddArc(bounds.X, bounds.Bottom - diameter, diameter, diameter, 90, 90);
+                    path.CloseFigure();
+                    return path;
+                }
+
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderSize = 0;
+
+                state.SizeHandler = (s, e) =>
+                {
+                    if (button.Width > borderRadius && button.Height > borderRadius)
                     {
+                        using GraphicsPath path = GetRoundPath(
+                            new Rectangle(0, 0, button.Width, button.Height),
+                            borderRadius);
+
                         button.Region = new Region(path);
                     }
-                }
-            };
+                };
 
-            if (button.Width > borderRadius && button.Height > borderRadius)
-            {
-                using (GraphicsPath path = GetRoundPath(new Rectangle(0, 0, button.Width, button.Height), borderRadius))
+                button.SizeChanged += state.SizeHandler;
+
+                state.PaintHandler = (s, e) =>
                 {
-                    button.Region = new Region(path);
-                }
-            }
+                    if (state.AnimationStep <= 0) return;
 
-            System.Windows.Forms.Timer fadeOutTimer = new System.Windows.Forms.Timer();
-            fadeOutTimer.Interval = 20;
-            int animationStep = 0;
-            bool isHovered = false;
-            Color glowColor = Color.FromArgb(255, 0, 255);
-
-            button.Paint += (s, e) =>
-            {
-                if (animationStep > 0)
-                {
                     e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-                    Color parentBg = button.Parent != null ? button.Parent.BackColor : Color.FromArgb(35, 35, 35);
-                    Color currentBorderColor = Color.FromArgb(
-                        parentBg.R + (glowColor.R - parentBg.R) * animationStep / 255,
-                        parentBg.G + (glowColor.G - parentBg.G) * animationStep / 255,
-                        parentBg.B + (glowColor.B - parentBg.B) * animationStep / 255
+                    Color parentBg = button.Parent?.BackColor ?? Color.FromArgb(35, 35, 35);
+
+                    float t = state.AnimationStep / 255f;
+
+                    Color current = Color.FromArgb(
+                        (int)(parentBg.R + (state.GlowColor.R - parentBg.R) * t),
+                        (int)(parentBg.G + (state.GlowColor.G - parentBg.G) * t),
+                        (int)(parentBg.B + (state.GlowColor.B - parentBg.B) * t)
                     );
 
-                    using (Pen pen = new Pen(currentBorderColor, 3))
-                    {
-                        using (GraphicsPath path = GetRoundPath(new Rectangle(1, 1, button.Width - 3, button.Height - 3), borderRadius))
-                        {
-                            e.Graphics.DrawPath(pen, path);
-                        }
-                    }
-                }
-            };
+                    using Pen pen = new Pen(current, 3);
+                    using GraphicsPath path = GetRoundPath(
+                        new Rectangle(1, 1, button.Width - 3, button.Height - 3),
+                        borderRadius);
 
-            fadeOutTimer.Tick += (s, e) =>
-            {
-                if (isHovered)
+                    e.Graphics.DrawPath(pen, path);
+                };
+
+                button.Paint += state.PaintHandler;
+
+                state.TickHandler = (s, e) =>
                 {
-                    if (animationStep < 255)
+                    if (state.IsHovered)
                     {
-                        animationStep += 51;
-                        if (animationStep > 255) animationStep = 255;
-                        button.Invalidate();
+                        state.AnimationStep = Math.Min(255, state.AnimationStep + 40);
+                        if (state.AnimationStep == 255)
+                            state.Timer.Stop();
                     }
                     else
                     {
-                        fadeOutTimer.Stop();
+                        state.AnimationStep = Math.Max(0, state.AnimationStep - 25);
+                        if (state.AnimationStep == 0)
+                            state.Timer.Stop();
                     }
-                }
-                else
-                {
-                    animationStep -= 15;
-                    if (animationStep <= 0)
-                    {
-                        animationStep = 0;
-                        fadeOutTimer.Stop();
-                    }
+
                     button.Invalidate();
-                }
-            };
+                };
 
-            button.MouseEnter += (s, e) =>
-            {
-                isHovered = true;
-                fadeOutTimer.Start();
-            };
+                state.MouseEnterHandler = (s, e) =>
+                {
+                    state.IsHovered = true;
+                    state.Timer.Start();
+                };
 
-            button.MouseLeave += (s, e) =>
+                state.MouseLeaveHandler = (s, e) =>
+                {
+                    state.IsHovered = false;
+                    state.Timer.Start();
+                };
+
+                state.Timer.Tick += state.TickHandler;
+                button.MouseEnter += state.MouseEnterHandler;
+                button.MouseLeave += state.MouseLeaveHandler;
+
+                states[button] = state;
+            }
+
+            public static void RemoveGlowEffect(Button button)
             {
-                isHovered = false;
-                fadeOutTimer.Start();
-            };
+                if (!states.ContainsKey(button))
+                    return;
+
+                var state = states[button];
+
+                state.Timer.Stop();
+                state.Timer.Tick -= state.TickHandler;
+                state.Timer.Dispose();
+
+                button.MouseEnter -= state.MouseEnterHandler;
+                button.MouseLeave -= state.MouseLeaveHandler;
+                button.Paint -= state.PaintHandler;
+                button.SizeChanged -= state.SizeHandler;
+
+                states.Remove(button);
+            }
         }
     }
 }

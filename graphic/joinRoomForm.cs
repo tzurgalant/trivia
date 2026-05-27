@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static clientGraphic.MenuForm;
 
 namespace clientGraphic
 {
@@ -13,7 +14,9 @@ namespace clientGraphic
             InitializeComponent();
 
             //glowing effect
-            MenuForm.AddGlowEffect(btnJoin);
+            ButtonEffects.AddGlowEffect(btnJoin, Color.Magenta);
+            ButtonEffects.AddGlowEffect(btnBack, Color.Tomato);
+            ButtonEffects.AddGlowEffect(btnRefresh, Color.White);
 
             //nught/day mode related
             MenuForm.ThemeChanged += ApplyCurrentTheme;

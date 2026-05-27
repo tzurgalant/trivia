@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static clientGraphic.MenuForm;
 
 namespace clientGraphic
 {
@@ -17,7 +18,8 @@ namespace clientGraphic
             InitializeComponent();
 
             //glowing effect
-            MenuForm.AddGlowEffect(btnSignUp);
+            ButtonEffects.AddGlowEffect(btnSignUp, Color.Magenta);
+            ButtonEffects.AddGlowEffect(btnBack, Color.Tomato);
 
             //night/day mode related
             MenuForm.ThemeChanged += ApplyCurrentTheme;
