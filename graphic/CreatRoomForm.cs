@@ -32,7 +32,7 @@ namespace clientGraphic
                 label2.Text = "Welcome, Player!";
 
             _updatePlayersTimer = new System.Windows.Forms.Timer();
-            _updatePlayersTimer.Interval = 1500;
+            _updatePlayersTimer.Interval = 3000;
             _updatePlayersTimer.Tick += UpdatePlayersTimer_Tick;
         }
 
@@ -186,6 +186,11 @@ namespace clientGraphic
                 btnStartRoom.ForeColor = Color.Purple;
                 btnBack.ForeColor = Color.Tomato;
             }
+        }
+
+        private void PlayersList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

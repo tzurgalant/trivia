@@ -110,6 +110,7 @@ namespace clientGraphic
             PlayersList.Name = "PlayersList";
             PlayersList.Size = new Size(230, 170);
             PlayersList.TabIndex = 3;
+            PlayersList.SelectedIndexChanged += PlayersList_SelectedIndexChanged;
             // 
             // lblShowAdmin
             // 
