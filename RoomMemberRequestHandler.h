@@ -8,7 +8,7 @@
 class RoomMemberRequestHandler : public IRequestHandler
 {
 public:
-	RoomMemberRequestHandler(RequestHandlerFactory& handlerFactory, RoomManager roomManager, LoggedUser Luser, RoomData roomData);
+	RoomMemberRequestHandler(RequestHandlerFactory& handlerFactory, RoomManager roomManager, LoggedUser Luser, Room& room);
 	bool isRequestRelevant(const RequestInfo& reqInfo) override;
 	RequestResult handleRequest(const RequestInfo& reqInfo) override;
 

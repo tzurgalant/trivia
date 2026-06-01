@@ -1,6 +1,7 @@
 #include "RoomAdminRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "JsonRequestPacketDeserializer.h"
+#include "MenuRequestHandler.h"
 
 RoomAdminRequestHandler::RoomAdminRequestHandler(
     Room& room,

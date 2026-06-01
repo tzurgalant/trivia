@@ -67,7 +67,7 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& reqInfo)
 
     roomsResponse.rooms = m_handlerFactory.getRoomManager().getRooms();
     roomsResponse.status = 1;
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(roomsResponse);
     return res;
 }
@@ -78,7 +78,7 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& reqInfo)
     GetPlayersinRoomRequest playersinRoomRequest = JsonRequestPacketDeserializer::deserializeGetPlayersRequest(reqInfo.buff);
 
     playersInRoomResponse.players = m_handlerFactory.getRoomManager().getRoom(playersinRoomRequest.roomld).getAllUsersNames();
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(playersInRoomResponse);
     return res;
 }
@@ -90,7 +90,7 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& reqInfo)
 
     personalStatsReponse.statistics = m_handlerFactory.getStatisticsManager().getUserStatistics(m_user.getUserName());
     personalStatsReponse.status = 1;
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(personalStatsReponse);
     return res;
 }
@@ -103,7 +103,7 @@ RequestResult MenuRequestHandler::getHighScore(const RequestInfo& reqInfo)
 
     highScoreResponse.statistics = m_handlerFactory.getStatisticsManager().getHighScore();
     highScoreResponse.status = 1;
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(highScoreResponse);
     return res;
 }
@@ -123,7 +123,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& reqInfo)
     {
         JoinRoomResponse.status = 0;
     }
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createRoomMemberRequestHandler(m_handlerFactory, m_handlerFactory.getRoomManager(),m_user, m_handlerFactory.getRoomManager().getRoom(joinRoomRequest.roomld));// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse);
     return res;
 }
@@ -143,7 +143,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& reqInfo)
     createRoomResponse.roomId = m_handlerFactory.getRoomManager().createRoom(m_user, roomData);
     createRoomResponse.status = 1;
 
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createRoomAdminRequestHandler(m_handlerFactory.getRoomManager().getRoom(createRoomResponse.roomId),m_user,m_handlerFactory.getRoomManager(),m_handlerFactory);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(createRoomResponse);
     return res;
 }

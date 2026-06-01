@@ -1,6 +1,6 @@
 #include "RoomMemberRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
-RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory& handlerFactory, RoomManager roomManager, LoggedUser Luser, RoomData& roomData):m_handlerFactory(handlerFactory), m_roomManager(roomManager), m_user(Luser), m_room(roomData)
+RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory& handlerFactory, RoomManager roomManager, LoggedUser Luser, Room& room):m_handlerFactory(handlerFactory), m_roomManager(roomManager), m_user(Luser), m_room(room)
 {
 	
 }
@@ -12,6 +12,7 @@ RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& reqInfo
 {
 	return  reqInfo.id == LeaveRoomCmd ? leaveRoom(reqInfo) : getRoomState(reqInfo);
 }
+
 
 RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& reqInfo)
 {

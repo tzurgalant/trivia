@@ -6,7 +6,6 @@
 #include <exception>
 #include <map>
 #include "mutex"
-#include "Communicator.h"
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
 #include <iostream>
