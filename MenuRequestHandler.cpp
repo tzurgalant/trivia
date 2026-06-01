@@ -45,6 +45,8 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& reqInfo)
 
     case CreateRoomCmd:   
         return createRoom(reqInfo);
+    default:
+        throw std::runtime_error("Irrelevant request in MenuRequestHandler");
     }
 }
 RequestResult MenuRequestHandler::logout(const RequestInfo& reqInfo)
