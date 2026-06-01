@@ -5,13 +5,21 @@
 #include "Room.h"
 
 
-class RoomMemberRequestHandler
+class RoomMemberRequestHandler : public IRequestHandler
 {
 public:
+	RoomMemberRequestHandler(RequestHandlerFactory& handlerFactory, RoomManager roomManager, LoggedUser Luser, RoomData roomData);
+	bool isRequestRelevant(const RequestInfo& reqInfo) override;
+	RequestResult handleRequest(const RequestInfo& reqInfo) override;
 
+	RequestResult leaveRoom(const RequestInfo& reqInfo);
+	RequestResult getRoomState(const RequestInfo& reqInfo);
 private:
 	Room m_room;
-	LoggedUser LoggedUser;
-	
+	LoggedUser m_user;
+	RequestHandlerFactory& m_handlerFactory;
+	RoomManager& m_roomManager;
 };
+
+
 

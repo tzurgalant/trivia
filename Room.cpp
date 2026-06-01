@@ -8,9 +8,13 @@ void Room::addUser(LoggedUser Luser)
 {
 	m_users.push_back(Luser);
 }
-void Room::removeUsers(LoggedUser Luser)
+bool Room::removeUser(LoggedUser Luser)
 {
+	size_t originalSize = m_users.size();
+
 	m_users.erase(std::remove(m_users.begin(), m_users.end(), Luser), m_users.end());
+
+	return m_users.size() < originalSize;/// if was a this user on the vector return true 
 }
 std::vector<std::string> Room::getAllUsersNames() const
 {

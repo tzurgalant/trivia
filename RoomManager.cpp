@@ -1,5 +1,5 @@
 #include "RoomManager.h"
-
+#include <algorithm>
 int RoomManager::createRoom(LoggedUser loggedUser, RoomData roomData)
 {
 	//need to chec if the rome id is exist
@@ -37,3 +37,21 @@ int RoomManager::getNextRoomID()
 	return m_roomID++;
 }
 
+bool RoomManager::removeUser(LoggedUser loggedUser)
+{
+	auto it = std::find_if(m_rooms.begin(), m_rooms.end(), [&](Room& room) {// going over all the rooms and find the room whit the user x
+		return room.removeUser(loggedUser); // if found remove the user
+		});
+
+	if (it != m_rooms.end())
+	{
+		if ((*it).second.getAllUsers().empty())
+		{
+			m_rooms.erase(it); // if there not ather user in this room the room is delete
+		}
+		return true; 
+	}
+
+	return false;// if the it connitn end iterator we not find this useron the rooms and return false...
+
+}
