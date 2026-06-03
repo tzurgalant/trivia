@@ -51,4 +51,40 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& reqInfo)
 
     res.response = JsonResponsePacketSerializer::serializeResponse(resp);
     res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);
+
+    return res;
 }
+
+RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& reqInfo)
+{
+    RequestResult res;
+
+    StartGameResponse resp;
+    resp.status = 1;
+
+    res.response = JsonResponsePacketSerializer::serializeResponse(resp);
+    res.newHandler = nullptr;
+
+    return res;
+}
+
+RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& reqInfo)
+{
+    RequestResult res;
+
+    GetRoomStateResponse resp;
+
+    RoomData data = m_room.getRoomData();
+
+    resp.status = 1;
+    resp.hasGameBegun = false;
+    resp.players = m_room.getAllUsersNames();
+    resp.questionCount = data.numOfQuestionsInGame;
+    resp.answerTimeOut = data.timePerQuestion;
+
+    res.response = JsonResponsePacketSerializer::serializeResponse(resp);
+    res.newHandler = nullptr;
+
+    return res;
+}
+
