@@ -13,6 +13,11 @@ void  RoomManager::deleteRoom(int ID)
 {
 	m_rooms.erase(ID);
 }
+void RoomManager::startRoom(int ID)
+{
+	m_rooms.at(ID).setRoomStatus(true);
+}
+
 
 RoomStatus  RoomManager::getRoomState(int ID)
 {
@@ -39,9 +44,10 @@ int RoomManager::getNextRoomID()
 
 bool RoomManager::removeUser(LoggedUser loggedUser)
 {
-	auto it = std::find_if(m_rooms.begin(), m_rooms.end(), [&](Room& room) {// going over all the rooms and find the room whit the user x
-		return room.removeUser(loggedUser); // if found remove the user
+	auto it = std::find_if(m_rooms.begin(), m_rooms.end(), [&](std::pair<const unsigned int, Room>& pair) {// going over all the rooms and find the room whit the user x
+		return pair.second.removeUser(loggedUser);// if found remove the user
 		});
+
 
 	if (it != m_rooms.end())
 	{

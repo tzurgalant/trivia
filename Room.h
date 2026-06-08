@@ -29,5 +29,6 @@ public:
 	std::vector<std::string> getAllUsersNames() const;
 	std::vector<LoggedUser> getAllUsers() const;
 	RoomData getRoomData() const ;
+	void setRoomStatus(RoomStatus status);
 };
 

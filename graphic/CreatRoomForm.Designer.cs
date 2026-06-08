@@ -23,20 +23,15 @@ namespace clientGraphic
             txtQuestionCount = new TextBox();
             label6 = new Label();
             btnBack = new Button();
-            pnlRoomDetails = new Panel();
-            lblShowPlayers = new Label();
-            PlayersList = new ListBox();
-            lblShowAdmin = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             txtNumOfPlayers = new TextBox();
             txtTimeForQustion = new TextBox();
-            btnStartRoom = new Button();
+            btnCreateRoom = new Button();
             txtRoomName = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            pnlRoomDetails.SuspendLayout();
             SuspendLayout();
             // 
             // txtQuestionCount
@@ -75,53 +70,6 @@ namespace clientGraphic
             btnBack.Text = "Return To Menu";
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
-            // 
-            // pnlRoomDetails
-            // 
-            pnlRoomDetails.Controls.Add(lblShowPlayers);
-            pnlRoomDetails.Controls.Add(PlayersList);
-            pnlRoomDetails.Controls.Add(lblShowAdmin);
-            pnlRoomDetails.Location = new Point(710, 210);
-            pnlRoomDetails.Name = "pnlRoomDetails";
-            pnlRoomDetails.Size = new Size(240, 285);
-            pnlRoomDetails.TabIndex = 8;
-            pnlRoomDetails.Visible = false;
-            // 
-            // lblShowPlayers
-            // 
-            lblShowPlayers.AutoSize = true;
-            lblShowPlayers.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblShowPlayers.ForeColor = Color.White;
-            lblShowPlayers.Location = new Point(3, 45);
-            lblShowPlayers.Name = "lblShowPlayers";
-            lblShowPlayers.Size = new Size(124, 28);
-            lblShowPlayers.TabIndex = 16;
-            lblShowPlayers.Text = "Players List:";
-            // 
-            // PlayersList
-            // 
-            PlayersList.BackColor = Color.FromArgb(45, 45, 45);
-            PlayersList.BorderStyle = BorderStyle.FixedSingle;
-            PlayersList.Font = new Font("Segoe UI", 10F);
-            PlayersList.ForeColor = Color.White;
-            PlayersList.FormattingEnabled = true;
-            PlayersList.ItemHeight = 28;
-            PlayersList.Location = new Point(3, 80);
-            PlayersList.Name = "PlayersList";
-            PlayersList.Size = new Size(230, 170);
-            PlayersList.TabIndex = 3;
-            PlayersList.SelectedIndexChanged += PlayersList_SelectedIndexChanged;
-            // 
-            // lblShowAdmin
-            // 
-            lblShowAdmin.AutoSize = true;
-            lblShowAdmin.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblShowAdmin.ForeColor = Color.White;
-            lblShowAdmin.Location = new Point(3, 5);
-            lblShowAdmin.Name = "lblShowAdmin";
-            lblShowAdmin.Size = new Size(141, 28);
-            lblShowAdmin.TabIndex = 1;
-            lblShowAdmin.Text = "Admin Name:";
             // 
             // label5
             // 
@@ -178,20 +126,20 @@ namespace clientGraphic
             txtTimeForQustion.Size = new Size(220, 37);
             txtTimeForQustion.TabIndex = 9;
             // 
-            // btnStartRoom
+            // btnCreateRoom
             // 
-            btnStartRoom.Cursor = Cursors.Hand;
-            btnStartRoom.FlatAppearance.BorderSize = 0;
-            btnStartRoom.FlatStyle = FlatStyle.Flat;
-            btnStartRoom.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
-            btnStartRoom.ForeColor = Color.MediumPurple;
-            btnStartRoom.Location = new Point(345, 445);
-            btnStartRoom.Name = "btnStartRoom";
-            btnStartRoom.Size = new Size(220, 50);
-            btnStartRoom.TabIndex = 4;
-            btnStartRoom.Text = "START ROOM";
-            btnStartRoom.UseVisualStyleBackColor = true;
-            btnStartRoom.Click += btnStartRoom_Click;
+            btnCreateRoom.Cursor = Cursors.Hand;
+            btnCreateRoom.FlatAppearance.BorderSize = 0;
+            btnCreateRoom.FlatStyle = FlatStyle.Flat;
+            btnCreateRoom.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnCreateRoom.ForeColor = Color.MediumPurple;
+            btnCreateRoom.Location = new Point(345, 445);
+            btnCreateRoom.Name = "btnCreateRoom";
+            btnCreateRoom.Size = new Size(220, 50);
+            btnCreateRoom.TabIndex = 4;
+            btnCreateRoom.Text = "CREATE ROOM";
+            btnCreateRoom.UseVisualStyleBackColor = true;
+            btnCreateRoom.Click += btnCreateRoom_Click;
             // 
             // txtRoomName
             // 
@@ -214,6 +162,7 @@ namespace clientGraphic
             label2.Size = new Size(196, 32);
             label2.TabIndex = 7;
             label2.Text = "Welcome, Player!";
+            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -233,7 +182,6 @@ namespace clientGraphic
             BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
             Controls.Add(btnBack);
-            Controls.Add(pnlRoomDetails);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -241,7 +189,7 @@ namespace clientGraphic
             Controls.Add(txtQuestionCount);
             Controls.Add(txtNumOfPlayers);
             Controls.Add(txtTimeForQustion);
-            Controls.Add(btnStartRoom);
+            Controls.Add(btnCreateRoom);
             Controls.Add(txtRoomName);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -249,15 +197,13 @@ namespace clientGraphic
             Name = "CreatRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "RoomForm";
-            pnlRoomDetails.ResumeLayout(false);
-            pnlRoomDetails.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button btnStartRoom;
+        private Button btnCreateRoom;
         private TextBox txtTimeForQustion;
         private TextBox txtRoomName;
         private Label label2;
@@ -266,10 +212,6 @@ namespace clientGraphic
         private Label label5;
         private Label label4;
         private Label label3;
-        private Panel pnlRoomDetails;
-        private Label lblShowAdmin;
-        private ListBox PlayersList;
-        private Label lblShowPlayers;
         private Button btnBack;
         private TextBox txtQuestionCount;
         private Label label6;

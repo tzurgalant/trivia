@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace clientGraphic
 {
     public enum CodeR : byte
     {
         LoginCmd = 100,
-        SignupCmd,              // 101
-        ErrorCmd,               // 102
-        LogoutCmd,              // 103
-        GetRoomsCmd,            // 104
-        GetPlayersInRoomCmd,    // 105
-        GetPersonalStatsCmd,    // 106
-        JoinRoomCmd,            // 107
-        CreateRoomCmd,          // 108
-        GetHighScoreCmd         // 109
+        SignupCmd,
+        ErrorCmd,
+        LogoutCmd,
+        GetRoomsCmd,
+        GetPlayersInRoomCmd,
+        GetPersonalStatsCmd,
+        JoinRoomCmd,
+        CreateRoomCmd,
+        GetHighScoreCmd,
+        CloseRoomCmd,
+        StartGameCmd,
+        GetRoomStateCmd,
+        LeaveRoomCmd
     }
     public struct UserInfo
     {
@@ -22,7 +27,7 @@ namespace clientGraphic
         public string Pass { get; set; }
         public string Email { get; set; }
         public bool IsLogged { get; set; }
-
+        public bool IsAdmin { get; set; }
     }
     internal static class Helper
     {

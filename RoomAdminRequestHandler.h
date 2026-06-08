@@ -25,4 +25,6 @@ private:
     RequestResult closeRoom(const RequestInfo& reqInfo);
     RequestResult startGame(const RequestInfo& reqInfo);
     RequestResult getRoomState(const RequestInfo& reqInfo);
+    RequestResult getPlayersInRoom(const RequestInfo& reqInfo);
+
 };

@@ -4,9 +4,10 @@
 #include "LoginManager.h"
 #include "RoomManager.h"
 #include "StatisticsManager.h"
-#include "RoomMemberRequestHandler.h"
-#include "RoomAdminRequestHandler.h"
+
 // because i have loop of calling of librarys we need to do Forward Declarations 
+class RoomMemberRequestHandler;
+class RoomAdminRequestHandler;
 class LoginRequestHandler;
 class MenuRequestHandler;
 class IRequestHandler;

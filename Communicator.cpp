@@ -85,6 +85,29 @@ bool sendAll(int socket, const char* buffer, size_t size) {// like receive all b
 	return true;
 }
 
+void printRequestInfo(const RequestInfo& reqInfo)
+{
+	const int MAX_PRINTS_PER_TYPE = 3;
+	static int lastId;
+	static Buffer lastBuff;
+
+	if (lastId != reqInfo.id && lastBuff != reqInfo.buff)
+	{
+		std::cout << "=== Incoming Request ===" << std::endl;
+		std::cout << "Socket: " << reqInfo.userSocket << std::endl;
+		std::cout << "Request ID: " << (int)reqInfo.id << std::endl;
+		std::cout << "Reception Time: " << reqInfo.receivalTime << std::endl;
+		std::cout << "Message Length: " << reqInfo.buff.size() << " bytes" << std::endl;
+		std::cout << "Message Content: ";
+		for (size_t i = 0; i < reqInfo.buff.size(); ++i) {
+			std::cout << (char)reqInfo.buff[i];
+		}
+		std::cout << std::endl << "=====================" << std::endl;
+		lastId = reqInfo.id;
+		lastBuff = reqInfo.buff;
+	}
+}
+
 void Communicator::handleNewClient(SOCKET userS)
 {
 	try
@@ -115,6 +138,9 @@ void Communicator::handleNewClient(SOCKET userS)
 			reqInfo.id = (Byte)header[0];
 			reqInfo.receivalTime = std::time(nullptr);
 			reqInfo.userSocket = userS;
+			
+			printRequestInfo(reqInfo);
+
 			if (m_clients[userS]->isRequestRelevant(reqInfo))// put the user requset in the handler taht now found on the handler fucatry and check if the this 'valid' request for this state before we even start to work on the packet
 			{
 				try

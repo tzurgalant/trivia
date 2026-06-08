@@ -1,16 +1,32 @@
 #include "RoomMemberRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
+#include "JsonRequestPacketDeserializer.h"
+#include "RequestHandlerFactory.h"
 RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory& handlerFactory, RoomManager roomManager, LoggedUser Luser, Room& room):m_handlerFactory(handlerFactory), m_roomManager(roomManager), m_user(Luser), m_room(room)
 {
 	
 }
 bool RoomMemberRequestHandler::isRequestRelevant(const RequestInfo& reqInfo)
 {
-	return reqInfo.id == LeaveRoomCmd || reqInfo.id == GetRoomStateCmd;
+	return reqInfo.id == LeaveRoomCmd || reqInfo.id == GetRoomStateCmd ||
+		reqInfo.id == GetPlayersInRoomCmd;
 }
 RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& reqInfo)
 {
-	return  reqInfo.id == LeaveRoomCmd ? leaveRoom(reqInfo) : getRoomState(reqInfo);
+	
+	switch (reqInfo.id)
+	{
+	case LeaveRoomCmd:
+		return leaveRoom(reqInfo);
+
+	case GetRoomStateCmd:
+		return getRoomState(reqInfo);
+
+	case GetPlayersInRoomCmd:
+		return getPlayersInRoom(reqInfo);
+	default:
+		throw std::runtime_error("Invalid request for RoomAdminRequestHandler");
+	}
 }
 
 
@@ -33,4 +49,15 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& reqInfo)
 	response.status = true;
 	result.response = JsonResponsePacketSerializer::serializeResponse(response);
 	return result;
+}
+RequestResult RoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& reqInfo)
+{
+	RequestResult res;
+	GetPlayersInRoomResponse playersInRoomResponse;
+	GetPlayersinRoomRequest playersinRoomRequest = JsonRequestPacketDeserializer::deserializeGetPlayersRequest(reqInfo.buff);
+
+	playersInRoomResponse.players = m_handlerFactory.getRoomManager().getRoom(playersinRoomRequest.roomld).getAllUsersNames();
+	res.newHandler = nullptr;//stay the same satge
+	res.response = JsonResponsePacketSerializer::serializeResponse(playersInRoomResponse);
+	return res;
 }

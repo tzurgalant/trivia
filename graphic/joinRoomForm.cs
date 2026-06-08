@@ -8,7 +8,7 @@ namespace clientGraphic
     public partial class JoinRoomForm : Form
     {
         private List<RoomData> _availableRooms = new List<RoomData>();
-        private Timer _refreshTimer;
+        private System.Windows.Forms.Timer _refreshTimer = new System.Windows.Forms.Timer();
         public JoinRoomForm()
         {
             InitializeComponent();
@@ -24,7 +24,6 @@ namespace clientGraphic
             ApplyCurrentTheme();
 
             //refresg timer
-            _refreshTimer = new Timer();
             _refreshTimer.Interval = 3000;
             _refreshTimer.Tick += (s, e) => RefreshRoomsList();
         }
@@ -99,6 +98,11 @@ namespace clientGraphic
             if (response != null && response.status == 1)
             {
                 MessageBox.Show($"Successfully joined {selectedRoom.name}!");
+                
+                WaitingRoomForm FormWindow = new WaitingRoomForm();
+                FormWindow.SetRoomId(selectedRoom.id);
+                FormWindow.Show();
+                this.Hide();
             }
             else
             {

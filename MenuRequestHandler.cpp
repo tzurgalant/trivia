@@ -1,7 +1,10 @@
 #include "MenuRequestHandler.h"
 #include "LoginRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
+#include "RoomAdminRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "JsonRequestPacketDeserializer.h"
+
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory& handlerFactory, LoggedUser Luser):m_handlerFactory(handlerFactory),m_user(Luser)
 {
 
@@ -117,7 +120,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& reqInfo)
     {
         m_handlerFactory.getRoomManager().getRoom(joinRoomRequest.roomld).addUser(m_user);
         JoinRoomResponse.status = 1;
-
+        std::cout << "add user to room:" + joinRoomRequest.roomld<< std::endl;
     }
     else
     {

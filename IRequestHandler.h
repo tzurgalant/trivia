@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <string>
 #include <WinSock2.h>
+#include "Room.h"
 typedef  unsigned char Byte;
 typedef std::vector<Byte> Buffer;
 class IRequestHandler;

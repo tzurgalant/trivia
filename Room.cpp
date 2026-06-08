@@ -34,3 +34,7 @@ RoomData Room::getRoomData() const
 {
 	return m_metadata;
 }
+void Room::setRoomStatus(RoomStatus status)
+{
+	m_metadata.status = status;
+}
