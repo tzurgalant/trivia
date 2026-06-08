@@ -12,7 +12,7 @@ public:
 	RequestResult handleRequest(const RequestInfo& reqInfo) override;
 
 private:
-	Room m_room;
+	Room &m_room;
 	LoggedUser m_user;
 	RequestHandlerFactory& m_handlerFactory;
 	RoomManager& m_roomManager;

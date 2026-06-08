@@ -48,7 +48,7 @@ namespace clientGraphic
                         throw new Exception("server response is too short");
                     }
                 }
-
+                
                 byte responseOpcode;
                 int jsonLength;
                 Deserialization.ParseHeader(headerBuffer, out responseOpcode, out jsonLength);
@@ -61,7 +61,11 @@ namespace clientGraphic
                         throw new Exception("server response is too short");
                     }
                 }
-
+                if (headerBuffer[0] == (byte)CodeR.ErrorCmd)
+                {
+                    Deserialization.DeserializeResponse<TResponse>(jsonBuffer);
+                    return default(TResponse);
+                }
                 return Deserialization.DeserializeResponse<TResponse>(jsonBuffer);
             }
             catch (Exception e)

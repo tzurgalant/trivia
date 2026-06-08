@@ -102,7 +102,7 @@ namespace clientGraphic
                 WaitingRoomForm FormWindow = new WaitingRoomForm();
                 FormWindow.SetRoomId(selectedRoom.id);
                 FormWindow.Show();
-                this.Hide();
+                this.Close();
             }
             else
             {

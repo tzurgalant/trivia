@@ -91,7 +91,7 @@ void printRequestInfo(const RequestInfo& reqInfo)
 	static int lastId;
 	static Buffer lastBuff;
 
-	if (lastId != reqInfo.id && lastBuff != reqInfo.buff)
+	if (lastId != reqInfo.id || lastBuff != reqInfo.buff)
 	{
 		std::cout << "=== Incoming Request ===" << std::endl;
 		std::cout << "Socket: " << reqInfo.userSocket << std::endl;
@@ -160,6 +160,14 @@ void Communicator::handleNewClient(SOCKET userS)
 				catch (const std::exception& e)
 				{
 					std::cout << "Exception in handler request part: " << e.what() << std::endl;
+					if (e.what() == "Room was delete!!")
+					{
+						delete m_clients[userS];
+						m_clients[userS] = (IRequestHandler*)m_handleFactory.createMenuRequestHanlder(m_handleFactory.getLoginManager().getUserBySocket(userS));
+					}
+					ErrorResponse res = ErrorResponse();
+					res.message = "the message is not relevant!!!";
+					sendAll(userS, (char*)JsonResponsePacketSerializer::serializeResponse(res).data(), JsonResponsePacketSerializer::serializeResponse(res).size());
 
 				}
 			}

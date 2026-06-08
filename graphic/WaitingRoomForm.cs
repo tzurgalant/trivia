@@ -51,6 +51,28 @@ namespace clientGraphic
         {
             try
             {
+                if (!Helper._currentUser.IsAdmin)
+                {
+                    var response = Communicator.SendAndReceive<GetRoomStateResponse>((byte)CodeR.GetRoomStateCmd);
+                    if(response == null)
+                    {
+                        MessageBox.Show("Room is no longer active. Exiting waiting room...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        _updatePlayersTimer.Stop();
+
+                        MenuForm FormWindow = new MenuForm();
+                        FormWindow.Show();
+                        this.Close();
+                        return;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            try
+            {
                 var request = new GetPlayersInRoomRequest
                 {
                     roomId = _currentRoomId
@@ -60,10 +82,13 @@ namespace clientGraphic
 
                 if (response?.players != null)
                 {
-                    PlayersList.Items.Clear();
-                    foreach (var player in response.players)
+                    if (PlayersList.Items.Count != response.players.Count)
                     {
-                        PlayersList.Items.Add(player);
+                        PlayersList.Items.Clear();
+                        foreach (var player in response.players)
+                        {
+                            PlayersList.Items.Add(player);
+                        }
                     }
                 }
             }
@@ -71,18 +96,15 @@ namespace clientGraphic
             {
                 Console.WriteLine("Failed to auto-refresh players list: " + ex.Message);
             }
+
+
         }
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
             try
             {
-                var request = new StartGameRequest
-                {
-                    roomId = _currentRoomId
-                };
-
-                var response = Communicator.SendAndReceive<StartGameResponse>((byte)CodeR.StartGameCmd, request);
+                var response = Communicator.SendAndReceive<StartGameResponse>((byte)CodeR.StartGameCmd);
 
                 if (response?.status == 1)
                 {
@@ -107,12 +129,8 @@ namespace clientGraphic
                 if (Helper._currentUser.IsAdmin)
                 {
                     // Admin closes the room
-                    var closeRequest = new CloseRoomRequest
-                    {
-                        roomId = _currentRoomId
-                    };
 
-                    var closeResponse = Communicator.SendAndReceive<CloseRoomResponse>((byte)CodeR.CloseRoomCmd, closeRequest);
+                    var closeResponse = Communicator.SendAndReceive<CloseRoomResponse>((byte)CodeR.CloseRoomCmd);
 
                     if (closeResponse?.status == 1)
                     {
@@ -126,13 +144,8 @@ namespace clientGraphic
                 else
                 {
                     // Member leaves the room
-                    var leaveRequest = new LeaveRoomRequest
-                    {
-                        roomId = _currentRoomId
-                    };
 
-                    var leaveResponse = Communicator.SendAndReceive<LeaveRoomResponse>((byte)CodeR.LeaveRoomCmd, leaveRequest);
-
+                    var leaveResponse = Communicator.SendAndReceive<LeaveRoomResponse>((byte)CodeR.LeaveRoomCmd);
                     if (leaveResponse?.status == 1)
                     {
                         MessageBox.Show("You left the room.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -151,7 +164,8 @@ namespace clientGraphic
             {
                 MenuForm FormWindow = new MenuForm();
                 FormWindow.Show();
-                this.Hide();
+                _updatePlayersTimer.Stop();
+                this.Close();
             }
         }
 
@@ -230,34 +244,31 @@ namespace clientGraphic
     {
         public List<string> players { get; set; }
     }
-
-    public class StartGameRequest
-    {
-        public int roomId { get; set; }
-    }
-
     public class StartGameResponse
     {
         public int status { get; set; }
     }
 
-    public class CloseRoomRequest
-    {
-        public int roomId { get; set; }
-    }
 
     public class CloseRoomResponse
     {
         public int status { get; set; }
     }
 
-    public class LeaveRoomRequest
-    {
-        public int roomId { get; set; }
-    }
 
     public class LeaveRoomResponse
     {
         public int status { get; set; }
+    }
+    public class GetRoomStateResponse
+    {
+        public int  status { get; set; }
+        public bool hasGameBegun { get; set; }
+
+        public  List<string>players { get; set; }
+
+        public int questionCount { get; set; }
+
+        public int answerTimeout { get; set; }
     }
 }
