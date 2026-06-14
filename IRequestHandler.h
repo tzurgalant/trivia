@@ -27,7 +27,7 @@ enum CodeR : Byte {
     CloseRoomCmd,
     StartGameCmd,
     GetRoomStateCmd,
-    LeaveRoomCmd
+	LeaveRoomCmd
 };
 
 //login/signup serialzer
