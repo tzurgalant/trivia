@@ -93,3 +93,19 @@ CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(co
 		throw std::runtime_error("Error parsing CreateRoomRequest JSON: " + std::string(e.what()));
 	}
 }
+
+SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerRequest(const std::string& buffer)
+{
+	try
+	{
+		json j = json::parse(buffer);
+
+		SubmitAnswerRequest req;
+		req.answerId = j.at("answerId").get<unsigned int>();
+		return req;
+	}
+	catch (const std::exception& e)
+	{
+		throw std::runtime_error("Error parsing SubmitAnswerRequest JSON: " + std::string(e.what()));
+	}
+}
