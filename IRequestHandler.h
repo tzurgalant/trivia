@@ -134,6 +134,46 @@ struct GetRoomStateResponse {
     unsigned int answerTimeOut;
 };
 
+//game deseraliazer
+struct SubmitAnswerRequest
+{
+    unsigned int answerId;
+};
+
+//game seraliazer
+struct LeaveGameResponse
+{
+    unsigned int status;
+};
+
+struct GetQuestionResponse
+{
+    unsigned int status;
+    std::string question;
+    std::map<unsigned int, std::string> answers;
+};
+
+struct SubmitAnswerResponse
+{
+    unsigned int status;
+    unsigned int correctAnswerId;
+};
+
+struct GetGameResultResponse
+{
+    unsigned int status;
+
+    struct PlayerResult
+    {
+        std::string username;
+        unsigned int correctAnswersCount;
+        unsigned int wrongAnswersCount;
+        unsigned int averageAnswersTime;
+    };
+
+    std::vector<PlayerResult> results;
+};
+
 //
 struct RequestInfo {
     Byte id;

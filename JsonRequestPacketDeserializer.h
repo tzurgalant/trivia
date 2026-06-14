@@ -13,6 +13,8 @@ public:
 	static GetPlayersinRoomRequest deserializeGetPlayersRequest(const Buffer& buffer);
 	static JoinRoomRequest deserializeJoinRoomRequest(const Buffer& buffer);
 	static CreateRoomRequest deserializeCreateRoomRequest(const Buffer& buffer);
+
+	//game related
 private:
 
 };
