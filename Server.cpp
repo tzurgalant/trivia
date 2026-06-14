@@ -19,6 +19,8 @@ Server::Server():m_database(new SqliteDatabase()), m_handleFactory(m_database),m
 Server::~Server()
 {
     shutdown();
+    delete m_database;
+    m_database = nullptr;
 }
 
 void Server::run()

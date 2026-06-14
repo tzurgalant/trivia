@@ -23,10 +23,14 @@ enum CodeR : Byte {
     GetPersonalStatsCmd,
     JoinRoomCmd,
     CreateRoomCmd,
-    GetHighScoreCmd
+    GetHighScoreCmd,
+    CloseRoomCmd,
+    StartGameCmd,
+    GetRoomStateCmd,
+    LeaveRoomCmd
 };
 
-//for the serialzer
+//login/signup serialzer
 struct LoginResponse
 {
     unsigned int status;
@@ -81,7 +85,7 @@ struct GetPersonalStatsReponse
     std::vector<std::string>statistics;
 };
 
-//for deserializer
+//login/signup deserializer
 struct LoginRequest {
     std::string userName;
     std::string password;
@@ -93,9 +97,7 @@ struct SignupRequest {
     std::string email;
 };
 
-/* here */
-
-//rooms deserializer related
+//rooms deserializer
 struct GetPlayersinRoomRequest {
     unsigned int roomld;
 };
@@ -109,6 +111,27 @@ struct CreateRoomRequest {
     unsigned int maxUsers;
     unsigned int questionCount;
     unsigned int answerTimeout;
+};
+
+//rooms seraliazer
+struct CloseRoomResponse {
+    unsigned int status;
+};
+
+struct StartGameResponse {
+    unsigned int status;
+};
+
+struct LeaveRoomResponse {
+    unsigned int status;
+};
+
+struct GetRoomStateResponse {
+    unsigned int status;
+    bool hasGameBegun;
+    std::vector<std::string> players;
+    unsigned int questionCount;
+    unsigned int answerTimeOut;
 };
 
 //

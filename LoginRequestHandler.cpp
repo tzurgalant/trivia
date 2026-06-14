@@ -13,18 +13,17 @@ LoginRequestHandler::~LoginRequestHandler()
 
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& reqInfo)
 {
-	LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
-
-    if(reqInfo.id == LoginCmd)
+    if (reqInfo.id == LoginCmd)
     {
+        LoginRequest userRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(reqInfo.buff);
+
         if (m_handlerFactory.getLoginManager().doesUserLogged(userRequest.userName))
         {
             return false;
         }
-
         return true;
     }
-    else if(reqInfo.id == SignupCmd)
+    else if (reqInfo.id == SignupCmd)
     {
         return true;
     }

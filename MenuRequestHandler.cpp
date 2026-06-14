@@ -1,7 +1,10 @@
 #include "MenuRequestHandler.h"
 #include "LoginRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
+#include "RoomAdminRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "JsonRequestPacketDeserializer.h"
+
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory& handlerFactory, LoggedUser Luser):m_handlerFactory(handlerFactory),m_user(Luser)
 {
 
@@ -45,6 +48,8 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& reqInfo)
 
     case CreateRoomCmd:   
         return createRoom(reqInfo);
+    default:
+        throw std::runtime_error("Irrelevant request in MenuRequestHandler");
     }
 }
 RequestResult MenuRequestHandler::logout(const RequestInfo& reqInfo)
@@ -65,7 +70,7 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& reqInfo)
 
     roomsResponse.rooms = m_handlerFactory.getRoomManager().getRooms();
     roomsResponse.status = 1;
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(roomsResponse);
     return res;
 }
@@ -76,7 +81,7 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& reqInfo)
     GetPlayersinRoomRequest playersinRoomRequest = JsonRequestPacketDeserializer::deserializeGetPlayersRequest(reqInfo.buff);
 
     playersInRoomResponse.players = m_handlerFactory.getRoomManager().getRoom(playersinRoomRequest.roomld).getAllUsersNames();
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(playersInRoomResponse);
     return res;
 }
@@ -88,7 +93,7 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& reqInfo)
 
     personalStatsReponse.statistics = m_handlerFactory.getStatisticsManager().getUserStatistics(m_user.getUserName());
     personalStatsReponse.status = 1;
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(personalStatsReponse);
     return res;
 }
@@ -101,7 +106,7 @@ RequestResult MenuRequestHandler::getHighScore(const RequestInfo& reqInfo)
 
     highScoreResponse.statistics = m_handlerFactory.getStatisticsManager().getHighScore();
     highScoreResponse.status = 1;
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(highScoreResponse);
     return res;
 }
@@ -115,13 +120,13 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& reqInfo)
     {
         m_handlerFactory.getRoomManager().getRoom(joinRoomRequest.roomld).addUser(m_user);
         JoinRoomResponse.status = 1;
-
+        std::cout << "add user to room:" + joinRoomRequest.roomld<< std::endl;
     }
     else
     {
         JoinRoomResponse.status = 0;
     }
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createRoomMemberRequestHandler(m_handlerFactory, m_handlerFactory.getRoomManager(),m_user, m_handlerFactory.getRoomManager().getRoom(joinRoomRequest.roomld));// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse);
     return res;
 }
@@ -141,7 +146,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& reqInfo)
     createRoomResponse.roomId = m_handlerFactory.getRoomManager().createRoom(m_user, roomData);
     createRoomResponse.status = 1;
 
-    res.newHandler = nullptr;// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createRoomAdminRequestHandler(m_handlerFactory.getRoomManager().getRoom(createRoomResponse.roomId),m_user,m_handlerFactory.getRoomManager(),m_handlerFactory);// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(createRoomResponse);
     return res;
 }

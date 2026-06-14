@@ -5,7 +5,7 @@
 #include "loginManager.h"
 #include "RoomManager.h"
 
-class MenuRequestHandler:public IRequestHandler
+class MenuRequestHandler : public IRequestHandler
 {
 public:
 	MenuRequestHandler(RequestHandlerFactory& handlerFactory, LoggedUser Luser);

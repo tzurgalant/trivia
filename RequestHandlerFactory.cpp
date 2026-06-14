@@ -1,6 +1,7 @@
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
-
+#include "RoomMemberRequestHandler.h"
+#include "RoomAdminRequestHandler.h"
 RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) : m_loginManager(database),m_statisticsManager(database)
 {
 
@@ -34,6 +35,15 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 {
 	return new LoginRequestHandler(*this);
 }
+
+RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(RequestHandlerFactory& handlerFactory, RoomManager roomManager, LoggedUser Luser, Room& room)
+{
+    return new RoomMemberRequestHandler(handlerFactory, roomManager, Luser, room);
+}
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(Room& room, LoggedUser Luser, RoomManager& roomManager, RequestHandlerFactory& handlerFactory)
+{
+    return new RoomAdminRequestHandler(room, Luser,roomManager, handlerFactory);
+}
 LoginManager& RequestHandlerFactory::getLoginManager() 
 {
 	return m_loginManager;
@@ -48,3 +58,4 @@ StatisticsManager& RequestHandlerFactory::getStatisticsManager()
 {
     return m_statisticsManager;
 }
+

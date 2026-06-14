@@ -7,8 +7,6 @@ namespace clientGraphic
 {
     public partial class CreatRoomForm : Form
     {
-        private System.Windows.Forms.Timer _updatePlayersTimer;
-
         private int _currentRoomId;
 
         public CreatRoomForm()
@@ -16,7 +14,7 @@ namespace clientGraphic
             InitializeComponent();
 
             //glowing effect
-            ButtonEffects.AddGlowEffect(btnStartRoom, Color.Magenta);
+            ButtonEffects.AddGlowEffect(btnCreateRoom, Color.Magenta);
             ButtonEffects.AddGlowEffect(btnBack, Color.Tomato);
 
             //night/day mode related
@@ -31,38 +29,11 @@ namespace clientGraphic
             else
                 label2.Text = "Welcome, Player!";
 
-            _updatePlayersTimer = new System.Windows.Forms.Timer();
-            _updatePlayersTimer.Interval = 1500;
-            _updatePlayersTimer.Tick += UpdatePlayersTimer_Tick;
         }
 
-        private void UpdatePlayersTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                var request = new GetPlayersInRoomRequest
-                {
-                    roomId = _currentRoomId
-                };
 
-                var response = Communicator.SendAndReceive<GetPlayersInRoomResponse>((byte)CodeR.GetPlayersInRoomCmd, request);
 
-                if (response.players != null)
-                {
-                    PlayersList.Items.Clear();
-                    foreach (var player in response.players)
-                    {
-                        PlayersList.Items.Add(player);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Failed to auto-refresh players list: " + ex.Message);
-            }
-        }
-
-        private void btnStartRoom_Click(object sender, EventArgs e)
+        private void btnCreateRoom_Click(object sender, EventArgs e)
         {
             string roomName = txtRoomName.Text.Trim();
 
@@ -87,15 +58,16 @@ namespace clientGraphic
             if (response.status == 1)
             {
                 _currentRoomId = response.roomId;
-
-                pnlRoomDetails.Visible = true;
-
+                Helper._currentUser.IsAdmin = true;
                 txtRoomName.Enabled = false;
                 txtNumOfPlayers.Enabled = false;
                 txtTimeForQustion.Enabled = false;
-                btnStartRoom.Enabled = false;
+                btnCreateRoom.Enabled = false;
 
-                _updatePlayersTimer.Start();
+                WaitingRoomForm FormWindow = new WaitingRoomForm();
+                FormWindow.SetRoomId(_currentRoomId);
+                FormWindow.Show();
+                this.Close();
             }
             else
             {
@@ -105,22 +77,13 @@ namespace clientGraphic
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            StopAndDisposeTimer();
 
-            pnlRoomDetails.Visible = false;
             MenuForm FormWindow = new MenuForm();
             FormWindow.Show();
             this.Hide();
         }
 
-        private void StopAndDisposeTimer()
-        {
-            if (_updatePlayersTimer != null)
-            {
-                _updatePlayersTimer.Stop();
-                _updatePlayersTimer.Dispose();
-            }
-        }
+
 
         private void ApplyCurrentTheme()
         {
@@ -140,8 +103,7 @@ namespace clientGraphic
                 label4.ForeColor = Color.White;
                 label5.ForeColor = Color.White;
                 label6.ForeColor = Color.White;
-                lblShowAdmin.ForeColor = Color.White;
-                lblShowPlayers.ForeColor = Color.White;
+ 
 
                 txtRoomName.BackColor = Color.FromArgb(45, 45, 45);
                 txtRoomName.ForeColor = Color.White;
@@ -152,10 +114,8 @@ namespace clientGraphic
                 txtNumOfPlayers.BackColor = Color.FromArgb(45, 45, 45);
                 txtNumOfPlayers.ForeColor = Color.White;
 
-                PlayersList.BackColor = Color.FromArgb(45, 45, 45);
-                PlayersList.ForeColor = Color.White;
 
-                btnStartRoom.ForeColor = Color.MediumPurple;
+                btnCreateRoom.ForeColor = Color.MediumPurple;
                 btnBack.ForeColor = Color.Tomato;
             }
             else
@@ -168,8 +128,6 @@ namespace clientGraphic
                 label4.ForeColor = Color.FromArgb(50, 50, 50);
                 label5.ForeColor = Color.FromArgb(50, 50, 50);
                 label6.ForeColor = Color.FromArgb(50, 50, 50);
-                lblShowAdmin.ForeColor = Color.FromArgb(50, 50, 50);
-                lblShowPlayers.ForeColor = Color.FromArgb(50, 50, 50);
 
                 txtRoomName.BackColor = Color.White;
                 txtRoomName.ForeColor = Color.Black;
@@ -180,12 +138,20 @@ namespace clientGraphic
                 txtNumOfPlayers.BackColor = Color.White;
                 txtNumOfPlayers.ForeColor = Color.Black;
 
-                PlayersList.BackColor = Color.White;
-                PlayersList.ForeColor = Color.Black;
 
-                btnStartRoom.ForeColor = Color.Purple;
+                btnCreateRoom.ForeColor = Color.Purple;
                 btnBack.ForeColor = Color.Tomato;
             }
+        }
+
+        private void PlayersList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
@@ -207,13 +173,5 @@ namespace clientGraphic
         public int roomId { get; set; }
     }
 
-    public struct GetPlayersInRoomRequest
-    {
-        public int roomId { get; set; }
-    }
 
-    public struct GetPlayersInRoomResponse
-    {
-        public List<string> players { get; set; }
-    }
 }

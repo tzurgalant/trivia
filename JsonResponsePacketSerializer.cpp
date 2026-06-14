@@ -118,6 +118,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse res)
     // make the jsons part
     json j;
     j["status"] = res.status;
+    j["roomId"] = res.roomId;
 
     std::string jsonStr = j.dump();
 
@@ -142,6 +143,58 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetPersonalStatsReponse r
     json j;
     j["status"] = res.status;
     j["statistics"] = res.statistics;
+
+    std::string jsonStr = j.dump();
+
+    //create buffer whit the data and this request commens
+    return createBuffer(GetPersonalStatsCmd, jsonStr.length(), jsonStr);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse res)
+{
+    // make the jsons part
+    json j;
+    j["status"] = res.status;
+
+    std::string jsonStr = j.dump();
+
+    //create buffer whit the data and this request commens
+    return createBuffer(GetPersonalStatsCmd, jsonStr.length(), jsonStr);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(StartGameResponse res)
+{
+    // make the jsons part
+    json j;
+    j["status"] = res.status;
+
+    std::string jsonStr = j.dump();
+
+    //create buffer whit the data and this request commens
+    return createBuffer(GetPersonalStatsCmd, jsonStr.length(), jsonStr);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(LeaveRoomResponse res)
+{
+    // make the jsons part
+    json j;
+    j["status"] = res.status;
+
+    std::string jsonStr = j.dump();
+
+    //create buffer whit the data and this request commens
+    return createBuffer(GetPersonalStatsCmd, jsonStr.length(), jsonStr);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse res)
+{
+    // make the jsons part
+    json j;
+    j["status"] = res.status;
+    j["hasGameBegun"] = res.hasGameBegun;
+    j["players"] = res.players;
+    j["questionCount"] = res.questionCount;
+    j["answerTimeOut"] = res.answerTimeOut;
 
     std::string jsonStr = j.dump();
 

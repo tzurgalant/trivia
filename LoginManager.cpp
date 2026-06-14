@@ -68,6 +68,7 @@ LoggedUser LoginManager::getUserBySocket(SOCKET userS)//get user name by his soc
 			return *it;
 		}
 	}
+	throw std::runtime_error("User not found for socket");
 }
 
 void LoginManager::log_off(SOCKET userSocket)

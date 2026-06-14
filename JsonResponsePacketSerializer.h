@@ -4,7 +4,6 @@
 #include "IRequestHandler.h"
 
 
-
 class JsonResponsePacketSerializer
 {
 public:
@@ -18,5 +17,9 @@ public:
 	static Buffer serializeResponse(CreateRoomResponse res);
 	static Buffer serializeResponse(GetHighScoreResponse res);
 	static Buffer serializeResponse(GetPersonalStatsReponse res);
+    static Buffer serializeResponse(CloseRoomResponse res);
+    static Buffer serializeResponse(StartGameResponse res);
+    static Buffer serializeResponse(LeaveRoomResponse res);
+    static Buffer serializeResponse(GetRoomStateResponse res);
 private:
 };

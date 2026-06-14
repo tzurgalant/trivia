@@ -8,7 +8,7 @@ namespace clientGraphic
     public partial class JoinRoomForm : Form
     {
         private List<RoomData> _availableRooms = new List<RoomData>();
-
+        private System.Windows.Forms.Timer _refreshTimer = new System.Windows.Forms.Timer();
         public JoinRoomForm()
         {
             InitializeComponent();
@@ -22,12 +22,18 @@ namespace clientGraphic
             MenuForm.ThemeChanged += ApplyCurrentTheme;
             this.FormClosed += (s, e) => MenuForm.ThemeChanged -= ApplyCurrentTheme;
             ApplyCurrentTheme();
+
+            //refresg timer
+            _refreshTimer.Interval = 3000;
+            _refreshTimer.Tick += (s, e) => RefreshRoomsList();
         }
 
         private void JoinRoomForm_Load(object sender, EventArgs e)
         {
             ApplyCurrentTheme();
             RefreshRoomsList();
+
+            _refreshTimer.Start();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -50,7 +56,7 @@ namespace clientGraphic
 
                     foreach (var room in _availableRooms)
                     {
-                        string displayText = $"Room: {room.name} | Players: {room.currentPlayers}/{room.maxPlayers}";
+                        string displayText = $"Room: {room.name} | Max Players: {room.maxPlayers}";
                         listBoxRooms.Items.Add(displayText);
                     }
 
@@ -92,6 +98,11 @@ namespace clientGraphic
             if (response != null && response.status == 1)
             {
                 MessageBox.Show($"Successfully joined {selectedRoom.name}!");
+                
+                WaitingRoomForm FormWindow = new WaitingRoomForm();
+                FormWindow.SetRoomId(selectedRoom.id);
+                FormWindow.Show();
+                this.Close();
             }
             else
             {
@@ -136,6 +147,12 @@ namespace clientGraphic
                 btnJoin.ForeColor = Color.Purple;
                 btnBack.ForeColor = Color.Tomato;
             }
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            _refreshTimer?.Stop();
+            _refreshTimer?.Dispose();
+            base.OnFormClosing(e);
         }
     }
     public class JoinRoomRequest
