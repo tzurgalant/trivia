@@ -56,7 +56,6 @@ namespace clientGraphic
                     var response = Communicator.SendAndReceive<GetRoomStateResponse>((byte)CodeR.GetRoomStateCmd);
                     if(response == null)
                     {
-                        MessageBox.Show("Room is no longer active. Exiting waiting room...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         _updatePlayersTimer.Stop();
 
                         MenuForm FormWindow = new MenuForm();

@@ -138,7 +138,7 @@ void Communicator::handleNewClient(SOCKET userS)
 			reqInfo.id = (Byte)header[0];
 			reqInfo.receivalTime = std::time(nullptr);
 			reqInfo.userSocket = userS;
-			
+			  
 			printRequestInfo(reqInfo);
 
 			if (m_clients[userS]->isRequestRelevant(reqInfo))// put the user requset in the handler taht now found on the handler fucatry and check if the this 'valid' request for this state before we even start to work on the packet
