@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include <ctime>
 #include <cstdint>
 #include <string>
@@ -27,7 +28,11 @@ enum CodeR : Byte {
     CloseRoomCmd,
     StartGameCmd,
     GetRoomStateCmd,
-	LeaveRoomCmd
+	LeaveRoomCmd,
+    GetGameResultsResponseCmd,
+    SubmitAnswerResponseCmd,
+    GetQuestionResponseCmd,
+    LeaveGameResponseCmd
 };
 
 //login/signup serialzer
@@ -159,18 +164,17 @@ struct SubmitAnswerResponse
     unsigned int correctAnswerId;
 };
 
-struct GetGameResultResponse
+struct PlayerResult
+{
+    std::string userName;
+    unsigned int correctAnswersCount;
+    unsigned int wrongAnswersCount;
+    unsigned int averageAnswersTime;
+};
+
+struct GetGameResultsResponse
 {
     unsigned int status;
-
-    struct PlayerResult
-    {
-        std::string username;
-        unsigned int correctAnswersCount;
-        unsigned int wrongAnswersCount;
-        unsigned int averageAnswersTime;
-    };
-
     std::vector<PlayerResult> results;
 };
 

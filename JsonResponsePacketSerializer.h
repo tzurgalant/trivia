@@ -21,5 +21,10 @@ public:
     static Buffer serializeResponse(StartGameResponse res);
     static Buffer serializeResponse(LeaveRoomResponse res);
     static Buffer serializeResponse(GetRoomStateResponse res);
+
+	static Buffer serializeResponse(const GetGameResultsResponse& response);
+	static Buffer serializeResponse(const SubmitAnswerResponse& response);
+	static Buffer serializeResponse(const GetQuestionResponse& response);
+	static Buffer serializeResponse(const LeaveGameResponse& response);
 private:
 };

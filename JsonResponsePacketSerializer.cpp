@@ -14,13 +14,29 @@ static void to_json(json& j, const RoomData& r) {// because we have a vector of 
         {"room status",r.status}
     };
 }
-
+static void to_json(json& j, const PlayerResult& r)// for the vector of playerResult
+{
+    j = json{
+        {"userName",r.userName},
+        {"correctAnswersCount",r.correctAnswersCount},
+        {"wrongAnswersCount",r.wrongAnswersCount},
+        {"averageAnswersTime",r.averageAnswersTime}
+    };
+}
+static void to_json(json& j, const GetQuestionResponse& q)//for the map of answers in GetQuestion  REsponse take all the data in the start and convert to json 
+{
+    j = json{
+        {"status", q.status},
+        {"question", q.question},
+        {"answers", q.answers}
+    };
+}
 Buffer createBuffer(CodeR codeR, unsigned int length, std::string data)
 {
     Buffer buffer;
     // make the buffer headdres
     buffer.push_back(codeR);
-
+    // four firsy byte is for the length 
     buffer.push_back((length >> 24) & 0xFF);
     buffer.push_back((length >> 16) & 0xFF);
     buffer.push_back((length >> 8) & 0xFF);
@@ -200,4 +216,44 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse res)
 
     //create buffer whit the data and this request commens
     return createBuffer(GetPersonalStatsCmd, jsonStr.length(), jsonStr);
+}
+Buffer JsonResponsePacketSerializer::serializeResponse(const GetGameResultsResponse& response)
+{
+    json j;
+    j["status"] = response.status;
+    j["results"] = response.results;
+
+    std::string jsonStr = j.dump();
+
+    return createBuffer(GetGameResultsResponseCmd,jsonStr.length(),jsonStr);
+    
+}
+Buffer JsonResponsePacketSerializer::serializeResponse(const SubmitAnswerResponse& response)
+{
+    json j;
+    j["status"] = response.status;
+    j["correctAnswerId"] = response.correctAnswerId;
+
+    std::string jsonStr = j.dump();
+
+    return createBuffer(SubmitAnswerResponseCmd, jsonStr.length(), jsonStr);
+}
+Buffer JsonResponsePacketSerializer::serializeResponse(const GetQuestionResponse& response)
+{ 
+    json j = response;// we make toJson for this obeject
+
+    std::string jsonStr = j.dump();
+
+    return createBuffer(GetQuestionResponseCmd, jsonStr.length(), jsonStr);
+
+}
+Buffer JsonResponsePacketSerializer::serializeResponse(const LeaveGameResponse& response)
+{
+    json j;
+    j["status"] = response.status;
+
+    std::string jsonStr = j.dump();
+
+    return createBuffer(SubmitAnswerResponseCmd, jsonStr.length(), jsonStr);
+
 }
