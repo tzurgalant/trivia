@@ -7,8 +7,10 @@
 class GameManager
 {
 public:
-	Game createGame(Room room);
+	GameManager() = default;
+	Game& createGame(Room room);
 	bool deleteGame(int gameId);
+	void submitGameStatsToDB(GameData);
 private:
 	IDatabase* m_database;
 	std::vector<Game> m_games;
