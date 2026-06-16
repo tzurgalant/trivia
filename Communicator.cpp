@@ -160,7 +160,7 @@ void Communicator::handleNewClient(SOCKET userS)
 				catch (const std::exception& e)
 				{
 					std::cout << "Exception in handler request part: " << e.what() << std::endl;
-					if (e.what() == "Room was delete!!")
+					if (std::string(e.what()) == "Room was delete!!")
 					{
 						delete m_clients[userS];
 						m_clients[userS] = (IRequestHandler*)m_handleFactory.createMenuRequestHanlder(m_handleFactory.getLoginManager().getUserBySocket(userS));
