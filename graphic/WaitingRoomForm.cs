@@ -64,11 +64,22 @@ namespace clientGraphic
                         return;
 
                     }
+
+                    if (response.hasGameBegun)
+                    {
+                        _updatePlayersTimer.Stop();
+
+                        GameScreenForm gameWindow = new GameScreenForm();
+                        gameWindow.Show();
+
+                        this.Close();
+                        return;
+                    }
                 }
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("Failed to check room state: " + ex.Message);
             }
             try
             {
@@ -95,8 +106,6 @@ namespace clientGraphic
             {
                 Console.WriteLine("Failed to auto-refresh players list: " + ex.Message);
             }
-
-
         }
 
         private void btnStartGame_Click(object sender, EventArgs e)
@@ -109,6 +118,14 @@ namespace clientGraphic
                 {
                     MessageBox.Show("Game started!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Navigate to game form or next screen
+
+                    _updatePlayersTimer.Stop();
+
+                    GameScreenForm gameWindow = new GameScreenForm();
+                    gameWindow.Show();
+
+                    this.Close();
+                    return;
                 }
                 else
                 {
