@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,9 +35,15 @@ namespace clientGraphic
             {
                 GetGameResultsResponse res = Communicator.SendAndReceive<GetGameResultsResponse>((Byte)CodeR.GetGameResultsResponseCmd);
 
-                if (res.status != 1 || res.results == null)
+                if(res.status != 1)
+{
+                    MessageBox.Show("Server error loading results.");
+                    return;
+                }
+
+                if (res.results == null || res.results.Count == 0)
                 {
-                    MessageBox.Show("Failed to load game result from server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No results available.");
                     return;
                 }
 
@@ -46,6 +51,7 @@ namespace clientGraphic
                 {
                     var winner = res.results
                         .OrderByDescending(p => p.correctAnswersCount)
+                        .ThenBy(p => p.averageAnswersTime)
                         .First();
 
                     lblWinner.Text = $"Winner: {winner.userName}";
@@ -67,6 +73,8 @@ namespace clientGraphic
             catch (Exception e)
             {
                 MessageBox.Show("Error loading GameResult: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lvResults.Items.Clear();
+                lblWinner.Text = "Error loading results";
             }
         }
 

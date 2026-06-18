@@ -51,7 +51,7 @@ namespace clientGraphic
 
             SubmitAnswerRequest req = new SubmitAnswerRequest { answerId = (uint)selectedAnswerId };
 
-            SubmitAnswerResponse res = Communicator.SendAndReceive<SubmitAnswerResponse>(115, req);
+            SubmitAnswerResponse res = Communicator.SendAndReceive<SubmitAnswerResponse>((byte)CodeR.SubmitAnswerResponseCmd, req);
 
             //check if the answer was correct
             if (res.status == 1)
@@ -72,7 +72,7 @@ namespace clientGraphic
 
         private void btnLeaveGame_Click(object sender, EventArgs e)
         {
-            LeaveGameResponse res = Communicator.SendAndReceive<LeaveGameResponse>(117);
+            LeaveGameResponse res = Communicator.SendAndReceive<LeaveGameResponse>((byte)CodeR.LeaveRoomCmd);
 
             if(res.status != 1)
             {
@@ -89,7 +89,7 @@ namespace clientGraphic
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(ApplyCurrentTheme));
+                this.BeginInvoke(new Action(ApplyCurrentTheme));
                 return;
             }
 
@@ -105,17 +105,17 @@ namespace clientGraphic
 
         private void getNewQuestion()
         {
-            GetQuestionResponse res = Communicator.SendAndReceive<GetQuestionResponse>(117);
-
-            if (res.question == null || res.answers == null)
-            {
-                OpenResultsScreen();
-                return;
-            }
+            GetQuestionResponse res = Communicator.SendAndReceive<GetQuestionResponse>((byte)CodeR.GetQuestionResponseCmd);
 
             if (res.status != 1)
             {
                 MessageBox.Show("Failed to load game screen from server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (res.question == null || res.answers == null)
+            {
+                OpenResultsScreen();
                 return;
             }
 
@@ -125,7 +125,7 @@ namespace clientGraphic
 
             int i = 0;
 
-            foreach (var pair in res.answers)
+            foreach (var pair in res.answers.OrderBy(x => x.Key))
             {
                 if (i >= answerButtons.Length) break;
 

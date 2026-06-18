@@ -9,6 +9,7 @@ namespace clientGraphic
     {
         private System.Windows.Forms.Timer _updatePlayersTimer;
         private int _currentRoomId;
+        private bool _isUpdating = false;
 
         public WaitingRoomForm()
         {
@@ -49,11 +50,21 @@ namespace clientGraphic
 
         private void UpdatePlayersTimer_Tick(object sender, EventArgs e)
         {
+            if (_isUpdating) return;
+            _isUpdating = true;
+
             try
             {
+                if (_currentRoomId <= 0)
+                {
+                    Console.WriteLine("RoomId not set!");
+                    return;
+                }
+
                 if (!Helper._currentUser.IsAdmin)
                 {
                     var response = Communicator.SendAndReceive<GetRoomStateResponse>((byte)CodeR.GetRoomStateCmd);
+
                     if(response == null)
                     {
                         _updatePlayersTimer.Stop();
@@ -92,19 +103,17 @@ namespace clientGraphic
 
                 if (response?.players != null)
                 {
-                    if (PlayersList.Items.Count != response.players.Count)
-                    {
-                        PlayersList.Items.Clear();
-                        foreach (var player in response.players)
-                        {
-                            PlayersList.Items.Add(player);
-                        }
-                    }
+                    PlayersList.Items.Clear();
+                    PlayersList.Items.AddRange(response.players.ToArray());
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Failed to auto-refresh players list: " + ex.Message);
+            }
+            finally
+            {
+                _isUpdating = false;
             }
         }
 
