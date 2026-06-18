@@ -69,7 +69,7 @@ namespace clientGraphic
                     {
                         _updatePlayersTimer.Stop();
 
-                        GameScreenForm gameWindow = new GameScreenForm(); // 2. יוצרים את מסך המשחק
+                        GameScreenForm gameWindow = new GameScreenForm();
                         gameWindow.Show();
 
                         this.Close();
@@ -121,7 +121,7 @@ namespace clientGraphic
 
                     _updatePlayersTimer.Stop();
 
-                    GameScreenForm gameWindow = new GameScreenForm(); // 2. יוצרים את מסך המשחק
+                    GameScreenForm gameWindow = new GameScreenForm();
                     gameWindow.Show();
 
                     this.Close();
