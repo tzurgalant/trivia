@@ -81,6 +81,8 @@ namespace clientGraphic
 
         private void joinRoom_Click(object sender, EventArgs e)
         {
+            _refreshTimer.Stop();
+
             int selectedIndex = listBoxRooms.SelectedIndex;
 
             if (selectedIndex == -1 || _availableRooms.Count == 0 || selectedIndex >= _availableRooms.Count)
@@ -107,6 +109,7 @@ namespace clientGraphic
             else
             {
                 MessageBox.Show("Could not join room: ");
+                _refreshTimer.Start();
             }
         }
         private void ApplyCurrentTheme()

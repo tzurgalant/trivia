@@ -65,7 +65,9 @@ namespace clientGraphic
 
                 if (headerBuffer[0] == (byte)CodeR.ErrorCmd)
                 {
-                    Deserialization.DeserializeResponse<TResponse>(jsonBuffer);
+                    var errorResponse = Deserialization.DeserializeResponse<ErrorResponse>(jsonBuffer);
+                    MessageBox.Show(errorResponse.message ?? "Server returned an error.",
+                                    "Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return default(TResponse);
                 }
                 return Deserialization.DeserializeResponse<TResponse>(jsonBuffer);

@@ -28,9 +28,15 @@ namespace clientGraphic
             {
                 GetPersonalStatsResponse res = Communicator.SendAndReceive<GetPersonalStatsResponse>(106, new GetPersonalStatsRequest());
 
-                if (res.status != 1 || res.statistics == null || res.statistics.Count < 5)
+                if (res.status != 1)
                 {
-                    MessageBox.Show("Failed to load statistics from server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Server error");
+                    return;
+                }
+
+                if (res.statistics == null)
+                {
+                    MessageBox.Show("No data received");
                     return;
                 }
 

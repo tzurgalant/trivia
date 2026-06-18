@@ -19,11 +19,11 @@ namespace clientGraphic
         CloseRoomCmd,
         StartGameCmd,
         GetRoomStateCmd,
-        LeaveRoomCmd,
+        LeaveRoomCmd,        // 113 — leave waiting room
         GetGameResultsResponseCmd,
         SubmitAnswerResponseCmd,
         GetQuestionResponseCmd,
-        LeaveGameResponseCmd
+        LeaveGameCmd         // 117 — leave mid-game
     }
     public struct UserInfo
     {
@@ -61,6 +61,10 @@ namespace clientGraphic
 
             alertTimer.Start();
         }
+    }
+    public struct ErrorResponse
+    {
+        public string message { get; set; }
     }
 }
 

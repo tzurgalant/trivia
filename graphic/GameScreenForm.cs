@@ -72,9 +72,11 @@ namespace clientGraphic
 
         private void btnLeaveGame_Click(object sender, EventArgs e)
         {
-            LeaveGameResponse res = Communicator.SendAndReceive<LeaveGameResponse>((byte)CodeR.LeaveRoomCmd);
+            Helper._currentUser.IsAdmin = false;
 
-            if(res.status != 1)
+            LeaveGameResponse res = Communicator.SendAndReceive<LeaveGameResponse>((byte)CodeR.LeaveGameCmd);
+
+            if (res.status != 1)
             {
                 MessageBox.Show("Failed to leave game.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
