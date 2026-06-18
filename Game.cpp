@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <algorithm> 
 #include <iterator>  
-Game::Game(std::vector<Question> questions, std::map<LoggedUser, GameData>players):m_questions(questions),m_players(players)
+Game::Game(unsigned int gameId,std::vector<Question> questions, std::map<LoggedUser, GameData>players):m_gameId(gameId),m_questions(questions),m_players(players)
 {
 }
 Question Game::getQuesionForUser(LoggedUser u)
@@ -28,4 +28,12 @@ int Game::submitAnswer(LoggedUser u,unsigned int answerId)
 void Game::removePlayer(LoggedUser u)
 {
 	m_players.erase(u);
+}
+unsigned int Game::getGameID() const
+{
+	return m_gameId;
+}
+std::map<LoggedUser, GameData>& Game::getPlayers()
+{
+	return m_players;
 }

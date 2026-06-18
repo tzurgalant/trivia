@@ -14,16 +14,46 @@ Game& GameManager::createGame(Room room)
 		players[lUser] = data;
 	}
 	std::vector<Question> QuestionVector(qL.begin(), qL.end());
-	Game game = Game(QuestionVector, players);
+	Game game = Game(room.getRoomData().id, QuestionVector, players);
 	m_games.push_back(game);
 	return game;
 
 }
 bool GameManager::deleteGame(int gameId)
 {
-
+    auto it = m_games.begin();
+    while (it != m_games.end())
+    {
+        if (it->getGameID() == gameId)
+        {
+            it = m_games.erase(it);
+            return true;
+        }
+        else
+        {
+            ++it; 
+        }
+    }
+    return false;
 }
-void GameManager::submitGameStatsToDB(GameData)
+void GameManager::submitGameStatsToDB(int gameId)
 {
-
+    GameData*  data;
+    Game gameW;
+    std::string playerName;
+    for (auto game : m_games)
+    {
+        if (game.getGameID() == gameId)
+        {
+            gameW = game;
+            break;
+        }
+    }
+    std::map<LoggedUser, GameData> players = gameW.getPlayers();
+    for (auto player : players )
+    {   
+        playerName = player.first.getUserName();
+        m_database->submitGameStatsToDB(playerName,*data);
+    }
 }
+
