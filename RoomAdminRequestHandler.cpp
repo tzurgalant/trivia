@@ -2,7 +2,7 @@
 #include "JsonResponsePacketSerializer.h"
 #include "JsonRequestPacketDeserializer.h"
 #include "MenuRequestHandler.h"
-
+#include "GameRequestHandler.h"
 RoomAdminRequestHandler::RoomAdminRequestHandler(
     Room& room,
     LoggedUser user,
@@ -66,9 +66,9 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& reqInfo)
 
     m_room.setRoomStatus(true);
     
-
+    
     res.response = JsonResponsePacketSerializer::serializeResponse(resp);
-    res.newHandler = nullptr;
+    res.newHandler = m_handlerFactory.createGameRequestHandler(m_handlerFactory.getGameManager().createGame(m_room),m_user, m_handlerFactory.getGameManager());
 
     return res;
 }

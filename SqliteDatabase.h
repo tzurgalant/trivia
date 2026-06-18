@@ -33,7 +33,7 @@ public:
 	//scores
 	int getPlayerScore(std::string) override;
 	std::vector<std::string> getHighScores() override;
-	bool submitGameStatsToDB(std::string playerName, GameData data) override;
+	bool submitGameStatsToDB(std::string playerName, GameData &data) override;
 
 private:
 	sqlite3* _db = nullptr;

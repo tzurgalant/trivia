@@ -29,10 +29,10 @@ enum CodeR : Byte {
     StartGameCmd,
     GetRoomStateCmd,
 	LeaveRoomCmd,
-    GetGameResultsResponseCmd,
-    SubmitAnswerResponseCmd,
-    GetQuestionResponseCmd,
-    LeaveGameResponseCmd
+    GetGameResultsCmd,
+    SubmitAnswerCmd,
+    GetQuestionCmd,
+    LeaveGameCmd
 };
 
 //login/signup serialzer

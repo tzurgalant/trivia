@@ -27,6 +27,6 @@ public:
 	//scores
 	virtual int getPlayerScore(std::string userName) = 0;
 	virtual std::vector<std::string> getHighScores() = 0;
-	virtual bool submitGameStatsToDB(std::string playerName, GameData data) = 0;
+	virtual bool submitGameStatsToDB(std::string playerName, GameData& data) = 0;
 
 };

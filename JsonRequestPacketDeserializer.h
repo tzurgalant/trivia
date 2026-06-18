@@ -15,7 +15,7 @@ public:
 	static CreateRoomRequest deserializeCreateRoomRequest(const Buffer& buffer);
 
 	//game related
-	SubmitAnswerRequest deserializeSubmitAnswerRequest(const std::string& buffer);
+	static SubmitAnswerRequest deserializeSubmitAnswerRequest(const Buffer& buffer);
 private:
 
 };

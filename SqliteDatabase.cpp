@@ -333,7 +333,7 @@ std::vector<std::string> SqliteDatabase::getHighScores()
 
 	return highScores;
 }
-bool SqliteDatabase::submitGameStatsToDB(std::string playerName, GameData data)
+bool SqliteDatabase::submitGameStatsToDB(std::string playerName, GameData& data)
 {
     sqlite3_stmt* stmt;
 
@@ -371,6 +371,5 @@ bool SqliteDatabase::submitGameStatsToDB(std::string playerName, GameData data)
         std::cerr << "Error executing Upsert: " << sqlite3_errmsg(_db) << std::endl;
         return false;
     }
-
-    return true;
+    return true; 
 }

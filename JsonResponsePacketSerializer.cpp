@@ -225,7 +225,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(const GetGameResultsRespo
 
     std::string jsonStr = j.dump();
 
-    return createBuffer(GetGameResultsResponseCmd,jsonStr.length(),jsonStr);
+    return createBuffer(GetGameResultsCmd,jsonStr.length(),jsonStr);
     
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(const SubmitAnswerResponse& response)
@@ -236,7 +236,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(const SubmitAnswerRespons
 
     std::string jsonStr = j.dump();
 
-    return createBuffer(SubmitAnswerResponseCmd, jsonStr.length(), jsonStr);
+    return createBuffer(SubmitAnswerCmd, jsonStr.length(), jsonStr);
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(const GetQuestionResponse& response)
 { 
@@ -244,7 +244,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(const GetQuestionResponse
 
     std::string jsonStr = j.dump();
 
-    return createBuffer(GetQuestionResponseCmd, jsonStr.length(), jsonStr);
+    return createBuffer(GetQuestionCmd, jsonStr.length(), jsonStr);
 
 }
 Buffer JsonResponsePacketSerializer::serializeResponse(const LeaveGameResponse& response)
@@ -254,6 +254,6 @@ Buffer JsonResponsePacketSerializer::serializeResponse(const LeaveGameResponse& 
 
     std::string jsonStr = j.dump();
 
-    return createBuffer(SubmitAnswerResponseCmd, jsonStr.length(), jsonStr);
+    return createBuffer(SubmitAnswerCmd, jsonStr.length(), jsonStr);
 
 }

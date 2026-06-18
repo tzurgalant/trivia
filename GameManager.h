@@ -7,6 +7,8 @@
 class GameManager
 {
 public:
+	GameManager() = default;
+	
 	GameManager(IDatabase* database) : m_database(database) {};
 
 	Game& createGame(Room room);

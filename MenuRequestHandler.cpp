@@ -126,7 +126,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& reqInfo)
     {
         JoinRoomResponse.status = 0;
     }
-    res.newHandler = m_handlerFactory.createRoomMemberRequestHandler(m_handlerFactory, m_handlerFactory.getRoomManager(),m_user, m_handlerFactory.getRoomManager().getRoom(joinRoomRequest.roomld));// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createRoomMemberRequestHandler(m_handlerFactory.getRoomManager(),m_user, m_handlerFactory.getRoomManager().getRoom(joinRoomRequest.roomld));// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse);
     return res;
 }
@@ -146,7 +146,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& reqInfo)
     createRoomResponse.roomId = m_handlerFactory.getRoomManager().createRoom(m_user, roomData);
     createRoomResponse.status = 1;
 
-    res.newHandler = m_handlerFactory.createRoomAdminRequestHandler(m_handlerFactory.getRoomManager().getRoom(createRoomResponse.roomId),m_user,m_handlerFactory.getRoomManager(),m_handlerFactory);// for now we dont have next state...
+    res.newHandler = m_handlerFactory.createRoomAdminRequestHandler(m_handlerFactory.getRoomManager().getRoom(createRoomResponse.roomId),m_user,m_handlerFactory.getRoomManager());// for now we dont have next state...
     res.response = JsonResponsePacketSerializer::serializeResponse(createRoomResponse);
     return res;
 }

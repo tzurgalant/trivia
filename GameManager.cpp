@@ -18,6 +18,7 @@ Game& GameManager::createGame(Room room)
 	return game;
 
 }
+
 bool GameManager::deleteGame(int gameId)
 {
     auto it = m_games.begin();
@@ -37,7 +38,6 @@ bool GameManager::deleteGame(int gameId)
 }
 void GameManager::submitGameStatsToDB(int gameId)
 {
-    GameData*  data;
     Game gameW;
     std::string playerName;
     for (auto game : m_games)
@@ -52,7 +52,7 @@ void GameManager::submitGameStatsToDB(int gameId)
     for (auto player : players )
     {   
         playerName = player.first.getUserName();
-        m_database->submitGameStatsToDB(playerName,*data);
+        m_database->submitGameStatsToDB(playerName, player.second);
     }
 }
 

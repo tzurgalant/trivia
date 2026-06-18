@@ -165,6 +165,11 @@ void Communicator::handleNewClient(SOCKET userS)
 						delete m_clients[userS];
 						m_clients[userS] = (IRequestHandler*)m_handleFactory.createMenuRequestHanlder(m_handleFactory.getLoginManager().getUserBySocket(userS));
 					}
+					if (std::string(e.what()) == "Game was closed!!!")
+					{
+						delete m_clients[userS];
+						m_clients[userS] = (IRequestHandler*)m_handleFactory.createMenuRequestHanlder(m_handleFactory.getLoginManager().getUserBySocket(userS));
+					}
 					ErrorResponse res = ErrorResponse();
 					res.message = "the message is not relevant!!!";
 					sendAll(userS, (char*)JsonResponsePacketSerializer::serializeResponse(res).data(), JsonResponsePacketSerializer::serializeResponse(res).size());
