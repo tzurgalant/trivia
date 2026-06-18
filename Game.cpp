@@ -1,11 +1,17 @@
 #include "Game.h"
 #include <algorithm> 
 #include <iterator>  
+#include <chrono>
+
 Game::Game(unsigned int gameId,std::vector<Question> questions, std::map<LoggedUser, GameData>players):m_gameId(gameId),m_questions(questions),m_players(players)
 {
 }
 Question Game::getQuesionForUser(LoggedUser u)
 {
+	if ((m_players[u].correctAnswerCount + m_players[u].wrongAnswerCount) == 0)
+	{
+		auto start = std::chrono::high_resolution_clock::now();
+	}
 	Question curr = m_players[u].currentQuestion;
 	auto it = std::find(m_questions.begin(), m_questions.end(), curr);
 

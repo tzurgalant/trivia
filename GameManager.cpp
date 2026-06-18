@@ -1,6 +1,5 @@
 #include "GameManager.h"
 
-
 Game& GameManager::createGame(Room room)
 { 
 	std::map<LoggedUser, GameData>players;
