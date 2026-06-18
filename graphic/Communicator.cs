@@ -54,6 +54,7 @@ namespace clientGraphic
                 Deserialization.ParseHeader(headerBuffer, out responseOpcode, out jsonLength);
 
                 byte[] jsonBuffer = new byte[jsonLength];
+
                 for (int i = 0; i < jsonLength; i++)
                 {
                     if (_stream.Read(jsonBuffer, i, 1) == 0) //read 5 bites (the header of the msg) to the buffer
@@ -61,6 +62,7 @@ namespace clientGraphic
                         throw new Exception("server response is too short");
                     }
                 }
+
                 if (headerBuffer[0] == (byte)CodeR.ErrorCmd)
                 {
                     Deserialization.DeserializeResponse<TResponse>(jsonBuffer);
