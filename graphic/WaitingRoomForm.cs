@@ -149,6 +149,7 @@ namespace clientGraphic
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            bool wasAdmin = Helper._currentUser.IsAdmin;
             Helper._currentUser.IsAdmin = false;
 
             try
