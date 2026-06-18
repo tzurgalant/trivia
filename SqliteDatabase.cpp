@@ -335,43 +335,42 @@ std::vector<std::string> SqliteDatabase::getHighScores()
 }
 bool SqliteDatabase::submitGameStatsToDB(std::string playerName, GameData data)
 {
+    sqlite3_stmt* stmt;
+
+    const char* sql =
+        "INSERT INTO STATISTICS (USERNAME, AVG_ANSWER_TIME, NUM_CORRECT_ANSWERS, NUM_TOTAL_ANSWERS, NUM_PLAYED_GAMES) "
+        "VALUES (?, ?, ?, ?, 1) "
+        "ON CONFLICT(USERNAME) DO UPDATE SET "
+        "   AVG_ANSWER_TIME = ((STATISTICS.AVG_ANSWER_TIME * STATISTICS.NUM_TOTAL_ANSWERS) + ?) / (STATISTICS.NUM_TOTAL_ANSWERS + ?), "
+        "   NUM_CORRECT_ANSWERS = STATISTICS.NUM_CORRECT_ANSWERS + ?, "
+        "   NUM_TOTAL_ANSWERS = STATISTICS.NUM_TOTAL_ANSWERS + ?, "
+        "   NUM_PLAYED_GAMES = STATISTICS.NUM_PLAYED_GAMES + 1;";
+
+    if (sqlite3_prepare_v2(_db, sql, -1, &stmt, nullptr) != SQLITE_OK)
     {
-        sqlite3_stmt* stmt;
+        std::cerr << "Error preparing statement: " << sqlite3_errmsg(_db) << std::endl;
+        return false;
+    }
 
-        const char* sql =
-            "INSERT INTO STATISTICS (USERNAME, AVG_ANSWER_TIME, NUM_CORRECT_ANSWERS, NUM_TOTAL_ANSWERS, NUM_PLAYED_GAMES) "
-            "VALUES (?, ?, ?, ?, 1) "
-            "ON CONFLICT(USERNAME) DO UPDATE SET "
-            "   AVG_ANSWER_TIME = ((STATISTICS.AVG_ANSWER_TIME * STATISTICS.NUM_TOTAL_ANSWERS) + ?) / (STATISTICS.NUM_TOTAL_ANSWERS + ?), "
-            "   NUM_CORRECT_ANSWERS = STATISTICS.NUM_CORRECT_ANSWERS + ?, "
-            "   NUM_TOTAL_ANSWERS = STATISTICS.NUM_TOTAL_ANSWERS + ?, "
-            "   NUM_PLAYED_GAMES = STATISTICS.NUM_PLAYED_GAMES + 1;";
+    sqlite3_bind_text(stmt, 1, playerName.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_double(stmt, 2, data.averageAnswerTime);
+    sqlite3_bind_int(stmt, 3, data.correctAnswerCount);
+    sqlite3_bind_int(stmt, 4, data.correctAnswerCount + data.wrongAnswerCount);
 
-        if (sqlite3_prepare_v2(_db, sql, -1, &stmt, nullptr) != SQLITE_OK)
-        {
-            std::cerr << "Error preparing statement: " << sqlite3_errmsg(_db) << std::endl;
-            return false;
-        }
+    sqlite3_bind_double(stmt, 5, data.averageAnswerTime);
+    sqlite3_bind_int(stmt, 6, data.correctAnswerCount + data.wrongAnswerCount);
+    sqlite3_bind_int(stmt, 7, data.correctAnswerCount);
+    sqlite3_bind_int(stmt, 8, data.correctAnswerCount + data.wrongAnswerCount);
 
-        sqlite3_bind_text(stmt, 1, playerName.c_str(), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_double(stmt, 2, data.averageAnswerTime);
-        sqlite3_bind_int(stmt, 3, data.correctAnswerCount);
-        sqlite3_bind_int(stmt, 4, data.correctAnswerCount + data.wrongAnswerCount);
+    int rc = sqlite3_step(stmt);
 
-        sqlite3_bind_double(stmt, 5, data.averageAnswerTime);
-        sqlite3_bind_int(stmt, 6, data.correctAnswerCount + data.wrongAnswerCount);
-        sqlite3_bind_int(stmt, 7, data.correctAnswerCount);
-        sqlite3_bind_int(stmt, 8, data.correctAnswerCount + data.wrongAnswerCount);
+    sqlite3_finalize(stmt);
 
-        int rc = sqlite3_step(stmt);
+    if (rc != SQLITE_DONE)
+    {
+        std::cerr << "Error executing Upsert: " << sqlite3_errmsg(_db) << std::endl;
+        return false;
+    }
 
-        sqlite3_finalize(stmt);
-
-        if (rc != SQLITE_DONE)
-        {
-            std::cerr << "Error executing Upsert: " << sqlite3_errmsg(_db) << std::endl;
-            return false;
-        }
-
-        return true; 
+    return true;
 }

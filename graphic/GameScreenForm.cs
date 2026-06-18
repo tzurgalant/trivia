@@ -107,7 +107,13 @@ namespace clientGraphic
         {
             GetQuestionResponse res = Communicator.SendAndReceive<GetQuestionResponse>(117);
 
-            if (res.status != 1 || res.question == null || res.answers == null)
+            if (res.question == null || res.answers == null)
+            {
+                OpenResultsScreen();
+                return;
+            }
+
+            if (res.status != 1)
             {
                 MessageBox.Show("Failed to load game screen from server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -128,6 +134,14 @@ namespace clientGraphic
 
                 i++;
             }
+        }
+
+        private void OpenResultsScreen()
+        {
+            GameResultForm resultForm = new GameResultForm();
+            resultForm.Show();
+
+            this.Close();
         }
     }
     public struct SubmitAnswerRequest

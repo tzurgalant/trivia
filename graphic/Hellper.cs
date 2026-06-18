@@ -19,7 +19,11 @@ namespace clientGraphic
         CloseRoomCmd,
         StartGameCmd,
         GetRoomStateCmd,
-        LeaveRoomCmd
+        LeaveRoomCmd,
+        GetGameResultsResponseCmd,
+        SubmitAnswerResponseCmd,
+        GetQuestionResponseCmd,
+        LeaveGameResponseCmd
     }
     public struct UserInfo
     {
