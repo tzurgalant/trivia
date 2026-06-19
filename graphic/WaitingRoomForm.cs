@@ -55,6 +55,8 @@ namespace clientGraphic
 
             try
             {
+                Console.WriteLine($"Timer tick - RoomId: {_currentRoomId}");//debug
+
                 if (_currentRoomId <= 0)
                 {
                     Console.WriteLine("RoomId not set!");
