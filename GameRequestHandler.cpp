@@ -16,13 +16,13 @@ RequestResult GameRequestHandler::handleRequest(const RequestInfo& info)
 	switch (info.id)
 	{
 	case GetGameResultsCmd:
-		return getQuestion(info);
+		return getGameResults(info);
 		break;
 	case SubmitAnswerCmd:
 		return submitAnswer(info);
 		break;
 	case GetQuestionCmd:
-		return getGameResults(info);
+		return getQuestion(info);
 		break;
 	case LeaveGameCmd:
 		return leaveGame(info);
