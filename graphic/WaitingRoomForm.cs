@@ -94,12 +94,7 @@ namespace clientGraphic
             }
             try
             {
-                var request = new GetPlayersInRoomRequest
-                {
-                    roomId = _currentRoomId
-                };
-
-                var response = Communicator.SendAndReceive<GetPlayersInRoomResponse>((byte)CodeR.GetPlayersInRoomCmd, request);
+                var response = Communicator.SendAndReceive<GetPlayersInRoomResponse>((byte)CodeR.GetPlayersInRoomCmd);
 
                 if (response?.players != null)
                 {
@@ -145,6 +140,10 @@ namespace clientGraphic
             {
                 MessageBox.Show($"Error starting game: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                _isUpdating = false;
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -154,7 +153,7 @@ namespace clientGraphic
 
             try
             {
-                if (Helper._currentUser.IsAdmin)
+                if (wasAdmin)
                 {
                     // Admin closes the room
 
@@ -263,9 +262,9 @@ namespace clientGraphic
         }
     }
 
-    public class GetPlayersInRoomRequest
+    public class sumbitAnswerRequest
     {
-        public int roomId { get; set; }
+        public int answerId { get; set; }
     }
 
     public class GetPlayersInRoomResponse
