@@ -104,7 +104,7 @@ namespace clientGraphic
             btnBack.UseVisualStyleBackColor = false;
             btnBack.Click += btnBack_Click;
             // 
-            // personalStatisticsForm
+            // PersonalStatisticsForm
             // 
             BackColor = Color.FromArgb(35, 35, 35);
             ClientSize = new Size(978, 744);
@@ -116,7 +116,7 @@ namespace clientGraphic
             Controls.Add(lblUsername);
             Controls.Add(label2);
             Font = new Font("Microsoft Sans Serif", 8.25F);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "PersonalStatisticsForm";
             StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);

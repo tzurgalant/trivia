@@ -24,20 +24,21 @@ namespace clientGraphic
             lblWinner = new Label();
             lvResults = new ListView();
             btnBack = new Button();
-
             SuspendLayout();
-
+            // 
             // lblTitle
+            // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 26F, FontStyle.Bold);
             lblTitle.ForeColor = Color.Gold;
             lblTitle.Location = new Point(290, 30);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(400, 60);
+            lblTitle.Size = new Size(443, 70);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "🏆 Game Results";
-
+            // 
             // lblWinner
+            // 
             lblWinner.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblWinner.ForeColor = Color.LightGreen;
             lblWinner.Location = new Point(150, 110);
@@ -46,8 +47,9 @@ namespace clientGraphic
             lblWinner.TabIndex = 1;
             lblWinner.Text = "Winner: -";
             lblWinner.TextAlign = ContentAlignment.MiddleCenter;
-
+            // 
             // lvResults
+            // 
             lvResults.BackColor = Color.FromArgb(45, 45, 45);
             lvResults.BorderStyle = BorderStyle.None;
             lvResults.Font = new Font("Segoe UI", 12F);
@@ -60,8 +62,9 @@ namespace clientGraphic
             lvResults.TabIndex = 2;
             lvResults.UseCompatibleStateImageBehavior = false;
             lvResults.View = View.Details;
-
+            // 
             // btnBack
+            // 
             btnBack.Cursor = Cursors.Hand;
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatStyle = FlatStyle.Flat;
@@ -74,8 +77,9 @@ namespace clientGraphic
             btnBack.Text = "Return To Menu";
             btnBack.UseVisualStyleBackColor = false;
             btnBack.Click += btnBack_Click;
-
-            // GameResultsForm
+            // 
+            // GameResultForm
+            // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 35, 35);
@@ -84,10 +88,9 @@ namespace clientGraphic
             Controls.Add(lvResults);
             Controls.Add(lblWinner);
             Controls.Add(lblTitle);
-            FormBorderStyle = FormBorderStyle.None;
-            Name = "GameResultsForm";
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Name = "GameResultForm";
             StartPosition = FormStartPosition.CenterScreen;
-
             ResumeLayout(false);
             PerformLayout();
         }

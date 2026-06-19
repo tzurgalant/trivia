@@ -69,7 +69,7 @@ RequestResult RoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& reqI
 	GetPlayersinRoomRequest playersinRoomRequest = JsonRequestPacketDeserializer::deserializeGetPlayersRequest(reqInfo.buff);
 	try
 	{
-		playersInRoomResponse.players = m_handlerFactory.getRoomManager().getRoom(playersinRoomRequest.roomld).getAllUsersNames();
+		playersInRoomResponse.players = m_handlerFactory.getRoomManager().getRoom(playersinRoomRequest.roomld)->getAllUsersNames();
 		res.newHandler = nullptr;//stay the same satge
 		res.response = JsonResponsePacketSerializer::serializeResponse(playersInRoomResponse);
 	}

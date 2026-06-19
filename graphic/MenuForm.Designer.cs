@@ -28,10 +28,10 @@ namespace clientGraphic
             btnLogin = new Button();
             btnSignUp = new Button();
             btnExit = new Button();
+            btnToggleTheme = new Button();
             label1 = new Label();
             label2 = new Label();
             lblNotLoggedMessage = new Label();
-            btnToggleTheme = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -148,22 +148,6 @@ namespace clientGraphic
             btnSignUp.UseVisualStyleBackColor = true;
             btnSignUp.Click += btnSignUp_Click;
             // 
-            // btnToggleTheme
-            // 
-            btnToggleTheme.AccessibleName = "btnToggleTheme";
-            btnToggleTheme.Cursor = Cursors.Hand;
-            btnToggleTheme.FlatAppearance.BorderSize = 0;
-            btnToggleTheme.FlatStyle = FlatStyle.Flat;
-            btnToggleTheme.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
-            btnToggleTheme.ForeColor = Color.White;
-            btnToggleTheme.Location = new Point(0, 550);
-            btnToggleTheme.Name = "btnToggleTheme";
-            btnToggleTheme.Size = new Size(220, 55);
-            btnToggleTheme.TabIndex = 8;
-            btnToggleTheme.Text = "☀️ Light Mode";
-            btnToggleTheme.UseVisualStyleBackColor = true;
-            btnToggleTheme.Click += btnToggleTheme_Click;
-            // 
             // btnExit
             // 
             btnExit.AccessibleName = "btnExit";
@@ -179,6 +163,22 @@ namespace clientGraphic
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
+            // 
+            // btnToggleTheme
+            // 
+            btnToggleTheme.AccessibleName = "btnToggleTheme";
+            btnToggleTheme.Cursor = Cursors.Hand;
+            btnToggleTheme.FlatAppearance.BorderSize = 0;
+            btnToggleTheme.FlatStyle = FlatStyle.Flat;
+            btnToggleTheme.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnToggleTheme.ForeColor = Color.White;
+            btnToggleTheme.Location = new Point(0, 550);
+            btnToggleTheme.Name = "btnToggleTheme";
+            btnToggleTheme.Size = new Size(220, 55);
+            btnToggleTheme.TabIndex = 8;
+            btnToggleTheme.Text = "☀️ Light Mode";
+            btnToggleTheme.UseVisualStyleBackColor = true;
+            btnToggleTheme.Click += btnToggleTheme_Click;
             // 
             // label1
             // 
@@ -228,7 +228,7 @@ namespace clientGraphic
             Controls.Add(label1);
             Controls.Add(panel1);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "MenuForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MenuForm";

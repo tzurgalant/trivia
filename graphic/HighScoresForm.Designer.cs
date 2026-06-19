@@ -71,7 +71,7 @@ namespace clientGraphic
             Controls.Add(btnBack);
             Controls.Add(lvHighScores);
             Controls.Add(lblTitle);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "HighScoresForm";
             StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);

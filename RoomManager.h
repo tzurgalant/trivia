@@ -12,7 +12,7 @@ public:
 	void startRoom(int ID);
 	RoomStatus getRoomState(int ID);
 	std::vector<RoomData> getRooms();
-	Room& getRoom(int ID);
+	Room* getRoom(int ID);
 	int getNextRoomID();
 	bool removeUser(LoggedUser loggedUser);
 

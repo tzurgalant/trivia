@@ -55,11 +55,12 @@ namespace clientGraphic
 
             try
             {
-                Console.WriteLine($"Timer tick - RoomId: {_currentRoomId}");//debug
+                Console.WriteLine($"Timer tick - RoomId: {_currentRoomId}");
 
-                if (_currentRoomId <= 0)
+                if (_currentRoomId < 0)
                 {
                     Console.WriteLine("RoomId not set!");
+                    _isUpdating = false;
                     return;
                 }
 
@@ -67,15 +68,15 @@ namespace clientGraphic
                 {
                     var response = Communicator.SendAndReceive<GetRoomStateResponse>((byte)CodeR.GetRoomStateCmd);
 
-                    if(response == null)
+                    if (response == null || response.status != 1)
                     {
                         _updatePlayersTimer.Stop();
+                        MessageBox.Show("The room was closed by the admin.", "Room Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         MenuForm FormWindow = new MenuForm();
                         FormWindow.Show();
                         this.Close();
                         return;
-
                     }
 
                     if (response.hasGameBegun)
@@ -84,36 +85,36 @@ namespace clientGraphic
 
                         GameScreenForm gameWindow = new GameScreenForm();
                         gameWindow.Show();
-
                         this.Close();
                         return;
+                    }
+
+                    if (response.players != null)
+                    {
+                        PlayersList.Items.Clear();
+                        PlayersList.Items.AddRange(response.players.ToArray());
+                    }
+                }
+                else
+                {
+                    var response = Communicator.SendAndReceive<GetRoomStateResponse>((byte)CodeR.GetRoomStateCmd);
+
+                    if (response?.players != null)
+                    {
+                        PlayersList.Items.Clear();
+                        PlayersList.Items.AddRange(response.players.ToArray());
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Failed to check room state: " + ex.Message);
-            }
-            try
-            {
-                var response = Communicator.SendAndReceive<GetPlayersInRoomResponse>((byte)CodeR.GetPlayersInRoomCmd);
-
-                if (response?.players != null)
-                {
-                    PlayersList.Items.Clear();
-                    PlayersList.Items.AddRange(response.players.ToArray());
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Failed to auto-refresh players list: " + ex.Message);
+                Console.WriteLine("Failed in timer tick: " + ex.Message);
             }
             finally
             {
                 _isUpdating = false;
             }
         }
-
         private void btnStartGame_Click(object sender, EventArgs e)
         {
             try

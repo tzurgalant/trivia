@@ -59,17 +59,27 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& reqInfo)
 
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& reqInfo)
 {
-    RequestResult res;
-
+    RequestResult res = { {}, nullptr };
+    Game game;
     StartGameResponse resp;
-    resp.status = 1;
-
-    m_room.setRoomStatus(true);
     
+    try
+    {
+        Game game = m_handlerFactory.getGameManager().createGame(m_room);
+        res.newHandler = m_handlerFactory.createGameRequestHandler(game, m_user, m_handlerFactory.getGameManager());
+
+
+        m_room.setRoomStatus(true);
+        resp.status = 1;
+
+    }
+    catch(const std::exception & e )
+    {
+        resp.status = 0;
+        std::cout << "error on start game:" << e.what() << std::endl;
+    }
     
     res.response = JsonResponsePacketSerializer::serializeResponse(resp);
-    res.newHandler = m_handlerFactory.createGameRequestHandler(m_handlerFactory.getGameManager().createGame(m_room),m_user, m_handlerFactory.getGameManager());
-
     return res;
 }
 
@@ -82,7 +92,7 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& reqInfo)
     RoomData data = m_room.getRoomData();
 
     resp.status = 1;
-    resp.hasGameBegun = false;
+    resp.hasGameBegun = m_room.getRoomData().status;
     resp.players = m_room.getAllUsersNames();
     resp.questionCount = data.numOfQuestionsInGame;
     resp.answerTimeOut = data.timePerQuestion;
@@ -98,7 +108,7 @@ RequestResult RoomAdminRequestHandler::getPlayersInRoom(const RequestInfo& reqIn
     GetPlayersInRoomResponse playersInRoomResponse;
     GetPlayersinRoomRequest playersinRoomRequest = JsonRequestPacketDeserializer::deserializeGetPlayersRequest(reqInfo.buff);
 
-    playersInRoomResponse.players = m_handlerFactory.getRoomManager().getRoom(playersinRoomRequest.roomld).getAllUsersNames();
+    playersInRoomResponse.players = m_handlerFactory.getRoomManager().getRoom(playersinRoomRequest.roomld)->getAllUsersNames();
     res.newHandler = nullptr;//stay the same satge
     res.response = JsonResponsePacketSerializer::serializeResponse(playersInRoomResponse);
     return res;

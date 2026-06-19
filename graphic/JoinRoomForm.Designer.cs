@@ -97,6 +97,7 @@ namespace clientGraphic
             // JoinRoomForm
             // 
             BackColor = Color.FromArgb(35, 35, 35);
+            BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(978, 744);
             Controls.Add(label2);
             Controls.Add(btnBack);
@@ -104,7 +105,7 @@ namespace clientGraphic
             Controls.Add(btnRefresh);
             Controls.Add(listBoxRooms);
             Font = new Font("Segoe UI", 9F);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "JoinRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
             Load += JoinRoomForm_Load;

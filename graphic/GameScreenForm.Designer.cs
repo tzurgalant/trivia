@@ -137,7 +137,7 @@ namespace clientGraphic
             Controls.Add(lblQuestionsLeft);
             Controls.Add(lblTimer);
             Controls.Add(btnLeaveGame);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "GameScreenForm";
             StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);

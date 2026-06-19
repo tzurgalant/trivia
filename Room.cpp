@@ -4,9 +4,14 @@ Room::Room(RoomData roomData):m_metadata(roomData)
 {
 
 }
-void Room::addUser(LoggedUser Luser)
+bool Room::addUser(LoggedUser Luser)
 {
-	m_users.push_back(Luser);
+	if (m_users.size() != m_metadata.maxPlayers)
+	{
+		m_users.push_back(Luser);
+		return true;
+	}
+	return false;
 }
 bool Room::removeUser(LoggedUser Luser)
 {

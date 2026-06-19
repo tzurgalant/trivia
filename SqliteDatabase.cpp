@@ -138,37 +138,39 @@ bool SqliteDatabase::addNewUser(std::string name, std::string pass, std::string 
 std::list<Question> SqliteDatabase::getQuestions(int num)
 {
     std::list<Question> questions;
-
     sqlite3_stmt* stmt = nullptr;
-    std::string sqlCmd = "SELECT * FROM QUESTIONS LIMIT " + std::to_string(num) + ";";
+
+    std::string sqlCmd = "SELECT * FROM QUESTIONS LIMIT ?;";
 
     if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
     {
+        sqlite3_bind_int(stmt, 1, num);
+
         while (sqlite3_step(stmt) == SQLITE_ROW)
         {
             const unsigned char* rawText = sqlite3_column_text(stmt, 1);
-            std::string question = reinterpret_cast<const char*>(rawText);
+            std::string questionText = (rawText != nullptr) ? reinterpret_cast<const char*>(rawText) : "";
 
             std::vector<std::string> possibleAnswers;
-
+            possibleAnswers.reserve(4); 
             for (int i = 2; i <= 5; i++)
             {
                 rawText = sqlite3_column_text(stmt, i);
-                std::string ans = reinterpret_cast<const char*>(rawText);
+                std::string ans = (rawText != nullptr) ? reinterpret_cast<const char*>(rawText) : "";
 
-                possibleAnswers.push_back(ans);
+                possibleAnswers.push_back(std::move(ans));
             }
 
             int correctAnswer = sqlite3_column_int(stmt, 6);
 
-            Question q = Question(question, possibleAnswers, correctAnswer);
-            questions.push_back(q);
+            questions.emplace_back(questionText, possibleAnswers, correctAnswer);
         }
     }
     else
     {
-        std::cout << "prepare stmt for get questions failed" << std::endl;
+        std::cout << "Prepare statement for get questions failed: " << sqlite3_errmsg(_db) << std::endl;
     }
+
     sqlite3_finalize(stmt);
 
     return questions;

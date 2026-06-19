@@ -4,8 +4,11 @@ Game& GameManager::createGame(Room room)
 { 
 	std::map<LoggedUser, GameData>players;
 	std::vector<LoggedUser> users = room.getAllUsers();
-	std::list<Question> qL = m_database->getQuestions(10);// question for game
-
+	std::list<Question> qL = m_database->getQuestions(room.getRoomData().numOfQuestionsInGame);// question for game
+    if (qL.size() == 0)
+    {
+        throw std::exception("not habe questions on database!!");
+    }
 	for (auto lUser : users)
 	{
 		GameData data = {*qL.begin(),0,0,0};

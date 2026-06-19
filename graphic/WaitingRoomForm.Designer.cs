@@ -26,9 +26,9 @@ namespace clientGraphic
             PlayersList = new ListBox();
             lblShowPlayers = new Label();
             SuspendLayout();
-            //
+            // 
             // btnStartGame
-            //
+            // 
             btnStartGame.Cursor = Cursors.Hand;
             btnStartGame.FlatAppearance.BorderSize = 0;
             btnStartGame.FlatStyle = FlatStyle.Flat;
@@ -42,9 +42,9 @@ namespace clientGraphic
             btnStartGame.UseVisualStyleBackColor = true;
             btnStartGame.Visible = false;
             btnStartGame.Click += btnStartGame_Click;
-            //
+            // 
             // btnBack
-            //
+            // 
             btnBack.Cursor = Cursors.Hand;
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatStyle = FlatStyle.Flat;
@@ -57,21 +57,21 @@ namespace clientGraphic
             btnBack.Text = "Return To Menu";
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
-            //
+            // 
             // label1
-            //
+            // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Emoji", 26F, FontStyle.Bold);
             label1.ForeColor = Color.MediumPurple;
             label1.Location = new Point(340, 40);
             label1.Name = "label1";
-            label1.Size = new Size(337, 69);
+            label1.Size = new Size(365, 69);
             label1.TabIndex = 2;
             label1.Text = "Waiting Room";
             label1.Click += label1_Click;
-            //
+            // 
             // PlayersList
-            //
+            // 
             PlayersList.BackColor = Color.FromArgb(45, 45, 45);
             PlayersList.BorderStyle = BorderStyle.FixedSingle;
             PlayersList.Font = new Font("Segoe UI", 10F);
@@ -80,11 +80,11 @@ namespace clientGraphic
             PlayersList.ItemHeight = 28;
             PlayersList.Location = new Point(345, 210);
             PlayersList.Name = "PlayersList";
-            PlayersList.Size = new Size(220, 200);
+            PlayersList.Size = new Size(220, 198);
             PlayersList.TabIndex = 4;
-            //
+            // 
             // lblShowPlayers
-            //
+            // 
             lblShowPlayers.AutoSize = true;
             lblShowPlayers.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblShowPlayers.ForeColor = Color.White;
@@ -93,9 +93,9 @@ namespace clientGraphic
             lblShowPlayers.Size = new Size(124, 28);
             lblShowPlayers.TabIndex = 5;
             lblShowPlayers.Text = "Players List:";
-            //
+            // 
             // WaitingRoomForm
-            //
+            // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 35, 35);
@@ -105,7 +105,7 @@ namespace clientGraphic
             Controls.Add(label1);
             Controls.Add(btnStartGame);
             Controls.Add(btnBack);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "WaitingRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "WaitingRoomForm";

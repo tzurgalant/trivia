@@ -128,7 +128,7 @@ namespace clientGraphic
             Controls.Add(label1);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LoginForm";

@@ -24,7 +24,7 @@ private:
 	std::vector<LoggedUser>m_users;
 public:
 	Room(RoomData roomData);
-	void addUser(LoggedUser Luser);
+	bool addUser(LoggedUser Luser);
 	bool removeUser(LoggedUser Luser);
 	std::vector<std::string> getAllUsersNames() const;
 	std::vector<LoggedUser> getAllUsers() const;

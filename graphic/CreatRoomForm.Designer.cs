@@ -193,7 +193,7 @@ namespace clientGraphic
             Controls.Add(txtRoomName);
             Controls.Add(label2);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "CreatRoomForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "RoomForm";
