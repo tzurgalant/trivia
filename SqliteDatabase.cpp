@@ -140,7 +140,7 @@ std::list<Question> SqliteDatabase::getQuestions(int num)
     std::list<Question> questions;
     sqlite3_stmt* stmt = nullptr;
 
-    std::string sqlCmd = "SELECT * FROM QUESTIONS LIMIT ?;";
+    std::string sqlCmd = "SELECT * FROM QUESTIONS ORDER BY RANDOM() LIMIT ?;";
 
     if (sqlite3_prepare_v2(_db, sqlCmd.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
     {

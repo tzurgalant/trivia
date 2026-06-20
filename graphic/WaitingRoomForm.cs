@@ -143,10 +143,6 @@ namespace clientGraphic
             {
                 MessageBox.Show($"Error starting game: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                _isUpdating = false;
-            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)

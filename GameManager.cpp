@@ -17,8 +17,8 @@ Game& GameManager::createGame(Room room)
 	}
 	std::vector<Question> QuestionVector(qL.begin(), qL.end());
 	Game game = Game(room.getRoomData().id, QuestionVector, players);
-	m_games.push_back(game);
-	return game;
+    m_games.emplace_back(room.getRoomData().id, QuestionVector, players);
+    return m_games.back();
 
 }
 

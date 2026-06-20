@@ -74,9 +74,10 @@ namespace clientGraphic
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            _refreshTimer.Stop();
             MenuForm FormWindow = new MenuForm();
             FormWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void joinRoom_Click(object sender, EventArgs e)

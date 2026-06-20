@@ -29,10 +29,8 @@ RequestResult RoomAdminRequestHandler::handleRequest(const RequestInfo& reqInfo)
     {
     case CloseRoomCmd:
         return closeRoom(reqInfo);
-
     case StartGameCmd:
         return startGame(reqInfo);
-
     case GetRoomStateCmd:
         return getRoomState(reqInfo);
     case GetPlayersInRoomCmd:
@@ -60,7 +58,6 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& reqInfo)
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& reqInfo)
 {
     RequestResult res = { {}, nullptr };
-    Game game;
     StartGameResponse resp;
     
     try
@@ -68,10 +65,8 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& reqInfo)
         Game game = m_handlerFactory.getGameManager().createGame(m_room);
         res.newHandler = m_handlerFactory.createGameRequestHandler(game, m_user, m_handlerFactory.getGameManager());
 
-
         m_room.setRoomStatus(true);
         resp.status = 1;
-
     }
     catch(const std::exception & e )
     {
@@ -81,7 +76,7 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& reqInfo)
     
     res.response = JsonResponsePacketSerializer::serializeResponse(resp);
     return res;
-}
+}   
 
 RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& reqInfo)
 {
