@@ -117,20 +117,17 @@ RequestResult GameRequestHandler::getGameResults(const RequestInfo& info)
 		throw std::runtime_error("Game was closed!!");
 	}
 	result.response = JsonResponsePacketSerializer::serializeResponse(response);
-	result.newHandler = m_handlerFactory.createMenuRequestHanlder(m_user);
+	result.newHandler = nullptr;
 	return result;
 }
 RequestResult GameRequestHandler::leaveGame(const RequestInfo& info)
 {
 	RequestResult result = {};
-	GetGameResultsResponse response = {};
+	LeaveGameResponse response = {};
 
 	try// if will crush on the procces to get question data its mean the game is close!!!
 	{
-		if (!m_game.isGameStop())// stop not mean deleted its mean that all the users finshe ther question...
-		{
-			m_game.removePlayer(m_user);
-		}
+		m_game.removePlayer(m_user);
 	}
 	catch (const std::exception& e)
 	{

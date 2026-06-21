@@ -49,8 +49,9 @@ namespace clientGraphic
                 int rank = 1;
                 foreach (string entry in res.statistics)
                 {
-                    string[] parts = entry.Split(':');
-                    string playerName = parts[0].Trim();
+                    string[] parts = entry.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    string playerName = parts.Length > 0 ? parts[0].Trim() : "Unknown";
                     string playerScore = parts.Length > 1 ? parts[1].Trim() : "0";
 
                     ListViewItem item = new ListViewItem(rank.ToString());
@@ -64,7 +65,7 @@ namespace clientGraphic
                     }
                     else
                     {
-                        //moving all the rest of the users to day mode
+                        // Moving all the rest of the users to the correct theme mode
                         item.ForeColor = MenuForm.IsDarkMode ? Color.White : Color.Black;
                     }
 

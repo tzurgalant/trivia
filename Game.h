@@ -28,9 +28,12 @@ public:
 
 	bool isGameStop() const;
 
+	bool isSubmitted() const { return m_isSubmitted; }
+	void setSubmitted(bool status) { m_isSubmitted = status; }
 private:
 	std::vector<Question> m_questions;
 	std::map<LoggedUser, GameData>m_players;
 	unsigned int m_gameId;
+	bool m_isSubmitted = false;//defult not submitted...
 };
 

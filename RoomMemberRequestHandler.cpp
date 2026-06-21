@@ -64,7 +64,6 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& reqInfo)
 	{
 		throw std::runtime_error("Room was delete!!");
 	}
-	
 	return res;
 }
 

@@ -85,14 +85,14 @@ namespace clientGraphic
             //check if the answer was correct
             if (res.status == 1)
             {
-                if (selectedAnswerId == res.correctAnswerId)
-                {
-                    MessageBox.Show("true");
-                }
-                else
-                {
-                    MessageBox.Show("false");
-                }
+                //if (selectedAnswerId == res.correctAnswerId)
+                //{
+                //    MessageBox.Show("true");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("false");
+                //}
 
                 //loading next question
                 getNewQuestion();
@@ -111,6 +111,7 @@ namespace clientGraphic
                 return;
             }
             _isBackButtonClicked = true;
+            _questionTimer.Stop();
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Close();
@@ -183,6 +184,7 @@ namespace clientGraphic
         private void OpenResultsScreen()
         {
             _isBackButtonClicked = true;
+            _questionTimer.Stop();
             GameResultForm resultForm = new GameResultForm();
             resultForm.Show();
             this.Close();

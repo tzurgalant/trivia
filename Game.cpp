@@ -82,7 +82,10 @@ int Game::submitAnswer(const LoggedUser& u, unsigned int answerId)
 
 void Game::removePlayer(LoggedUser u)
 {
-    m_players.erase(u);
+    if (m_players.find(u) != m_players.end())
+    {
+        m_players.erase(u);
+    }
 }
 
 unsigned int Game::getGameID() const
@@ -97,11 +100,6 @@ std::map<LoggedUser, GameData>& Game::getPlayers()
 
 bool Game::isGameStop() const
 {
-    if (m_players.empty())
-    {
-        return true;
-    }
-
     for (const auto& player : m_players)
     {
         if (!player.second.currentQuestion.getQuestion().empty())
