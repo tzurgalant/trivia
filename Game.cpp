@@ -77,8 +77,7 @@ int Game::submitAnswer(const LoggedUser& u, unsigned int answerId)
     {
         playerIt->second.currentQuestion = Question();
     }
-
-    return currectAnsId;
+    return currectAnsId - 1;
 }
 
 void Game::removePlayer(LoggedUser u)

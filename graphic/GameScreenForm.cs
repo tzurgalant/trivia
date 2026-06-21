@@ -123,19 +123,28 @@ namespace clientGraphic
             {
                 if (i >= answerButtons.Length) break;
 
-                string idStr = res.answers[i][0];
-                string answerText = res.answers[i][1];
+                object idRaw = res.answers[i][0];
+                object textRaw = res.answers[i][1];
 
-                answerButtons[i].Text = answerText;
-                answerButtons[i].Tag = Convert.ToInt32(idStr); 
+                if (idRaw is System.Text.Json.JsonElement idElement && textRaw is System.Text.Json.JsonElement textElement)
+                {
+                    answerButtons[i].Text = textElement.GetString();
+
+                    answerButtons[i].Tag = idElement.GetInt32();
+                }
+                else if (idRaw != null && textRaw != null)
+                {
+                    answerButtons[i].Text = textRaw.ToString();
+                    answerButtons[i].Tag = Convert.ToInt32(idRaw);
+                }
             }
         }
 
         private void OpenResultsScreen()
         {
+            _isBackButtonClicked = true;
             GameResultForm resultForm = new GameResultForm();
             resultForm.Show();
-
             this.Close();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -163,7 +172,7 @@ namespace clientGraphic
         public uint status { get; set; }
         public string question { get; set; }
 
-        public string[][] answers { get; set; }
+        public object[][] answers { get; set; }
     }
     public struct SubmitAnswerResponse
     {

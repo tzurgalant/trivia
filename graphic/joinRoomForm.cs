@@ -102,6 +102,7 @@ namespace clientGraphic
 
             if (response != null && response.status == 1)
             {
+                _isBackButtonClicked = true;
                 MessageBox.Show($"Successfully joined {selectedRoom.name}!");
                 
                 WaitingRoomForm FormWindow = new WaitingRoomForm();

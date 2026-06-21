@@ -46,7 +46,7 @@ Buffer createBuffer(CodeR codeR, unsigned int length, std::string data)
     {
         buffer.push_back((unsigned char)c);
     }
-
+    std::cout << "SERVER SENDING JSON: " << data << std::endl;
     return buffer;
 }
 
@@ -243,7 +243,6 @@ Buffer JsonResponsePacketSerializer::serializeResponse(const GetQuestionResponse
     json j = response;// we make toJson for this obeject
 
     std::string jsonStr = j.dump();
-    //std::cout << "SERVER SENDING JSON: " << jsonStr << std::endl;
     return createBuffer(GetQuestionCmd, jsonStr.length(), jsonStr);
 
 }
