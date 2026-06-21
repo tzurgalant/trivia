@@ -14,6 +14,7 @@ public:
 	Game& createGame(Room room);
 	bool deleteGame(int gameId);
 	void submitGameStatsToDB(int gameId);
+	Game& getGame(int id);
 private:
 	IDatabase* m_database;
 	std::vector<Game> m_games;

@@ -63,4 +63,16 @@ void GameManager::submitGameStatsToDB(int gameId)
     }
     
 }
+Game& GameManager::getGame(int id)
+{
+    for (auto& game : m_games)
+    {
 
+        if (game.getGameID() == id)
+        {
+            return game; 
+        }
+    }
+
+    throw std::runtime_error("Game with ID " + std::to_string(id) + " not found!");
+}

@@ -1,4 +1,5 @@
 #include "RoomMemberRequestHandler.h"
+#include "GameRequestHandler.h"
 #include "MenuRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "JsonRequestPacketDeserializer.h"
@@ -44,7 +45,7 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& reqInfo)
 {
 	RequestResult res;
 	GetRoomStateResponse response;
-
+	res.newHandler = nullptr;
 	try
 	{
 		response.answerTimeOut = m_room.getRoomData().timePerQuestion;
@@ -52,14 +53,18 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& reqInfo)
 		response.hasGameBegun = m_room.getRoomData().status;
 		response.questionCount = m_room.getRoomData().numOfQuestionsInGame;
 		response.status = true;
-		res.newHandler = nullptr;
 		res.response = JsonResponsePacketSerializer::serializeResponse(response);
-
+		if (response.hasGameBegun)
+		{
+			Game & game = m_handlerFactory.getGameManager().getGame(m_room.getRoomData().id);
+			res.newHandler = m_handlerFactory.createGameRequestHandler(game, m_user, m_handlerFactory.getGameManager());
+		}
 	}
 	catch (const std::exception& e)
 	{
 		throw std::runtime_error("Room was delete!!");
 	}
+	
 	return res;
 }
 RequestResult RoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& reqInfo)
