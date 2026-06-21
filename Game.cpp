@@ -48,7 +48,7 @@ int Game::submitAnswer(const LoggedUser& u, unsigned int answerId)
         std::chrono::duration_cast<std::chrono::seconds>(endTime - playerIt->second.startTime).count()
         );
 
-    int currectAnsId = playerIt->second.currentQuestion.getCorrectAnswerId();
+    int currectAnsId = playerIt->second.currentQuestion.getCorrectAnswerId() - 1;
     if (currectAnsId == answerId)
     {
         playerIt->second.correctAnswerCount++;
@@ -77,7 +77,7 @@ int Game::submitAnswer(const LoggedUser& u, unsigned int answerId)
     {
         playerIt->second.currentQuestion = Question();
     }
-    return currectAnsId - 1;
+    return currectAnsId;
 }
 
 void Game::removePlayer(LoggedUser u)
