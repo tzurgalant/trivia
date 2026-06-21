@@ -8,6 +8,8 @@ namespace clientGraphic
 {
     public partial class PersonalStatisticsForm : Form
     {
+        private bool _isBackButtonClicked = false;
+
         public PersonalStatisticsForm()
         {
             InitializeComponent();
@@ -87,6 +89,7 @@ namespace clientGraphic
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            _isBackButtonClicked = true;
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Close();
@@ -128,6 +131,19 @@ namespace clientGraphic
                     pieChartStats.ForeColor = Color.Black;
                 }
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && !_isBackButtonClicked)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

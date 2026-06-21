@@ -36,6 +36,7 @@ namespace clientGraphic
             lblTitle.Size = new Size(443, 70);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "🏆 Game Results";
+            lblTitle.Click += lblTitle_Click;
             // 
             // lblWinner
             // 
@@ -47,6 +48,7 @@ namespace clientGraphic
             lblWinner.TabIndex = 1;
             lblWinner.Text = "Winner: -";
             lblWinner.TextAlign = ContentAlignment.MiddleCenter;
+            lblWinner.Click += lblWinner_Click;
             // 
             // lvResults
             // 

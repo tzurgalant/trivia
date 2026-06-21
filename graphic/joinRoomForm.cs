@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static clientGraphic.MenuForm;
-
 namespace clientGraphic
 {
     public partial class JoinRoomForm : Form
     {
+        private bool _isBackButtonClicked = false;
+
         private List<RoomData> _availableRooms = new List<RoomData>();
         private System.Windows.Forms.Timer _refreshTimer = new System.Windows.Forms.Timer();
         public JoinRoomForm()
@@ -74,6 +75,7 @@ namespace clientGraphic
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            _isBackButtonClicked = true;
             _refreshTimer.Stop();
             MenuForm FormWindow = new MenuForm();
             FormWindow.Show();
@@ -154,6 +156,10 @@ namespace clientGraphic
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.UserClosing && !_isBackButtonClicked)
+            {
+                Application.Exit();
+            }
             _refreshTimer?.Stop();
             _refreshTimer?.Dispose();
             base.OnFormClosing(e);

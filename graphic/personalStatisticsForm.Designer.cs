@@ -44,6 +44,7 @@ namespace clientGraphic
             label2.Size = new Size(452, 69);
             label2.TabIndex = 6;
             label2.Text = "Personal Statistics";
+            label2.Click += label2_Click;
             // 
             // lblUsername
             // 

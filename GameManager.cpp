@@ -1,25 +1,28 @@
 #include "GameManager.h"
 
 Game& GameManager::createGame(Room room)
-{ 
-	std::map<LoggedUser, GameData>players;
-	std::vector<LoggedUser> users = room.getAllUsers();
-	std::list<Question> qL = m_database->getQuestions(room.getRoomData().numOfQuestionsInGame);// question for game
-    if (qL.size() == 0)
+{
+    std::map<LoggedUser, GameData> players;
+    std::vector<LoggedUser> users = room.getAllUsers();
+
+    std::list<Question> qL = m_database->getQuestions(room.getRoomData().numOfQuestionsInGame);
+
+    if (qL.empty()) 
     {
-        throw std::exception("not habe questions on database!!");
+        throw std::runtime_error("No questions found in the database!!");
     }
-	for (auto lUser : users)
-	{
-		GameData data = {*qL.begin(),0,0,0};
 
-		players[lUser] = data;
-	}
-	std::vector<Question> QuestionVector(qL.begin(), qL.end());
-	Game game = Game(room.getRoomData().id, QuestionVector, players);
-    m_games.emplace_back(room.getRoomData().id, QuestionVector, players);
+    for (const auto& lUser : users)
+    {
+        GameData data = { *qL.begin(), 0, 0, 0 };
+        players[lUser] = data;
+    }
+
+    std::vector<Question> questionVector(qL.begin(), qL.end());
+
+    m_games.emplace_back(room.getRoomData().id, questionVector, players);
+
     return m_games.back();
-
 }
 
 bool GameManager::deleteGame(int gameId)
@@ -41,21 +44,23 @@ bool GameManager::deleteGame(int gameId)
 }
 void GameManager::submitGameStatsToDB(int gameId)
 {
-    Game gameW;
-    std::string playerName;
-    for (auto game : m_games)
+    Game* gamePtr = nullptr;
+    for (auto& game : m_games) 
     {
         if (game.getGameID() == gameId)
         {
-            gameW = game;
+            gamePtr = &game;
             break;
         }
     }
-    std::map<LoggedUser, GameData> players = gameW.getPlayers();
-    for (auto player : players )
-    {   
-        playerName = player.first.getUserName();
-        m_database->submitGameStatsToDB(playerName, player.second);
+    if (gamePtr) {
+        auto& players = gamePtr->getPlayers(); 
+        for (auto& player : players)
+        {
+            std::string playerName = player.first.getUserName();
+            m_database->submitGameStatsToDB(playerName, player.second);
+        }
     }
+    
 }
 

@@ -10,6 +10,7 @@ namespace clientGraphic
         private System.Windows.Forms.Timer _updatePlayersTimer;
         private int _currentRoomId;
         private bool _isUpdating = false;
+        private bool _isBackButtonClicked = false;
 
         public WaitingRoomForm()
         {
@@ -71,6 +72,8 @@ namespace clientGraphic
                     if (response == null || response.status != 1)
                     {
                         _updatePlayersTimer.Stop();
+                        _isBackButtonClicked = true;
+
                         MessageBox.Show("The room was closed by the admin.", "Room Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         MenuForm FormWindow = new MenuForm();
@@ -82,6 +85,7 @@ namespace clientGraphic
                     if (response.hasGameBegun)
                     {
                         _updatePlayersTimer.Stop();
+                        _isBackButtonClicked = true;
 
                         GameScreenForm gameWindow = new GameScreenForm();
                         gameWindow.Show();
@@ -127,6 +131,7 @@ namespace clientGraphic
                     // Navigate to game form or next screen
 
                     _updatePlayersTimer.Stop();
+                    _isBackButtonClicked = true;
 
                     GameScreenForm gameWindow = new GameScreenForm();
                     gameWindow.Show();
@@ -188,6 +193,7 @@ namespace clientGraphic
             }
             finally
             {
+                _isBackButtonClicked = true;
                 MenuForm FormWindow = new MenuForm();
                 FormWindow.Show();
                 _updatePlayersTimer.Stop();
@@ -250,6 +256,10 @@ namespace clientGraphic
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.UserClosing && !_isBackButtonClicked)
+            {
+                Application.Exit();
+            }
             _updatePlayersTimer?.Stop();
             _updatePlayersTimer?.Dispose();
             base.OnFormClosing(e);
@@ -259,6 +269,7 @@ namespace clientGraphic
         {
 
         }
+
     }
 
     public class sumbitAnswerRequest

@@ -174,6 +174,7 @@ namespace clientGraphic
             label1.Size = new Size(337, 69);
             label1.TabIndex = 6;
             label1.Text = "Create Room";
+            label1.Click += label1_Click;
             // 
             // CreatRoomForm
             // 

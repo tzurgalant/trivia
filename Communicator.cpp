@@ -151,7 +151,6 @@ void Communicator::handleNewClient(SOCKET userS)
 	
 					sendAll(userS, (char*)handlerRes.response.data(), handlerRes.response.size());
 
-
 					if (handlerRes.newHandler != nullptr)
 					{
 						m_handleFactory.changeRequestHandler(&handlerRes, m_clients[userS]);

@@ -243,7 +243,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(const GetQuestionResponse
     json j = response;// we make toJson for this obeject
 
     std::string jsonStr = j.dump();
-
+    //std::cout << "SERVER SENDING JSON: " << jsonStr << std::endl;
     return createBuffer(GetQuestionCmd, jsonStr.length(), jsonStr);
 
 }

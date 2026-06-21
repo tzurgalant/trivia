@@ -126,6 +126,17 @@ namespace clientGraphic
             }
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.TaskManagerClosing)
+            {
+                Application.Exit();
+            }
+        }
     }
 
     public struct SignUpRequest

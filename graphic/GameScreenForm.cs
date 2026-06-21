@@ -13,6 +13,7 @@ namespace clientGraphic
 {
     public partial class GameScreenForm : Form
     {
+        private bool _isBackButtonClicked = false;
         public GameScreenForm()
         {
             InitializeComponent();
@@ -81,7 +82,7 @@ namespace clientGraphic
                 MessageBox.Show("Failed to leave game.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            _isBackButtonClicked = true;
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Close();
@@ -109,32 +110,24 @@ namespace clientGraphic
         {
             GetQuestionResponse res = Communicator.SendAndReceive<GetQuestionResponse>((byte)CodeR.GetQuestionResponseCmd);
 
-            if (res.status != 1)
-            {
-                MessageBox.Show("Failed to load game screen from server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (res.question == null || res.answers == null)
+            if (res.status == 0 || string.IsNullOrEmpty(res.question) || res.answers == null)
             {
                 OpenResultsScreen();
                 return;
             }
 
             lblQuestion.Text = res.question;
-
             Button[] answerButtons = { btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4 };
 
-            int i = 0;
-
-            foreach (var pair in res.answers.OrderBy(x => x.Key))
+            for (int i = 0; i < res.answers.Length; i++)
             {
                 if (i >= answerButtons.Length) break;
 
-                answerButtons[i].Text = pair.Value;
-                answerButtons[i].Tag = (int)pair.Key;
+                string idStr = res.answers[i][0];
+                string answerText = res.answers[i][1];
 
-                i++;
+                answerButtons[i].Text = answerText;
+                answerButtons[i].Tag = Convert.ToInt32(idStr); 
             }
         }
 
@@ -145,6 +138,20 @@ namespace clientGraphic
 
             this.Close();
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && !_isBackButtonClicked)
+            {
+                Application.Exit();
+            }
+            base.OnFormClosing(e);
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
     public struct SubmitAnswerRequest
     {
@@ -154,12 +161,10 @@ namespace clientGraphic
     public struct GetQuestionResponse
     {
         public uint status { get; set; }
-
         public string question { get; set; }
 
-        public Dictionary<uint, string> answers { get; set; }
+        public string[][] answers { get; set; }
     }
-
     public struct SubmitAnswerResponse
     {
         public uint status { get; set; }

@@ -33,6 +33,7 @@ namespace clientGraphic
             lblTitle.Size = new Size(431, 69);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "🏆 Top 5 Players";
+            lblTitle.Click += lblTitle_Click;
             // 
             // lvHighScores
             // 

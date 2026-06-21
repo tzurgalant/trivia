@@ -15,6 +15,9 @@ namespace clientGraphic
             {
                 _client = new TcpClient(ip, port);
                 _stream = _client.GetStream();
+
+                AppDomain.CurrentDomain.ProcessExit += (sender, args) => CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
@@ -23,10 +26,21 @@ namespace clientGraphic
                 return false;
             }
         }
+
+        public static void CloseConnection()
+        {
+            try
+            {
+                _stream?.Close();
+                _client?.Close();
+            }
+            catch { }
+        }
+
         //the same fucnkton but for request taht not habe a data on thiat requests
         public static TResponse SendAndReceive<TResponse>(byte opcode)
         {
-           
+
             return SendAndReceive<TResponse>(opcode, null);
         }
         public static TResponse SendAndReceive<TResponse>(byte opcode, object requestObj)
@@ -43,12 +57,12 @@ namespace clientGraphic
 
                 for (int i = 0; i < 5; i++)
                 {
-                    if(_stream.Read(headerBuffer, i, 1) == 0) //read 5 bites (the header of the msg) to the buffer
+                    if (_stream.Read(headerBuffer, i, 1) == 0) //read 5 bites (the header of the msg) to the buffer
                     {
                         throw new Exception("server response is too short");
                     }
                 }
-                
+
                 byte responseOpcode;
                 int jsonLength;
                 Deserialization.ParseHeader(headerBuffer, out responseOpcode, out jsonLength);

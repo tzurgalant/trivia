@@ -14,6 +14,8 @@ namespace clientGraphic
 {
     public partial class GameResultForm : Form
     {
+        private bool _isBackButtonClicked = false;
+
         public GameResultForm()
         {
             InitializeComponent();
@@ -35,8 +37,8 @@ namespace clientGraphic
             {
                 GetGameResultsResponse res = Communicator.SendAndReceive<GetGameResultsResponse>((Byte)CodeR.GetGameResultsResponseCmd);
 
-                if(res.status != 1)
-{
+                if (res.status != 1)
+                {
                     MessageBox.Show("Server error loading results.");
                     return;
                 }
@@ -80,6 +82,7 @@ namespace clientGraphic
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            _isBackButtonClicked = true;
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Close();
@@ -114,6 +117,23 @@ namespace clientGraphic
 
             lvResults.View = View.Details;
             lvResults.FullRowSelect = true;
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && !_isBackButtonClicked)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void lblWinner_Click(object sender, EventArgs e)
+        {
+
         }
     }
     public struct PlayerResult

@@ -1,13 +1,14 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <string> 
 
 class Question
 {
 public:
     Question() = default;
-    Question(const std::string question, const std::vector<std::string>& possibleAnswers, int correctAnswer);
-    ~Question() {};
+    Question(const std::string& question, const std::vector<std::string>& possibleAnswers, int correctAnswer);
+    ~Question() = default; 
 
     std::string getQuestion() const;
     std::vector<std::string> getPossibleAnswers() const;

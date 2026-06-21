@@ -104,6 +104,18 @@ namespace clientGraphic
                 btnBack.ForeColor = Color.Tomato;
             }
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.TaskManagerClosing)
+            {
+                Application.Exit();
+            }
+        }
     }
     public struct LoginRequest
     {

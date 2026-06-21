@@ -39,6 +39,7 @@ namespace clientGraphic
             lblTitle.Size = new Size(368, 64);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "🎮 Trivia Game";
+            lblTitle.Click += lblTitle_Click;
             // 
             // lblQuestion
             // 

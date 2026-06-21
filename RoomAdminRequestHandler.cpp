@@ -59,24 +59,29 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& reqInfo)
 {
     RequestResult res = { {}, nullptr };
     StartGameResponse resp;
-    
+
+    res.newHandler = this;
+
     try
     {
-        Game game = m_handlerFactory.getGameManager().createGame(m_room);
+        Game& game = m_handlerFactory.getGameManager().createGame(m_room);
+
         res.newHandler = m_handlerFactory.createGameRequestHandler(game, m_user, m_handlerFactory.getGameManager());
 
         m_room.setRoomStatus(true);
+
         resp.status = 1;
     }
-    catch(const std::exception & e )
+    catch (const std::exception& e)
     {
         resp.status = 0;
-        std::cout << "error on start game:" << e.what() << std::endl;
+        std::cout << "error on start game: " << e.what() << std::endl;
+        res.newHandler = this; 
     }
-    
+
     res.response = JsonResponsePacketSerializer::serializeResponse(resp);
     return res;
-}   
+}
 
 RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& reqInfo)
 {

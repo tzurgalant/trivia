@@ -8,6 +8,8 @@ namespace clientGraphic
 {
     public partial class HighScoresForm : Form
     {
+        private bool _isBackButtonClicked = false;
+
         public HighScoresForm()
         {
             InitializeComponent();
@@ -78,6 +80,7 @@ namespace clientGraphic
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            _isBackButtonClicked = true;
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Close();
@@ -114,6 +117,18 @@ namespace clientGraphic
                 {
                     lvHighScores.Items[i].ForeColor = Color.Black;
                 }
+            }
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && !_isBackButtonClicked)
+            {
+                Application.Exit();
             }
         }
     }

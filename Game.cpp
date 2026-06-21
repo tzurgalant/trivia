@@ -3,66 +3,79 @@
 #include <iterator> 
 #include <chrono>
 
-//timer varubles and fucnion 
-auto start = std::chrono::steady_clock::now();
-auto end = std::chrono::steady_clock::now();
-
-auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
-
-unsigned int secondsPassed = static_cast<unsigned int>(duration.count());
-
 Game::Game(unsigned int gameId, std::vector<Question> questions, std::map<LoggedUser, GameData> players)
     : m_gameId(gameId), m_questions(questions), m_players(players)
 {
 }
 
-Question* Game::getQuesionForUser(LoggedUser u)
+Question* Game::getQuesionForUser(const LoggedUser& u)
 {
-    Question currentQ = m_players[u].currentQuestion;
+    auto playerIt = m_players.find(u);
+
+    if (playerIt == m_players.end())
+    {
+        return nullptr;
+    }
+
+    Question currentQ = playerIt->second.currentQuestion;
+
+    if (currentQ.getQuestion().empty())
+    {
+        return nullptr;
+    }
+
     auto it = std::find(m_questions.begin(), m_questions.end(), currentQ);
 
     if (it != m_questions.end())
     {
-        // Start input timer for this specific user
-        m_players[u].startTime = std::chrono::steady_clock::now();
+        playerIt->second.startTime = std::chrono::steady_clock::now();
         return &(*it);
     }
+
     return nullptr;
 }
 
-int Game::submitAnswer(LoggedUser u, unsigned int answerId)
+int Game::submitAnswer(const LoggedUser& u, unsigned int answerId) 
 {
+    auto playerIt = m_players.find(u);
+    if (playerIt == m_players.end())
+    {
+        return -1; 
+    }
+
     auto endTime = std::chrono::steady_clock::now();
     unsigned int secondsPassed = static_cast<unsigned int>(
-        std::chrono::duration_cast<std::chrono::seconds>(endTime - m_players[u].startTime).count()
+        std::chrono::duration_cast<std::chrono::seconds>(endTime - playerIt->second.startTime).count()
         );
 
-    // Calculate statistics and average answer time
-    int totalAnswers = m_players[u].correctAnswerCount + m_players[u].wrongAnswerCount;
-    if (totalAnswers == 0)
-    {
-        m_players[u].averageAnswerTime = secondsPassed;
-    }
-    else
-    {
-        m_players[u].averageAnswerTime = ((m_players[u].averageAnswerTime * totalAnswers) + secondsPassed) / (totalAnswers + 1);
-    }
-
-    int currectAnsId = m_players[u].currentQuestion.getCorrectAnswerId();
+    int currectAnsId = playerIt->second.currentQuestion.getCorrectAnswerId();
     if (currectAnsId == answerId)
     {
-        m_players[u].correctAnswerCount++;
+        playerIt->second.correctAnswerCount++;
     }
     else
     {
-        m_players[u].wrongAnswerCount++;
+        playerIt->second.wrongAnswerCount++;
     }
 
-    // Advance the player to the next question
-    auto it = std::find(m_questions.begin(), m_questions.end(), m_players[u].currentQuestion);
+    int totalAnswers = playerIt->second.correctAnswerCount + playerIt->second.wrongAnswerCount;
+    if (totalAnswers == 1)
+    {
+        playerIt->second.averageAnswerTime = secondsPassed;
+    }
+    else
+    {
+        playerIt->second.averageAnswerTime = ((playerIt->second.averageAnswerTime * (totalAnswers - 1)) + secondsPassed) / totalAnswers;
+    }
+
+    auto it = std::find(m_questions.begin(), m_questions.end(), playerIt->second.currentQuestion);
     if (it != m_questions.end() && (it + 1) != m_questions.end())
     {
-        m_players[u].currentQuestion = *(it + 1);
+        playerIt->second.currentQuestion = *(it + 1); 
+    }
+    else
+    {
+        playerIt->second.currentQuestion = Question();
     }
 
     return currectAnsId;
@@ -85,5 +98,17 @@ std::map<LoggedUser, GameData>& Game::getPlayers()
 
 bool Game::isGameStop() const
 {
-    return m_players.empty();
+    if (m_players.empty())
+    {
+        return true;
+    }
+
+    for (const auto& player : m_players)
+    {
+        if (!player.second.currentQuestion.getQuestion().empty())
+        {
+            return false;
+        }
+    }
+    return true;
 }

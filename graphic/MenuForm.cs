@@ -101,7 +101,10 @@ namespace clientGraphic
         {
             Application.Exit();
         }
-
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
+        }
         private void btnLogin_Click(object sender, EventArgs e)
         {
             LoginForm LoginFormWindow = new LoginForm();

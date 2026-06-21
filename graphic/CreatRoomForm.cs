@@ -103,7 +103,7 @@ namespace clientGraphic
                 label4.ForeColor = Color.White;
                 label5.ForeColor = Color.White;
                 label6.ForeColor = Color.White;
- 
+
 
                 txtRoomName.BackColor = Color.FromArgb(45, 45, 45);
                 txtRoomName.ForeColor = Color.White;
@@ -150,6 +150,11 @@ namespace clientGraphic
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

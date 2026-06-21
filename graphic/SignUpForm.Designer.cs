@@ -75,6 +75,7 @@ namespace clientGraphic
             label1.Size = new Size(354, 69);
             label1.TabIndex = 5;
             label1.Text = "Trivia Sign Up";
+            label1.Click += label1_Click;
             // 
             // label2
             // 
