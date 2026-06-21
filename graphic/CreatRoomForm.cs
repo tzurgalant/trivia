@@ -49,7 +49,7 @@ namespace clientGraphic
             {
                 roomName = roomName,
                 maxUsers = maxUsers,
-                answerTimeout = questionTime,
+                answerTimeOut = questionTime,
                 questionCount = questionCount
             };
 
@@ -169,7 +169,7 @@ namespace clientGraphic
         public string roomName { get; set; }
         public int maxUsers { get; set; }
         public int questionCount { get; set; }
-        public int answerTimeout { get; set; }
+        public int answerTimeOut { get; set; }
     }
 
     public struct CreateRoomResponse

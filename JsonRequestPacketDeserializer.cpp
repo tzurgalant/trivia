@@ -84,7 +84,7 @@ CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(co
 		req.roomName = j.at("roomName").get <std::string> ();
 		req.maxUsers = j.at("maxUsers").get <unsigned int> ();
 		req.questionCount = j.at("questionCount").get <unsigned int> ();
-		req.answerTimeout = j.at("answerTimeout").get <unsigned int> ();
+		req.answerTimeout = j.at("answerTimeOut").get <unsigned int> ();
 
 		return req;
 	}

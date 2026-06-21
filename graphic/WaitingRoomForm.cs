@@ -87,7 +87,7 @@ namespace clientGraphic
                         _updatePlayersTimer.Stop();
                         _isBackButtonClicked = true;
 
-                        GameScreenForm gameWindow = new GameScreenForm();
+                        GameScreenForm gameWindow = new GameScreenForm(response.questionCount, response.answerTimeOut);
                         gameWindow.Show();
                         this.Close();
                         return;
@@ -123,6 +123,7 @@ namespace clientGraphic
         {
             try
             {
+                var roomState = Communicator.SendAndReceive<GetRoomStateResponse>((byte)CodeR.GetRoomStateCmd);
                 var response = Communicator.SendAndReceive<StartGameResponse>((byte)CodeR.StartGameCmd);
 
                 if (response?.status == 1)
@@ -133,7 +134,7 @@ namespace clientGraphic
                     _updatePlayersTimer.Stop();
                     _isBackButtonClicked = true;
 
-                    GameScreenForm gameWindow = new GameScreenForm();
+                    GameScreenForm gameWindow = new GameScreenForm(roomState.questionCount, roomState.answerTimeOut);
                     gameWindow.Show();
 
                     this.Close();
@@ -306,6 +307,6 @@ namespace clientGraphic
 
         public int questionCount { get; set; }
 
-        public int answerTimeout { get; set; }
+        public int answerTimeOut { get; set; }
     }
 }

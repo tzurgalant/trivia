@@ -67,6 +67,7 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& reqInfo)
 	
 	return res;
 }
+
 RequestResult RoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& reqInfo)
 {
 	RequestResult res;
