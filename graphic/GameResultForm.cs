@@ -91,6 +91,7 @@ namespace clientGraphic
 
                     item.SubItems.Add($"{player.averageAnswersTime}s");
 
+
                     lvResults.Items.Add(item);
                 }
             }
@@ -136,10 +137,10 @@ namespace clientGraphic
         {
             lvResults.Columns.Clear();
 
-            lvResults.Columns.Add("Username", 150);
-            lvResults.Columns.Add("Correct Answers", 110);
-            lvResults.Columns.Add("Wrong Answers", 110);
-            lvResults.Columns.Add("Avg Response Time", 140);
+            lvResults.Columns.Add("Username", 195);
+            lvResults.Columns.Add("Correct Answers", 195);
+            lvResults.Columns.Add("Wrong Answers", 195);
+            lvResults.Columns.Add("Avgerage Time", 195);
 
             lvResults.View = View.Details;
             lvResults.FullRowSelect = true;
